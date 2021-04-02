@@ -7,11 +7,11 @@ Authored by Gunner Spencer
 <th>Codebase</th>
 <th>Description</th>
 <tr>
-	<td><a>redwood</a></td>
+	<td><a href="https://github.com/thegunner686/Slugline/tree/staging/redwood">redwood</a></td>
 	<td>React Native App</td>
 </tr>
 <tr>
-	<td><a>lodgepole</a></td>
+	<td><a href="https://github.com/thegunner686/Slugline/tree/staging/lodgepole">lodgepole</a></td>
 	<td>Firebase Functions (Typescript)</td>
 </tr>
 </table>
@@ -194,7 +194,12 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 ### Fall 2021
 - Launch V1.x for wider UCSC student base
 - Begin work on Slugline V2
+- ML response system
 - Peer to peer audio-only communication (WebRTC)
 - Canary system (on-campus safety)
 - Other features TBD
+
+
+## Pricing
+Not expecting this project to exceed the monthly free tier for [Google Firebase](https://firebase.google.com/pricing#blaze-calculator) in the year 2021.
 
