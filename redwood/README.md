@@ -84,13 +84,23 @@ red | #ed4e39 | rgb(237, 78, 57)
 darkRed | #942719 | rgb(148, 39, 25)
 
 ###### Fonts
+types
 
- | types | sizes
-------|------|------
-large | HelveticaNeue-MediumItalic | 50px
-medium | HelveticaNeue-Bold | 20px
-small | HelveticaNeue-Light | 14px
-tiny |  | 10px
+name | value
+-----|-----
+bold | HelveticaNeue-Bold
+italic | HelveticaNeue-MediumItalic
+light | HelveticaNeue-Light
+
+sizes
+
+name | value
+-----|-----
+tiny | 10
+small | 14
+medium | 20
+large | 40
+
 
 
 ###### Buttons
