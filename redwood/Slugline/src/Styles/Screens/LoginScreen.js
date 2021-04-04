@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        
     },
     title: {
         fontFamily: Fonts.types.italic,
@@ -51,40 +50,6 @@ const styles = StyleSheet.create({
     logoPlaceholder: {
         backgroundColor: Colors.cream.hex,
         borderRadius: width,
-    },
-    signUpButtonContainer: {
-        borderRadius: width,
-    },
-    signUpButton: {
-        width: width / 4 * 3,
-        backgroundColor: Colors.darkBlue.hex,
-        borderRadius: width,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    signUpButtonTitle: {
-        color: "white",
-        fontFamily: Fonts.types.light,
-        fontSize: Fonts.sizes.small,
-    },
-    buttonIcon: {
-        width: 30,
-        height: 30,
-        marginRight: 10,
-    },
-    buttonIconPlaceholder: {
-        backgroundColor: Colors.darkBlue.hex,
-        borderRadius: width
-    },
-    logInButton: {
-        width: width / 4 * 3,
-    },
-    logInButtonTitle: {
-        color: Colors.darkBlue.hex,
-        fontFamily: Fonts.types.light,
-        fontSize: Fonts.sizes.small,
     }
 });
 
