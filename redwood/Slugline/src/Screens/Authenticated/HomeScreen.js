@@ -16,7 +16,7 @@ import {
 import { useAuth } from "../../Stores/useAuth"
 import styles from "../../Styles/Screens/Authenticated/HomeScreen";
 
-function HomeScreen() {
+function HomeScreen(props) {
     let user = useAuth(state => state.user);
     return (
         <SafeAreaView style={styles.container}>
