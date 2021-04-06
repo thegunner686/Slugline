@@ -3,7 +3,7 @@ import {
     Dimensions
 } from "react-native";
 
-import { Colors, Fonts } from "../stylesheet";
+import { Colors, Fonts, Sizes } from "../stylesheet";
 
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import OnboardingScreen from "../Screens/OnboardingScreen";
+import OnboardingScreen from "../Screens/Authenticated/OnboardingScreen";
 
 let Stack = createStackNavigator();
 

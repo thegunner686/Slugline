@@ -14,6 +14,7 @@ target 'Slugline' do
 
   pod 'GoogleSignIn', '~> 5.0.2'
 
+
   target 'SluglineTests' do
     inherit! :complete
     # Pods for testing
