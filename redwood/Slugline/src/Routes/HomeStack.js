@@ -2,11 +2,13 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../Screens/Authenticated/HomeScreen";
+import ProfileScreen from "../Screens/Authenticated/ProfileScreen";
 
 import styles from "../Styles/Routes/HomeStack";
 
 import LeftHeaderBar from "../Components/LeftHeaderBar";
 import RightHeaderBar from "../Components/RightHeaderBar";
+import BackButtonIcon from "../Components/BackButtonIcon";
 
 let Stack = createStackNavigator();
 
@@ -26,11 +28,27 @@ function HomeStack(props) {
                     headerStyle: styles.header,
                     headerTitle: "",
                     headerTitleStyle: styles.headerTitle,
-                    headerLeft: () => (
+                    headerLeft: (p) => (
                         <LeftHeaderBar {...props} />
                     ),
-                    headerRight: () => (
+                    headerRight: (p) => (
                         <RightHeaderBar {...props} />
+                    )
+                }}
+            />
+            <Stack.Screen 
+                name="Profile" 
+                component={ProfileScreen}
+                options={{
+                    headerStyle: styles.header,
+                    headerTitle: "",
+                    headerTitleStyle: styles.headerTitle,
+                    headerBackTitleVisible: false,
+                    headerBackImage: () => (
+                        <BackButtonIcon/>
+                    ),
+                    headerRight: (p) => (
+                        <RightHeaderBar hideProfile={true} {...props} />
                     )
                 }}
             />

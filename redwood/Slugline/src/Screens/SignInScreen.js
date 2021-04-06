@@ -12,13 +12,13 @@ import {
     Button
 } from "react-native-elements";
 
-import LoginButton from "../Components/LoginButton";
+import SignInButton from "../Components/SignInButton";
 
-import styles from "../Styles/Screens/LoginScreen";
+import styles from "../Styles/Screens/SignInScreen";
 
 import { useAuth } from "../Stores/useAuth";
 
-function LoginScreen() {
+function SignInScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.topContainer}>
@@ -35,10 +35,10 @@ function LoginScreen() {
                 </Text>
             </View>
             <View style={styles.buttonsContainer}>
-                <LoginButton/>
+                <SignInButton/>
             </View>
         </SafeAreaView>
     )
 }
 
-export default LoginScreen;
+export default SignInScreen;
