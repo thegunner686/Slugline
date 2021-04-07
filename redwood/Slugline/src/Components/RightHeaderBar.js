@@ -42,7 +42,7 @@ function RightHeaderBar(props) {
                 <Icon
                     name="bug-outline"
                     type="material-community"
-                    onPress={() => { navigation.dispatch(StackActions.push("ReportBug")) }}
+                    onPress={() => { props.navigation.dispatch(StackActions.push("ReportBug")) }}
                     colors={iconColor}
                     containerStyle={{
                         marginRight: 20
@@ -56,7 +56,7 @@ function RightHeaderBar(props) {
                 <Icon
                     name="help"
                     type="entypo"
-                    onPress={() => { navigation.dispatch(StackActions.push("Help")) }}
+                    onPress={() => { props.navigation.dispatch(StackActions.push("Help")) }}
                     color={iconColor}
                     containerStyle={{
                         marginRight: 25,
@@ -70,7 +70,7 @@ function RightHeaderBar(props) {
                     <Icon
                         name="archive"
                         type="entypo"
-                        onPress={() => { navigation.dispatch(StackActions.push("History")) }}
+                        onPress={() => { props.navigation.dispatch(StackActions.push("History")) }}
                         color={iconColor}
                         containerStyle={{
                             marginRight: 25
@@ -95,7 +95,7 @@ function RightHeaderBar(props) {
                 <Image
                     source={{ uri: photoURL }}
                     style={styles.profileImage}
-                    onPress={() => { navigation.dispatch(StackActions.push("Profile")) }}
+                    onPress={() => { props.navigation.dispatch(StackActions.push("Profile")) }}
                 />
             }
         </View>

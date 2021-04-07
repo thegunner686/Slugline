@@ -5,38 +5,31 @@ import {
     Image
 } from "react-native-elements";
 
-import styles from "../Styles/Components/LoginButton";
+import styles from "../Styles/Components/SignInButton";
 
-import auth from "@react-native-firebase/auth";
+import { useAuth } from "../Stores/useAuth";
 
-function LogoutButtonProvider() {
+function SignOutButtonProvider() {
     let [disabled, setDisabled] = useState(false);
-
-    const onPress = async () => {
-        try {
-            await auth().signOut()
-        } catch(e) {
-            console.log(e);
-        }
-    };
+    let signOut = useAuth(state => state.signOut);
 
     return (
-        <LogoutButton
+        <SignOutButton
             disabled={disabled}
-            onPress={onPress}
+            onPress={signOut}
         />
     );
 }
 
-function LogoutButton(props) {
+function SignOutButton(props) {
     return (
         <Button
-            title="Logout"
+            title="Sign Out"
             type="solid"
             onPress={props.onPress}
-            containerStyle={styles.signUpButtonContainer}
-            buttonStyle={styles.signUpButton}
-            titleStyle={styles.signUpButtonTitle}
+            containerStyle={styles.signInButtonContainer}
+            buttonStyle={styles.signInButton}
+            titleStyle={styles.signInButtonTitle}
             raised={true}
             icon={<Image
                 style={styles.buttonIcon}
@@ -49,4 +42,4 @@ function LogoutButton(props) {
     )
 }
 
-export default LogoutButtonProvider;
+export default SignOutButtonProvider;

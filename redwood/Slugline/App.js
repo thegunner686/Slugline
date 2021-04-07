@@ -14,7 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // Routes
 import SignInStack from "./src/Routes/SignInStack";
-import HomeStack from "./src/Routes/HomeStack";
+import AuthenticatedStack from "./src/Routes/AuthenticatedStack";
 import OnboardingStack from "./src/Routes/OnboardingStack";
 
 import auth from '@react-native-firebase/auth';
@@ -46,7 +46,7 @@ function App() {
           isNewUser ?
           <OnboardingStack/>
           :
-          <HomeStack/>
+          <AuthenticatedStack/>
       }
       </NavigationContainer>
     </SafeAreaProvider>
