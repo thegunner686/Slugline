@@ -5,7 +5,7 @@ import {
     Image
 } from "react-native-elements";
 
-import styles from "../Styles/Components/LoginButton";
+import styles from "../Styles/Components/SignInButton";
 
 import auth from "@react-native-firebase/auth";
 
@@ -19,7 +19,7 @@ GoogleSignin.configure({
     webClientId: '666812137857-bdo9lhprvhi1u5b76e6oju6e1444kqi3.apps.googleusercontent.com',
 });
 
-function LoginButtonProvider() {
+function SignInButtonProvider() {
     let [disabled, setDisabled] = useState(false);
 
     const onPress = async () => {
@@ -34,14 +34,14 @@ function LoginButtonProvider() {
     };
 
     return (
-        <LoginButton
+        <SignInButton
             disabled={disabled}
             onPress={onPress}
         />
     );
 }
 
-function LoginButton(props) {
+function SignInButton(props) {
     return (
         <Button
             title="UC Santa Cruz Log In"
@@ -62,4 +62,4 @@ function LoginButton(props) {
     )
 }
 
-export default LoginButtonProvider;
+export default SignInButtonProvider;

@@ -13,7 +13,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Routes
-import LoginStack from "./src/Routes/LoginStack";
+import SignInStack from "./src/Routes/SignInStack";
 import HomeStack from "./src/Routes/HomeStack";
 import OnboardingStack from "./src/Routes/OnboardingStack";
 
@@ -41,7 +41,7 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
       {user == null ? 
-          <LoginStack/>
+          <SignInStack/>
         :
           isNewUser ?
           <OnboardingStack/>
