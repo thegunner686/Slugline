@@ -50,7 +50,6 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 		<td>
 			<ul>
 				<li>Finish design document, approve timeline & pricing</li>
-				<li>Figmatize & approve UI/UX design for V1</li>
 				<li>Contact the <a href="https://maps.ucsc.edu">maps team</a> </li>
 			</ul>
 		</td>
