@@ -7,10 +7,10 @@ import { Colors, Fonts, Sizes } from "../stylesheet";
 
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
-    signInButtonContainer: {
+    signUpButtonContainer: {
         borderRadius: width,
     },
-    signInButton: {
+    signUpButton: {
         width: width / 4 * 3,
         backgroundColor: Colors.darkBlue.hex,
         borderRadius: width,
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    signInButtonTitle: {
+    signUpButtonTitle: {
         color: "white",
         fontFamily: Fonts.types.light,
         fontSize: Fonts.sizes.small,
@@ -32,6 +32,14 @@ const styles = StyleSheet.create({
     buttonIconPlaceholder: {
         backgroundColor: Colors.darkBlue.hex,
         borderRadius: width
+    },
+    logInButton: {
+        width: width / 4 * 3,
+    },
+    logInButtonTitle: {
+        color: Colors.darkBlue.hex,
+        fontFamily: Fonts.types.light,
+        fontSize: Fonts.sizes.small,
     }
 });
 

@@ -13,15 +13,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Routes
-import SignInStack from "./src/Routes/SignInStack";
+import LoginStack from "./src/Routes/LoginStack";
 import HomeStack from "./src/Routes/HomeStack";
 import OnboardingStack from "./src/Routes/OnboardingStack";
 
 import auth from '@react-native-firebase/auth';
 import { useAuth } from "./src/Stores/useAuth";
 import shallow from "zustand/shallow";
-
-const Stack = createStackNavigator();
 
 function App() {
   let [initializing, setInitializing] = useState(true);
@@ -42,28 +40,14 @@ function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {
-          user == null ?
-          <SignInStack/>
-          :
+      {user == null ? 
+          <LoginStack/>
+        :
           isNewUser ?
-            <OnboardingStack/>
-            :
-            <Stack.Navigator
-              options={{
-                headerShown: false,
-              }}
-              mode="modal"
-            >
-              <Stack.Screen
-                name="HomeStack"
-                options={{
-                  headerShown: false
-                }}
-                children={(props) => <HomeStack {...props} /> }
-              />
-            </Stack.Navigator>
-        }
+          <OnboardingStack/>
+          :
+          <HomeStack/>
+      }
       </NavigationContainer>
     </SafeAreaProvider>
   )

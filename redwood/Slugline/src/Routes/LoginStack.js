@@ -1,18 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import SignInScreen from "../Screens/SignInScreen";
+import LoginScreen from "../Screens/LoginScreen";
 
 let Stack = createStackNavigator();
 
-function SignInStack() {
+function LoginStack() {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false
         }}>
-            <Stack.Screen name="SignIn" component={SignInScreen}/>
+            <Stack.Screen name="Login" component={LoginScreen}/>
         </Stack.Navigator>
     )
 }
 
-export default SignInStack;
+export default LoginStack;

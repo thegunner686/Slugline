@@ -13,21 +13,15 @@ import {
     Icon
 } from "react-native-elements";
 
-import { useAuth } from "../../Stores/useAuth";
-
+import { useAuth } from "../../Stores/useAuth"
 import styles from "../../Styles/Screens/Authenticated/HomeScreen";
 
 function HomeScreen(props) {
     let user = useAuth(state => state.user);
-    let signOut = useAuth(state => state.signOut);
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.mapContainer}>
                 <Text>Map Placeholder</Text>
-                <Button
-                    title="sign out"
-                    onPress={signOut}
-                />
             </View>
             <Button
                 title=" Slugline Message"

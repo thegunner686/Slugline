@@ -5,31 +5,38 @@ import {
     Image
 } from "react-native-elements";
 
-import { useAuth } from "../Stores/useAuth";
+import styles from "../Styles/Components/LoginButton";
 
-import styles from "../Styles/Components/SignInButton";
+import auth from "@react-native-firebase/auth";
 
-function SignInButtonProvider() {
+function LogoutButtonProvider() {
     let [disabled, setDisabled] = useState(false);
-    let signIn = useAuth(state => state.signIn);
+
+    const onPress = async () => {
+        try {
+            await auth().signOut()
+        } catch(e) {
+            console.log(e);
+        }
+    };
 
     return (
-        <SignInButton
+        <LogoutButton
             disabled={disabled}
-            onPress={signIn}
+            onPress={onPress}
         />
     );
 }
 
-function SignInButton(props) {
+function LogoutButton(props) {
     return (
         <Button
-            title="UC Santa Cruz Log In"
+            title="Logout"
             type="solid"
             onPress={props.onPress}
-            containerStyle={styles.signInButtonContainer}
-            buttonStyle={styles.signInButton}
-            titleStyle={styles.signInButtonTitle}
+            containerStyle={styles.signUpButtonContainer}
+            buttonStyle={styles.signUpButton}
+            titleStyle={styles.signUpButtonTitle}
             raised={true}
             icon={<Image
                 style={styles.buttonIcon}
@@ -42,4 +49,4 @@ function SignInButton(props) {
     )
 }
 
-export default SignInButtonProvider;
+export default LogoutButtonProvider;
