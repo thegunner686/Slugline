@@ -17,24 +17,18 @@ import SignInStack from "./src/Routes/SignInStack";
 import AuthenticatedStack from "./src/Routes/AuthenticatedStack";
 import OnboardingStack from "./src/Routes/OnboardingStack";
 
-import auth from '@react-native-firebase/auth';
-import { useAuth } from "./src/Stores/useAuth";
+import { useStore } from "./src/Stores/useStore";
 import shallow from "zustand/shallow";
 
 function App() {
   let [initializing, setInitializing] = useState(true);
 
-  let [user, setUser] = useAuth(state => [state.user, state.setUser], shallow);
-  let [isNewUser, setIsNewuser] = useAuth(state => [state.isNewUser, state.setIsNewuser], shallow);
-
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if(initializing) setInitializing(false);
-  }
+  let [user, setUser] = useStore(state => [state.user, state.setUser], shallow);
+  let [isNewUser, setIsNewuser] = useStore(state => [state.isNewUser, state.setIsNewuser], shallow);
+  let onAuthStateChanged = useStore(state => state.onAuthStateChanged);
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return () => subscriber();
+    return onAuthStateChanged();
   }, []);
 
   return (

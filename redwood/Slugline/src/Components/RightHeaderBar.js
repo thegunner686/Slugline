@@ -19,21 +19,22 @@ import {
     Icon
 } from "react-native-elements";
 
-import { useAuth } from "../Stores/useAuth";
+import { useStore } from "../Stores/useStore";
 
 import { Colors, Fonts } from "../Styles/stylesheet";
 import styles from "../Styles/Components/RightHeaderBar";
 
+
 const iconColor = Colors.darkBlue.hex;
 
 function RightHeaderBar(props) {
-
-    let photoURL = useAuth(state => state.photoURL);
-
     let [bug, showBug] = useState(false);
     let [help, showHelp] = useState(false);
-    let [history, showHistory] = useState(!props.hideHistory || true);
-    let [profile, showProfile] = useState(!props.hideProfile || true);
+    let [history, showHistory] = useState(!props.hideHistory);
+    let [profile, showProfile] = useState(!props.hideProfile);
+    let [logout, showLogout] = useState(!props.hideLogout);
+    let profileData = useStore(state => state.profile);
+    let signOut = useStore(state => state.signOut);
 
     return (
         <View style={styles.rightHeaderBarContainer}>
@@ -68,8 +69,10 @@ function RightHeaderBar(props) {
                 history &&
                 <View>
                     <Icon
-                        name="archive"
-                        type="entypo"
+                        // name="archive"
+                        // type="entypo"
+                        name="buffer"
+                        type="material-community"
                         onPress={() => { props.navigation.dispatch(StackActions.push("History")) }}
                         color={iconColor}
                         containerStyle={{
@@ -93,9 +96,24 @@ function RightHeaderBar(props) {
             {
                 profile &&
                 <Image
-                    source={{ uri: photoURL }}
+                    source={{ uri: profileData ? profileData.photoURL : null }}
                     style={styles.profileImage}
+                    placeholderStyle={styles.profileImagePlaceholder}
                     onPress={() => { props.navigation.dispatch(StackActions.push("Profile")) }}
+                />
+            }
+
+            {
+                logout &&
+                <Icon
+                    name="logout"
+                    type="material"
+                    onPress={() => { signOut() }}
+                    color={iconColor}
+                    containerStyle={{
+                        marginRight: 25
+                    }}
+                    size={30}
                 />
             }
         </View>

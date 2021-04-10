@@ -7,11 +7,11 @@ import {
 
 import styles from "../Styles/Components/SignInButton";
 
-import { useAuth } from "../Stores/useAuth";
+import { useStore } from "../Stores/useStore";
 
 function SignInButtonProvider() {
     let [disabled, setDisabled] = useState(false);
-    let signIn = useAuth(state => state.signIn);
+    let signIn = useStore(state => state.signIn);
 
     return (
         <SignInButton

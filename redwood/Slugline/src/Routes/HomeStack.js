@@ -32,7 +32,7 @@ function HomeStack(props) {
                         <LeftHeaderBar {...props} />
                     ),
                     headerRight: () => (
-                        <RightHeaderBar {...props} />
+                        <RightHeaderBar hideLogout={true} {...props} />
                     )
                 }}
             />
@@ -46,6 +46,13 @@ function HomeStack(props) {
                     headerBackTitleVisible: false,
                     headerBackImage: () => (
                         <BackButtonIcon/>
+                    ),
+                    headerRight: () => (
+                        <RightHeaderBar 
+                            hideProfile={true}
+                            hideHistory={true}
+                            {...props} 
+                        />
                     )
                 }}
             />

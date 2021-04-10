@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import {
     SafeAreaView,
     View,
     Text,
-    Dimensions
 } from "react-native";
 
 import {
     Image,
-    Button
 } from "react-native-elements";
 
 import SignInButton from "../Components/SignInButton";
 
 import styles from "../Styles/Screens/SignInScreen";
-
-import { useAuth } from "../Stores/useAuth";
 
 function SignInScreen() {
     return (

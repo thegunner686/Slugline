@@ -5,13 +5,13 @@ import {
     Image
 } from "react-native-elements";
 
-import styles from "../Styles/Components/SignInButton";
+import styles from "../Styles/Components/SignOutButton";
 
-import { useAuth } from "../Stores/useAuth";
+import { useStore } from "../Stores/useStore";
 
 function SignOutButtonProvider() {
     let [disabled, setDisabled] = useState(false);
-    let signOut = useAuth(state => state.signOut);
+    let signOut = useStore(state => state.signOut);
 
     return (
         <SignOutButton
@@ -27,9 +27,9 @@ function SignOutButton(props) {
             title="Sign Out"
             type="solid"
             onPress={props.onPress}
-            containerStyle={styles.signInButtonContainer}
-            buttonStyle={styles.signInButton}
-            titleStyle={styles.signInButtonTitle}
+            containerStyle={styles.signOutButtonContainer}
+            buttonStyle={styles.signOutButton}
+            titleStyle={styles.signOutButtonTitle}
             raised={true}
             icon={<Image
                 style={styles.buttonIcon}

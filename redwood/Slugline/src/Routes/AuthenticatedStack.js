@@ -10,7 +10,7 @@ function AuthenticatedStack(props) {
     return (
         <Stack.Navigator
             options={{
-            headerShown: false,
+                headerShown: false,
             }}
             mode="modal"
         >
