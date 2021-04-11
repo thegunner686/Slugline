@@ -36,11 +36,27 @@ function ProfileScreen(props) {
     let [displayName, setDisplayName] = useState(profile.displayName || "");
     let [photoURL, setPhotoURL] = useState(profile.photoURL || "");
 
+    function profileStateChanged() {
+        return !(
+            pronouns == profile.pronouns &&
+            college == profile.college &&
+            grad_year == profile.grad_year &&
+            displayName == profile.displayName &&
+            photoURL == profile.photoURL
+        );
+    }
+
     async function uploadProfile() {
         if(!editing) {
             setEditing(true);
             return;
         }
+
+        if(!profileStateChanged()) {
+            setEditing(false);
+            return;
+        }
+
         setLoading(true);
         let success = await updateProfile({
             pronouns,
