@@ -15,7 +15,9 @@ function HomeScreen(props) {
             <View style={styles.mapContainer}>
                 <Text>Map Placeholder</Text>
             </View>
-            <CreateMessageButton/>
+            <CreateMessageButton
+                {...props}
+            />
         </SafeAreaView>
     );
 }

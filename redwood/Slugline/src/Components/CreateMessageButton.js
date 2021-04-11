@@ -7,16 +7,17 @@ import {
 
 import styles from "../Styles/Components/CreateMessageButton";
 
-import { useStore } from "../Stores/useStore";
-
-function CreateMessageButtonProvider() {
+function CreateMessageButtonProvider(props) {
     let [disabled, setDisabled] = useState(false);
-    let signIn = useStore(state => state.signIn);
+
+    function onPress() {
+        props.navigation.navigate("MessageStack");
+    }
 
     return (
         <CreateMessageButton
             disabled={disabled}
-            onPress={signIn}
+            onPress={onPress}
         />
     );
 }

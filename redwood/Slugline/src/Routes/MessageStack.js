@@ -1,7 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import HomeScreen from "../Screens/Authenticated/HomeScreen";
 import ProfileScreen from "../Screens/Authenticated/ProfileScreen";
 import MessageScreen from "../Screens/Authenticated/MessageScreen";
 
@@ -14,27 +13,34 @@ import CloseButtonIcon from "../Components/CloseButtonIcon";
 
 let Stack = createStackNavigator();
 
-function HomeStack(props) {
+function MessageStack(props) {
     return (
         <Stack.Navigator
             headerMode="float"
-            initialRouteName="Home"
+            initialRouteName="Message"
             screenOptions={{
                 safeAreaInsets: styles.topInset
             }}
+            mode="modal"
         >
-            <Stack.Screen 
-                name="Home" 
-                component={HomeScreen}
+            <Stack.Screen
+                name="Message"
+                component={MessageScreen}
                 options={{
                     headerStyle: styles.header,
                     headerTitle: "",
                     headerTitleStyle: styles.headerTitle,
-                    headerLeft: () => (
-                        <LeftHeaderBar {...props} />
+                    headerBackTitleVisible: false,
+                    headerBackImage: () => (
+                        <CloseButtonIcon/>
                     ),
                     headerRight: () => (
-                        <RightHeaderBar hideLogout={true} {...props} />
+                        <RightHeaderBar 
+                            hideLogout={true}
+                            hideHistory={true}
+                            hideProfile={true}
+                            {...props} 
+                        />
                     )
                 }}
             />
@@ -62,4 +68,4 @@ function HomeStack(props) {
     )
 }
 
-export default HomeStack;
+export default MessageStack;
