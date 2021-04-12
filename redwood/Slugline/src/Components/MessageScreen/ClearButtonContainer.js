@@ -12,7 +12,7 @@ import {
 import styles from "../../Styles/Components/MessageScreen/ClearButtonContainer";
 import { Colors } from "../../Styles/stylesheet";
 
-function MessageScreenClearButtonContainer(props) {
+function ClearButtonContainer(props) {
 
     let { showButton, onPress } = props;
 
@@ -38,4 +38,4 @@ function MessageScreenClearButtonContainer(props) {
     )
 }
 
-export default MessageScreenClearButtonContainer;
+export default ClearButtonContainer;

@@ -1,6 +1,10 @@
 import { rgb } from "./styleutils";
 
 const Colors = {
+    light: {
+        hex: "#ffffff",
+        rgba: rgb(255, 255, 255)
+    },
     dark: {
         hex: "#261e0b",
         rgba: rgb(38, 30, 11)

@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import ProfileScreen from "../Screens/Authenticated/ProfileScreen";
 import MessageScreen from "../Screens/Authenticated/MessageScreen";
+import MessageSubmitScreen from "../Screens/Authenticated/MessageSubmitScreen";
 
 import styles from "../Styles/Routes/HomeStack";
 
@@ -21,7 +22,6 @@ function MessageStack(props) {
             screenOptions={{
                 safeAreaInsets: styles.topInset
             }}
-            mode="modal"
         >
             <Stack.Screen
                 name="Message"
@@ -44,9 +44,9 @@ function MessageStack(props) {
                     )
                 }}
             />
-            <Stack.Screen 
-                name="Profile" 
-                component={ProfileScreen}
+            <Stack.Screen
+                name="MessageSubmit"
+                component={MessageSubmitScreen}
                 options={{
                     headerStyle: styles.header,
                     headerTitle: "",
@@ -57,8 +57,9 @@ function MessageStack(props) {
                     ),
                     headerRight: () => (
                         <RightHeaderBar 
-                            hideProfile={true}
+                            hideLogout={true}
                             hideHistory={true}
+                            hideProfile={true}
                             {...props} 
                         />
                     )

@@ -7,9 +7,9 @@ import {
 
 import styles from "../../Styles/Components/MessageScreen/BodyInput";
 
-function MessageScreenBodyInput(props) {
+function BodyInput(props, ref) {
 
-    let { ref, category, onChangeText, value, disabled } = props;
+    let { category, onChangeText, value, disabled } = props;
     
     return (
         <Input
@@ -39,4 +39,4 @@ function MessageScreenBodyInput(props) {
     );
 }
 
-export default MessageScreenBodyInput;
+export default React.forwardRef(BodyInput);

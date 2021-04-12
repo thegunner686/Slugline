@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import {
-    Header,
+    MessageHeader,
     TitleInput,
     BodyInput,
     ClearButtonContainer,
@@ -26,20 +26,39 @@ function MessageScreen(props) {
     let [title, setTitle] = useState("");
     let [body, setBody] = useState("");
 
+    const titleInputRef = useRef(null);
     const bodyInputRef = useRef(null);
 
     const goToBodyInput = () => {
-        // this is breaking FIX REF
-        // bodyInputRef.current.focus();
-    }
+        bodyInputRef.current.focus();
+    };
 
-    function validateAndContinue() {
-        console.log("continue");
-    }
+    const inputIsValid = () => {
+        let valid = true;
+        if(title.trim() == "") {
+            titleInputRef.current.shake();
+            valid = false;
+        }
+        if(body.trim() == "") {
+            bodyInputRef.current.shake();
+            valid = false;
+        }
+        return valid;
+    };
+
+    const validateAndContinue = () => {
+        if(!inputIsValid()) return;
+
+        props.navigation.navigate("MessageSubmit", {
+            category,
+            title,
+            body
+        });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header
+            <MessageHeader
                 category={category}
                 onCheckboxPress={() => { setCategory(category == "SolveIntent" ? "ReportIntent" : "SolveIntent")}}
             />
@@ -51,6 +70,7 @@ function MessageScreen(props) {
                     category={category}
                     value={title}
                     disabled={disabled}
+                    ref={titleInputRef}
                     onEndEditing={goToBodyInput}
                     onChangeText={setTitle}
                 />
@@ -58,7 +78,7 @@ function MessageScreen(props) {
                     category={category}
                     value={body}
                     disabled={disabled}
-                    // ref={bodyInputRef} see FIX REF
+                    ref={bodyInputRef}
                     onChangeText={setBody}
                 />
                 <ClearButtonContainer

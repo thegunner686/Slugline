@@ -7,7 +7,7 @@ import {
 
 import styles from "../../Styles/Components/MessageScreen/TitleInput";
 
-function MessageScreenTitleInput(props) {
+function TitleInput(props, ref) {
 
     let { category, value, disabled, onEndEditing, onChangeText } = props;
 
@@ -17,7 +17,7 @@ function MessageScreenTitleInput(props) {
             inputContainerStyle={styles.container}
             labelStyle={styles.label}
             label={category == "SolveIntent" ? "Give your problem or question a title." : "Give your report a title."}
-            
+            ref={ref}
             textAlignVertical="top"
             returnKeyType="next"
             clearButtonMode="while-editing"
@@ -40,4 +40,4 @@ function MessageScreenTitleInput(props) {
     );
 }
 
-export default MessageScreenTitleInput;
+export default React.forwardRef(TitleInput);

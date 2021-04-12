@@ -167,7 +167,11 @@ const useStore = create((set, get) => ({
         
         // remove any listeners
         get().removeProfileListener();
-    }
+    },
+
+    createIntent: async (title, body, category, anonymous) => {
+        
+    },
 }));
 
 export { useStore };

@@ -7,7 +7,7 @@ import {
 
 import styles from "../../Styles/Components/MessageScreen/ContinueButton";
 
-function MessageScreenContinueButton(props) {
+function ContinueButton(props) {
 
     let { onPress, disabled } = props;
 
@@ -31,4 +31,4 @@ function MessageScreenContinueButton(props) {
     );
 }
 
-export default MessageScreenContinueButton;
+export default ContinueButton;

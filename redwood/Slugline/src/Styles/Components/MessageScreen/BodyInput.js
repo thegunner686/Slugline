@@ -14,20 +14,25 @@ const styles = StyleSheet.create({
         padding: 5
     },
     label: {
-        color: Colors.dark,
-        fontFamily: Fonts.standardFont,
-        fontSize: Fonts.standardSize,
+        color: Colors.dark.hex,
+        fontFamily: Fonts.types.light,
+        fontSize: Fonts.sizes.small,
         paddingBottom: 5,
     },
     input: {
-        fontFamily: Fonts.standardFont,
-        fontSize: Fonts.standardSize,
-        color: Colors.darkBlue
+        fontFamily: Fonts.types.light,
+        fontSize: Fonts.sizes.small,
+        color: Colors.darkBlue.hex
     },
     leftIconContainer: {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start"
+    },
+    disabled: {
+        fontFamily: Fonts.types.light,
+        fontSize: Fonts.sizes.small,
+        color: Colors.darkBlue.hex
     }
 });
 
