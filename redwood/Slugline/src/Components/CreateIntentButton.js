@@ -5,32 +5,32 @@ import {
     Icon
 } from "react-native-elements";
 
-import styles from "../Styles/Components/CreateMessageButton";
+import styles from "../Styles/Components/CreateIntentButton";
 
-function CreateMessageButtonProvider(props) {
+function CreateIntentButtonProvider(props) {
     let [disabled, setDisabled] = useState(false);
 
     function onPress() {
-        props.navigation.navigate("MessageStack");
+        props.navigation.navigate("IntentStack");
     }
 
     return (
-        <CreateMessageButton
+        <CreateIntentButton
             disabled={disabled}
             onPress={onPress}
         />
     );
 }
 
-function CreateMessageButton(props) {
+function CreateIntentButton(props) {
     return (
         <Button
             title="Create Message"
             type="solid"
             onPress={props.onPress}
-            containerStyle={styles.messageButtonContainer}
-            buttonStyle={styles.messageButton}
-            titleStyle={styles.messageButtonTitle}
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.button}
+            titleStyle={styles.buttonTitle}
             raised={true}
             icon={<Icon
                 name="plus"
@@ -43,4 +43,4 @@ function CreateMessageButton(props) {
     )
 }
 
-export default CreateMessageButtonProvider;
+export default CreateIntentButtonProvider;

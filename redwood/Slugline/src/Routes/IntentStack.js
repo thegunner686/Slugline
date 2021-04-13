@@ -1,31 +1,29 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ProfileScreen from "../Screens/Authenticated/ProfileScreen";
-import MessageScreen from "../Screens/Authenticated/MessageScreen";
-import MessageSubmitScreen from "../Screens/Authenticated/MessageSubmitScreen";
+import IntentScreen from "../Screens/Authenticated/IntentScreen";
+import SubmitIntentScreen from "../Screens/Authenticated/SubmitIntentScreen";
 
 import styles from "../Styles/Routes/HomeStack";
 
-import LeftHeaderBar from "../Components/LeftHeaderBar";
 import RightHeaderBar from "../Components/RightHeaderBar";
 import BackButtonIcon from "../Components/BackButtonIcon";
 import CloseButtonIcon from "../Components/CloseButtonIcon";
 
 let Stack = createStackNavigator();
 
-function MessageStack(props) {
+function IntentStack(props) {
     return (
         <Stack.Navigator
             headerMode="float"
-            initialRouteName="Message"
+            initialRouteName="Intent"
             screenOptions={{
                 safeAreaInsets: styles.topInset
             }}
         >
             <Stack.Screen
-                name="Message"
-                component={MessageScreen}
+                name="Intent"
+                component={IntentScreen}
                 options={{
                     headerStyle: styles.header,
                     headerTitle: "",
@@ -45,8 +43,8 @@ function MessageStack(props) {
                 }}
             />
             <Stack.Screen
-                name="MessageSubmit"
-                component={MessageSubmitScreen}
+                name="SubmitIntent"
+                component={SubmitIntentScreen}
                 options={{
                     headerStyle: styles.header,
                     headerTitle: "",
@@ -69,4 +67,4 @@ function MessageStack(props) {
     )
 }
 
-export default MessageStack;
+export default IntentStack;

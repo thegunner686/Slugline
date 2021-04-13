@@ -5,7 +5,7 @@ import {
     Icon
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/MessageScreen/ContinueButton";
+import styles from "../../Styles/Components/IntentScreen/ContinueButton";
 
 function ContinueButton(props) {
 

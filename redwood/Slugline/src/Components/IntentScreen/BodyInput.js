@@ -5,7 +5,7 @@ import {
     Input
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/MessageScreen/BodyInput";
+import styles from "../../Styles/Components/IntentScreen/BodyInput";
 
 function BodyInput(props, ref) {
 

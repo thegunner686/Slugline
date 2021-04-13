@@ -1,13 +1,12 @@
 import React from "react";
 
 import {
-    View,
-    Text
+    View
 } from "react-native";
 
-import styles from "../../Styles/Components/MessageScreen/Header";
+import styles from "../Styles/Components/GenericHeader";
 
-function Header(props) {
+function GenericHeader(props) {
     return (
         <View style={styles.container}>
             {props.children}
@@ -15,4 +14,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default GenericHeader;

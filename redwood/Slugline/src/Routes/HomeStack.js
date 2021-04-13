@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../Screens/Authenticated/HomeScreen";
 import ProfileScreen from "../Screens/Authenticated/ProfileScreen";
-import MessageScreen from "../Screens/Authenticated/MessageScreen";
 
 import styles from "../Styles/Routes/HomeStack";
 

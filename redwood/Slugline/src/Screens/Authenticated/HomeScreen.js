@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import styles from "../../Styles/Screens/Authenticated/HomeScreen";
-import CreateMessageButton from "../../Components/CreateMessageButton";
+import CreateIntentButton from "../../Components/CreateIntentButton";
 
 function HomeScreen(props) {
     return (
@@ -15,7 +15,7 @@ function HomeScreen(props) {
             <View style={styles.mapContainer}>
                 <Text>Map Placeholder</Text>
             </View>
-            <CreateMessageButton
+            <CreateIntentButton
                 {...props}
             />
         </SafeAreaView>

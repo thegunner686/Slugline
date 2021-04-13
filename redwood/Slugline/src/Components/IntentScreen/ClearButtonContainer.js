@@ -9,7 +9,7 @@ import {
     Icon
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/MessageScreen/ClearButtonContainer";
+import styles from "../../Styles/Components/IntentScreen/ClearButtonContainer";
 import { Colors } from "../../Styles/stylesheet";
 
 function ClearButtonContainer(props) {

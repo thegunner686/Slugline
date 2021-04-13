@@ -9,17 +9,17 @@ import {
     CheckBox 
 } from "react-native-elements";
 
-import Header from "./Header";
+import GenericHeader from "../GenericHeader";
 
-import styles from "../../Styles/Components/MessageScreen/MessageHeader";
+import styles from "../../Styles/Components/GenericHeader";
 import { Colors } from "../../Styles/stylesheet";
 
 let { width } = Dimensions.get("window");
 
-function MessageHeader(props) {
+function Header(props) {
     let { category, onCheckboxPress } = props;
     return (
-        <Header>
+        <GenericHeader>
             <Icon
                 name={category == "SolveIntent" ? "account-search" : "report"}
                 type={category == "SolveIntent" ? "material-community" : "material"}
@@ -38,8 +38,8 @@ function MessageHeader(props) {
                 containerStyle={styles.checkboxContainer}
                 center
             />
-        </Header>
+        </GenericHeader>
     );
 }
 
-export default MessageHeader;
+export default Header;

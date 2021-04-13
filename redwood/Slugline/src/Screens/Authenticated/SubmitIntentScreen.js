@@ -1,29 +1,27 @@
 import React, { useState } from "react";
 
 import {
-    SafeAreaView,
-    View,
-    Text
+    SafeAreaView
 } from "react-native";
 
-import styles from "../../Styles/Screens/Authenticated/MessageSubmitScreen";
+import styles from "../../Styles/Screens/Authenticated/SubmitIntentScreen";
 
 import {
     Header,
-    MessageContents,
-    SendOverlay
-} from "../../Components/MessageSubmitScreenComponents";
+    Contents,
+    SendingOverlay
+} from "../../Components/SubmitIntentScreenComponents";
 
 import { useStore } from "../../Stores/useStore";
 
-function MessageSubmitScreen(props) {
+function IntentSubmitScreen(props) {
     let [disabled, setDisabled] = useState(false);
     let [sending, setSending] = useState(false);
     let [error, setError] = useState(false);
     let [overlayVisible, setOverlayVisible] = useState(false);
     let [anonymous, setAnonymous] = useState(false);
 
-    let sendMessage = useStore(state => state.sendMessage);
+    let createIntent = useStore(state => state.createIntent);
 
     let profile = useStore(state => state.profile)
 
@@ -33,7 +31,7 @@ function MessageSubmitScreen(props) {
         setSending(true);
         setOverlayVisible(true);
         try {
-            await sendMessage();
+            await createIntent();
             setSending(false);
         } catch(e) {
             console.log(e);
@@ -60,7 +58,7 @@ function MessageSubmitScreen(props) {
                 anonymous={anonymous}
                 onCheckboxPress={() => setAnonymous(!anonymous)}
             />
-            <MessageContents
+            <Contents
                 category={category}
                 anonymous={anonymous}
                 title={title}
@@ -68,7 +66,7 @@ function MessageSubmitScreen(props) {
                 disabled={disabled}
                 toggleOverlay={toggleOverlay}
             />
-            <SendOverlay
+            <SendingOverlay
                 sending={sending}
                 error={error}
                 overlayVisible={overlayVisible}
@@ -78,4 +76,4 @@ function MessageSubmitScreen(props) {
     );
 }
 
-export default MessageSubmitScreen;
+export default IntentSubmitScreen;

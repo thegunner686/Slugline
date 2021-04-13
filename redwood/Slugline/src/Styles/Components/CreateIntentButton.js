@@ -8,7 +8,7 @@ import { Colors, Fonts } from "../stylesheet";
 let { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-    messageButton: {
+    button: {
         width: width / 4 * 3,
         backgroundColor: Colors.darkGreen.hex,
         borderRadius: width,
@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    messageButtonContainer: {
+    buttonContainer: {
         position: "relative",
         bottom: height / 25,
         borderRadius: width,
     },
-    messageButtonTitle: {
+    buttonTitle: {
         color: "white",
         fontFamily: Fonts.types.bold,
         fontSize: Fonts.sizes.small,

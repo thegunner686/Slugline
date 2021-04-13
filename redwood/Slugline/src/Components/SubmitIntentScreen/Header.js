@@ -1,26 +1,20 @@
 import React from "react";
 
 import {
-    Dimensions
-} from "react-native";
-
-import {
     Icon,
     CheckBox,
     Image
 } from "react-native-elements";
 
-import Header from "../MessageScreen/Header";
+import GenericHeader from "../GenericHeader";
 
-import styles from "../../Styles/Components/MessageSubmitScreen/SubmitHeader";
+import styles from "../../Styles/Components/IntentSubmitScreen/Header";
 import { Colors } from "../../Styles/stylesheet";
 
-let { width } = Dimensions.get("window");
-
-function SubmitHeader(props) {
+function Header(props) {
     let { photoURL, anonymous, onCheckboxPress } = props;
     return (
-        <Header>
+        <GenericHeader>
             {anonymous ?
                 <Icon 
                     type="material-community"
@@ -48,8 +42,8 @@ function SubmitHeader(props) {
                 containerStyle={styles.checkboxContainer}
                 center
             />
-        </Header>
+        </GenericHeader>
     );
 }
 
-export default SubmitHeader;
+export default Header;

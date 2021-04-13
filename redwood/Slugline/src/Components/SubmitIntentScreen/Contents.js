@@ -10,12 +10,12 @@ import {
     Button
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/MessageSubmitScreen/MessageContentsContainer";
+import styles from "../../Styles/Components/IntentSubmitScreen/Contents.js";
 
 import { useStore } from "../../Stores/useStore";
 import { Colors } from "../../Styles/stylesheet";
 
-function MessageContentsContainer(props) {
+function Contents(props) {
     let { displayName, email, pronouns } = useStore(state => state.profile);
 
     let { category, anonymous, title, body, disabled, toggleOverlay } = props;
@@ -84,4 +84,4 @@ function MessageContentsContainer(props) {
     )
 }
 
-export default MessageContentsContainer;
+export default Contents;

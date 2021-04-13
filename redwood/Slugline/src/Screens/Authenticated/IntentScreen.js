@@ -8,18 +8,18 @@ import {
 } from "react-native";
 
 import {
-    MessageHeader,
+    Header,
     TitleInput,
     BodyInput,
     ClearButtonContainer,
     ContinueButton
-} from "../../Components/MessageScreenComponents";
+} from "../../Components/IntentScreenComponents";
 
 import BufferView from "../../Components/BufferView";
 
-import styles from "../../Styles/Screens/Authenticated/MessageScreen";
+import styles from "../../Styles/Screens/Authenticated/IntentScreen";
 
-function MessageScreen(props) {
+function IntentScreen(props) {
     let [disabled, setDisabled] = useState(false);
     // category can be either enum {"SolveIntent", "ReportIntent"}
     let [category, setCategory] = useState("SolveIntent");
@@ -49,7 +49,7 @@ function MessageScreen(props) {
     const validateAndContinue = () => {
         if(!inputIsValid()) return;
 
-        props.navigation.navigate("MessageSubmit", {
+        props.navigation.navigate("SubmitIntent", {
             category,
             title,
             body
@@ -58,7 +58,7 @@ function MessageScreen(props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <MessageHeader
+            <Header
                 category={category}
                 onCheckboxPress={() => { setCategory(category == "SolveIntent" ? "ReportIntent" : "SolveIntent")}}
             />
@@ -97,4 +97,4 @@ function MessageScreen(props) {
     );
 }
 
-export default MessageScreen;
+export default IntentScreen;

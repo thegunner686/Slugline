@@ -3,7 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeStack from "./HomeStack";
-import MessageStack from "./MessageStack";
+import IntentStack from "./IntentStack";
 
 const Stack = createStackNavigator();
 
@@ -23,11 +23,11 @@ function AuthenticatedStack(props) {
                 children={(props) => <HomeStack {...props} /> }
             />
             <Stack.Screen
-                name="MessageStack"
+                name="IntentStack"
                 options={{
                     headerShown: false
                 }}
-                children={(props) => <MessageStack {...props} /> }
+                children={(props) => <IntentStack {...props} /> }
             />
       </Stack.Navigator>
     )

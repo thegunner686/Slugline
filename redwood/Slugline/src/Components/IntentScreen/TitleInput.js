@@ -5,7 +5,7 @@ import {
     Icon
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/MessageScreen/TitleInput";
+import styles from "../../Styles/Components/IntentScreen/TitleInput";
 
 function TitleInput(props, ref) {
 
