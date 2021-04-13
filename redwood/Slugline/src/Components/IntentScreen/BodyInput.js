@@ -23,6 +23,7 @@ function BodyInput(props, ref) {
             blurOnSubmit={true}
             placeholder={category == "SolveIntent" ? "Tell us what's going on!" : "The banana slugs are doing what?!"}
             multiline={true}
+            numberOfLines={10}
             maxLength={1000}
             leftIconContainerStyle={styles.leftIconContainer}
             onChangeText={onChangeText}

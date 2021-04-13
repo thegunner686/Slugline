@@ -11,7 +11,7 @@ let containerWidth = width / 20 * 19;
 let containerBuffer = 20;
 const styles = StyleSheet.create({
     container: {
-        flex: 3,
+        flex: 6,
         width: containerWidth,
         display: "flex",
         flexDirection: "column",
@@ -64,17 +64,22 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: "column",
+        alignItems: "flex-start",
         justifyContent: "center",
-        flex: 2,
+        flex: 6,
         width: containerWidth - containerBuffer
     },
     profileContainer: {
         flex: 2,
     },
     sendContainer: {
-        flex: 1,
+        flex: 3,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        width: containerWidth - containerBuffer
     },
     displayName: {
         fontFamily: Fonts.types.light,
@@ -83,10 +88,13 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        borderRadius: width
+        borderRadius: width,
+        width: width / 4 * 3
     },
     button: {
-        backgroundColor: Colors.darkYellow.hex
+        backgroundColor: Colors.darkYellow.hex,
+        borderRadius: width,
+        width: width / 4 * 3
     },
     buttonTitle: {
         fontFamily: Fonts.types.light,

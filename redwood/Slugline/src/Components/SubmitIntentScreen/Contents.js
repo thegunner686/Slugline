@@ -69,6 +69,7 @@ function Contents(props) {
                         title="Send it"
                         onPress={toggleOverlay}
                         disabled={disabled}
+                        raised={true}
                         icon={
                             <Icon
                                 name="send"

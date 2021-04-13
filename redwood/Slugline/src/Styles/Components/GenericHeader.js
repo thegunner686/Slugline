@@ -8,7 +8,7 @@ import { Colors, Fonts } from "../stylesheet";
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
         width,
         display: "flex",
         alignItems: "center",

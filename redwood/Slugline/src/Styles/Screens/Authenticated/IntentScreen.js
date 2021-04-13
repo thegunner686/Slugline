@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     inputsContainer: {
-        flex: 3,
+        flex: 6,
         width,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "space-between"
     }
 });
 

@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 10,
         borderBottomWidth: 0,
-        padding: 5
+        padding: 5,
+        height: 40,
     },
     label: {
         color: Colors.dark.hex,

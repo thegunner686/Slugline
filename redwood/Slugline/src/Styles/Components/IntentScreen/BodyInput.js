@@ -11,7 +11,11 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 10,
         borderBottomWidth: 0,
-        padding: 5
+        padding: 5,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        justifyContent: "flex-start"
     },
     label: {
         color: Colors.dark.hex,
@@ -22,7 +26,8 @@ const styles = StyleSheet.create({
     input: {
         fontFamily: Fonts.types.light,
         fontSize: Fonts.sizes.small,
-        color: Colors.darkBlue.hex
+        color: Colors.darkBlue.hex,
+        paddingTop: 0,
     },
     leftIconContainer: {
         display: "flex",

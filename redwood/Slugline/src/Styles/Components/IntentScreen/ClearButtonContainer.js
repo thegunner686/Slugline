@@ -8,7 +8,6 @@ import { Colors, Fonts } from "../../stylesheet";
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
     container: {
-        flex: 2,
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-start",

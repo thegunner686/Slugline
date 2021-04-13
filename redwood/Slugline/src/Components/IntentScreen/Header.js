@@ -11,7 +11,7 @@ import {
 
 import GenericHeader from "../GenericHeader";
 
-import styles from "../../Styles/Components/GenericHeader";
+import styles from "../../Styles/Components/IntentScreen/Header";
 import { Colors } from "../../Styles/stylesheet";
 
 let { width } = Dimensions.get("window");
