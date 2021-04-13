@@ -10,7 +10,7 @@ import {
     Button
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/IntentSubmitScreen/Contents.js";
+import styles from "../../Styles/Components/SubmitIntentScreen/Contents.js";
 
 import { useStore } from "../../Stores/useStore";
 import { Colors } from "../../Styles/stylesheet";

@@ -8,7 +8,7 @@ import {
 
 import GenericHeader from "../GenericHeader";
 
-import styles from "../../Styles/Components/IntentSubmitScreen/Header";
+import styles from "../../Styles/Components/SubmitIntentScreen/Header";
 import { Colors } from "../../Styles/stylesheet";
 
 function Header(props) {

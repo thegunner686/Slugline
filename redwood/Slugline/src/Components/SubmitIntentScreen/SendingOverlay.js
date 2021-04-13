@@ -11,7 +11,7 @@ import {
     Button
 } from "react-native-elements";
 
-import styles from "../../Styles/Components/IntentSubmitScreen/SendingOverlay";
+import styles from "../../Styles/Components/SubmitIntentScreen/SendingOverlay";
 
 import { Colors } from "../../Styles/stylesheet";
 
