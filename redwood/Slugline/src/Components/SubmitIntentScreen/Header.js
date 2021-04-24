@@ -20,7 +20,7 @@ function Header(props) {
                     type="material-community"
                     name="incognito"
                     size={55}
-                    color={Colors.dark.hex}
+                    color={Colors.darkBlue.hex}
                     reverse
                     raised
                 />

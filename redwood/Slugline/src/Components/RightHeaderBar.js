@@ -71,8 +71,10 @@ function RightHeaderBar(props) {
                     <Icon
                         // name="archive"
                         // type="entypo"
-                        name="buffer"
-                        type="material-community"
+                        // name="buffer"
+                        // type="material-community"
+                        name="location"
+                        type="entypo"
                         onPress={() => { props.navigation.dispatch(StackActions.push("History")) }}
                         color={iconColor}
                         containerStyle={{

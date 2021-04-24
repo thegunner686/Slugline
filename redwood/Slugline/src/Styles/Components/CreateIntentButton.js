@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     buttonContainer: {
-        position: "relative",
-        bottom: height / 25,
-        borderRadius: width,
+        position: "absolute",
+        bottom: height / 10,
+        borderRadius: width
     },
     buttonTitle: {
         color: "white",

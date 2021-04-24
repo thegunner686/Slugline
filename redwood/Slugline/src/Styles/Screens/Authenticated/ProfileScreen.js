@@ -8,7 +8,7 @@ import { Colors, Fonts } from "../../stylesheet";
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.cream.hex,
+        backgroundColor: Colors.cream.rgba(0.2),
         height,
         display: "flex",
         flexDirection: "column",
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: Colors.dark.rgba(0.1),
         borderWidth: 1,
+        marginTop: 10,
     },
     uploadPictureButton: {
         display: "flex",

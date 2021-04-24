@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import IntentScreen from "../Screens/Authenticated/IntentScreen";
 import SubmitIntentScreen from "../Screens/Authenticated/SubmitIntentScreen";
 
-import styles from "../Styles/Routes/HomeStack";
+import styles from "../Styles/Routes/IntentStack";
 
 import RightHeaderBar from "../Components/RightHeaderBar";
 import BackButtonIcon from "../Components/BackButtonIcon";
@@ -31,14 +31,6 @@ function IntentStack(props) {
                     headerBackTitleVisible: false,
                     headerBackImage: () => (
                         <CloseButtonIcon/>
-                    ),
-                    headerRight: () => (
-                        <RightHeaderBar 
-                            hideLogout={true}
-                            hideHistory={true}
-                            hideProfile={true}
-                            {...props} 
-                        />
                     )
                 }}
             />

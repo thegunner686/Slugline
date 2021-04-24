@@ -3,22 +3,21 @@ import {
     StyleSheet
 } from "react-native";
 
-import { Colors, Fonts } from "../../stylesheet";
+import { Colors, Fonts } from "../stylesheet";
 
 let { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
-    container: {
-        marginBottom: height / 10
+    topInset: {
+        top: height / 15
     },
-    button: {
-        width: width / 4 * 3,
-        borderRadius: width,
-        backgroundColor: Colors.darkBlue.hex,
+    header: {
+        backgroundColor: Colors.cream.hex,
     },
-    title: {
+    headerTitle: {
         fontFamily: Fonts.types.light,
         fontSize: Fonts.sizes.small,
-
+        color: Colors.darkBlue.hex
     }
 });
 

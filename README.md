@@ -14,6 +14,10 @@ Authored by Gunner Spencer
 	<td><a href="https://github.com/thegunner686/Slugline/tree/staging/lodgepole">lodgepole</a></td>
 	<td>Firebase Functions (Typescript)</td>
 </tr>
+<tr>
+	<td><a href="https://github.com/thegunner686/Slugline/tree/staging/ponderosa">ponderosa</a></td>
+	<td>Communication Dashboard</td>
+</tr>
 </table>
 
 ## Branches
@@ -49,8 +53,7 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 		<td>Week 1</td>
 		<td>
 			<ul>
-				<li>Finish design document, approve timeline & pricing</li>
-				<li>Contact the <a href="https://maps.ucsc.edu">maps team</a> </li>
+				<li>Initial Design Document & Timeline</li>
 			</ul>
 		</td>
 	</tr>
@@ -59,77 +62,64 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 		<td>
 			<ul>
 				<li>Migrate to bare project with <a href="https://rnfirebase.io/">RN Firebase</a></li>
-				<li>Establish database schema</li>
 				<li>Refactor <a href="https://github.com/thegunner686/UCSCHelpline">current codebase</a> into new project</li>
-				<li>Transactionize database logic & migrate business logic to Firebase Functions</li>
 			</ul>
 		</td>
 	</tr>
-	<tr>
-		<td><b>Milestone</b></td>
-		<td><b>App does everything it can in <a href="https://github.com/thegunner686/UCSCHelpline">V0.5</a>, the code is just much nicer and more organized with clear path forward to facilitate lightspeed production</b></td>
-	</tr>
-	<tr>
 		<td>Week 3</td>
 		<td>
 			<ul>
-				<li>Begin work on SL (Student Leader) routes</li>
-				<li>Auth roles & permissions</li>
-				<li>In-app intent resolution messaging</li>
+				<li>Transactionize database logic & migrate business logic to Firebase Functions</li>
+				<li>Continue refactoring and migrating code</li>
 			</ul>
 		</td>
+	</tr>
+	<tr>
+		<td><b>Pivot</b></td>
+		<td>
+			<b>
+				Pause in development to design on <a href="https://www.figma.com/files/project/29123312/V1?fuid=944441741646389839">Figma</a>
+			</b>
+		</td> 
 	</tr>
 	<tr>
 		<td>Week 4</td>
 		<td>
 			<ul>
-				<li>Complete SL routes</li>
-				<li>Auth rules testing</li>
-				<li>Data security & user anonymity</li>
+				<li>Lo-fi Figma Design</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Week 5</td>
+		<td>
+			<ul>
+				<li>Hi-fi Figma Design</li>
+				<li>Recalibrate timeline & strategy</li>
 			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td><b>Milestone</b></td>
 		<td>
-			<b>
-				In-App text communication between SLs and students is functional with proper data security and anonymity practices in place.
-			</b>
-		</td> 
-	</tr>
-	<tr>
-		<td>Week 5</td>
-		<td>
-			<ul>
-				<li>Begin work on custom in-app map using ucsc maps API*</li>
-				<li>Persisted location pinning (residence, personal points of interest, friends, clubs, classes, etc...)</li>
-			</ul>
-			*This is predicated upon gaining access to the API
+			Resume Development
 		</td>
 	</tr>
 	<tr>
 		<td>Week 6</td>
 		<td>
 			<ul>
-				<li>Interactive real-time SL pinning on students' map</li>
-				<li>Common location indexing & pinning / search</li>
+				<li>Build out all pages and routes</li>
+				<li>Create stylesheet based off of Figma design</li>
 			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td><b>Milestone</b></td>
-		<td>
-			<b>
-				Full navigation intent operability, map customizability, SL interaction via maps. At this point, app could launch.
-			</b>
 		</td>
 	</tr>
 	<tr>
 		<td>Week 7</td>
 		<td>
 			<ul>
-				<li>Intent aggregation & search indexing</li>
-				<li>Linking intent resolutions with proper support services as indicated</li>
+				<li>Style, animate, transition</li>
+				<li>Make user experience impeccable</li>
 			</ul>
 		</td>
 	</tr>
@@ -137,9 +127,17 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 		<td>Week 8</td>
 		<td>
 			<ul>
-				<li>Improve settings & onboarding flows</li>
-				<li>Add in-app bug-report capabilities</li>
-				<li>Shore up excess API & database calls, reduce load times</li>
+				<li>Make functional, connect backend</li>
+				<li>Build out scrappy dashboard to communicate with frontend users</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Week 9</td>
+		<td>
+			<ul>
+				<li>Continue integration, testing</li>
+				<li>Security rules</li>
 			</ul>
 		</td>
 	</tr>
@@ -148,17 +146,6 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 		<td><b>
 			V1 is ready for testing and iterating. Release app to Testflight for stakeholders & select SUA personnel.
 		</b></td>
-	</tr>
-	<tr>
-		<td>Week 9</td>
-		<td>
-			<ul>
-				<li>Catch-up time</li>
-				<li>Iterate based off of tester feedback</li>
-				<li>Android & IOS testing</li>
-				<li>Begin marketing & initial on-campus summer student selection</li>
-			</ul>
-		</td>
 	</tr>
 	<tr>
 		<td>Week 10</td>
@@ -200,5 +187,14 @@ Slugline is a play on the name Helpline, the H in the CHANGE platform of SUA Pre
 
 
 ## Pricing
+##### IOS Development License
+$100/year
+
+##### Google Play Store License
+$25 one-time
+
+##### Firebase Cloud Resources
 Not expecting this project to exceed the monthly free tier for [Google Firebase](https://firebase.google.com/pricing#blaze-calculator) in the year 2021.
+
+TODO: Worst-case-pricing scenario.
 

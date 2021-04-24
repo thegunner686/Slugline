@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         width: width / 4 * 3
     },
     button: {
-        backgroundColor: Colors.darkYellow.hex,
+        backgroundColor: Colors.darkBlue.hex,
         borderRadius: width,
         width: width / 4 * 3
     },

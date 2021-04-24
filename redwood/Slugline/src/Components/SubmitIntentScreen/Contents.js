@@ -22,7 +22,7 @@ function Contents(props) {
 
     return (
         <View style={[styles.container, {
-            backgroundColor: anonymous ? Colors.dark.hex : Colors.light.hex
+            backgroundColor: anonymous ? Colors.darkBlue.hex : Colors.light.hex
         }]}>
             <View style={styles.categoryContainer}>
                 <Icon
@@ -33,7 +33,7 @@ function Contents(props) {
                     color={category == "SolveIntent" ? Colors.yellow.hex : Colors.red.hex}
                 />
                 <Text style={[styles.title, {
-                    color: anonymous ? Colors.light.hex : Colors.dark.hex
+                    color: anonymous ? Colors.light.hex : Colors.darkBlue.hex
                 }]}>
                     {title}
                 </Text>
@@ -41,7 +41,7 @@ function Contents(props) {
             <View style={styles.contentContainer}>
                 
                 <Text style={[styles.body, {
-                    color: anonymous ? Colors.light.hex : Colors.dark.hex
+                    color: anonymous ? Colors.light.hex : Colors.darkBlue.hex
                 }]}>
                     {body}
                 </Text>
@@ -49,10 +49,10 @@ function Contents(props) {
             <View style={styles.bottomContainer}>
                 <View style={styles.profileContainer}>
                     <Text style={[styles.displayName, {
-                        color: anonymous ? Colors.light.hex : Colors.dark.hex
+                        color: anonymous ? Colors.light.hex : Colors.darkBlue.hex
                     }]}>From,</Text>
                     <Text style={[styles.displayName, {
-                        color: anonymous ? Colors.light.hex : Colors.dark.hex
+                        color: anonymous ? Colors.light.hex : Colors.darkBlue.hex
                     }]}>
                         {
                             anonymous ?
@@ -69,7 +69,6 @@ function Contents(props) {
                         title="Send it"
                         onPress={toggleOverlay}
                         disabled={disabled}
-                        raised={true}
                         icon={
                             <Icon
                                 name="send"

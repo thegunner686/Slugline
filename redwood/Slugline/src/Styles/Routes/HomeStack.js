@@ -12,7 +12,11 @@ const styles = StyleSheet.create({
         top: height / 15
     },
     header: {
-        backgroundColor: Colors.cream.hex
+        backgroundColor: Colors.cream.hex,
+        shadowColor: Colors.dark.hex,
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        borderRadius: 10,
     },
     headerTitle: {
         fontFamily: Fonts.types.light,

@@ -25,13 +25,13 @@ function IntentSubmitScreen(props) {
 
     let profile = useStore(state => state.profile)
 
-    let { category, title, body } = props.route.params;
+    let { title, body, category } = props.route.params;
 
     const toggleOverlay = async () => {
         setSending(true);
         setOverlayVisible(true);
         try {
-            await createIntent();
+            await createIntent(title, body, category, anonymous);
             setSending(false);
         } catch(e) {
             console.log(e);

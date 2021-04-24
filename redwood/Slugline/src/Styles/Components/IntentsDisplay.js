@@ -7,13 +7,11 @@ import { Colors, Fonts } from "../../stylesheet";
 
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: Colors.cream.rgba(0.5),
+    scrollView: {
         flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start"
+        paddingBottom: height / 10,
+        paddingTop: height / 20,
+        width
     }
 })
 export default styles;

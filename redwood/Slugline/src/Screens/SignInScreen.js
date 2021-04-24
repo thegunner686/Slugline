@@ -1,10 +1,12 @@
 import React from "react";
 
 import {
-    SafeAreaView,
     View,
     Text,
+    ImageBackground
 } from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
     Image,
@@ -16,7 +18,7 @@ import styles from "../Styles/Screens/SignInScreen";
 
 function SignInScreen() {
     return (
-        <SafeAreaView style={styles.container}>
+        <ImageBackground source={require("../../assets/SignInBackground.png")} style={styles.imageBackground}>
             <View style={styles.topContainer}>
                 <Image
                     style={styles.logo}
@@ -33,7 +35,7 @@ function SignInScreen() {
             <View style={styles.buttonsContainer}>
                 <SignInButton/>
             </View>
-        </SafeAreaView>
+        </ImageBackground>
     )
 }
 

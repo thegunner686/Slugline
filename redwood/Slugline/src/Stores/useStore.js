@@ -74,9 +74,6 @@ const useStore = create((set, get) => ({
     },
     uploadProfilePicture: async (filename, uri) => {
         let { uid } = get().user;
-        // let { uid } = this.firebaseUser;
-        // let res = await fetch(uri);
-        // let blob = await res.blob();
 
         let ref = storage().ref(`Users/${uid}/${filename}`);
 
@@ -169,9 +166,117 @@ const useStore = create((set, get) => ({
         get().removeProfileListener();
     },
 
+    // we should probably move some of this logic to a firebase function
     createIntent: async (title, body, category, anonymous) => {
+        let user = get().user;
+        if(user == null) throw "User not authenticated.";
+
+        if(category == null || category.trim() == "") throw "Category not set."
+
+        let { displayName, pronouns, photoURL, uid } = get().profile;
+
+        if(anonymous) {
+            displayName = "Anonymous Slug";
+            photoURL = "https://upload.wikimedia.org/wikipedia/commons/d/d8/SDS_UCSantaCruz_RedwoodSlug_WhiteGround.png"
+        }
+
+        // Batch write to multiple documents
+        let batch = firestore().batch();
+
+        let intent_ref = firestore().collection("Intents").doc();
+
+        let intent = {
+            id: intent_ref.id,
+            title,
+            category,
+            anonymous,
+            createdAt: firestore.FieldValue.serverTimestamp(),
+            received: true,
+            assigned: false,
+            resolved: false,
+        };
+
+        batch.set(intent_ref, intent);
         
+        let message_ref = intent_ref.collection("Messages").doc();
+        
+        let message = {
+            profile: {
+                uid,
+                photoURL,
+                displayName,
+                pronouns
+            },
+            body
+        };
+
+        batch.set(message_ref, message);
+        
+        let user_ref = firestore().collection("Users").doc(uid);
+
+        batch.update(user_ref,{
+            num_intents: firestore.FieldValue.increment(1),
+            intents: firestore.FieldValue.arrayUnion(intent_ref.id)
+        });
+
+        return batch.commit();
     },
+
+    resolveIntent: async (id, resolved) => {
+        return firestore().collection("Intents").doc(id).update({
+            resolved,
+        });
+    },
+
+    deleteIntent: async (id) => {
+        let { uid } = get().user;
+
+        // batch write to multiple documents
+        let batch = firestore().batch();
+
+        let intent_ref = firestore().collection("Intents").doc(id);
+        
+        batch.delete(intent_ref);
+
+        let user_ref = firestore().collection("Users").doc(uid);
+
+        batch.update(user_ref, {
+            num_intents: firestore.FieldValue.increment(-1),
+            intents: firestore.FieldValue.arrayRemove(id)
+        });
+
+        return batch.commit();
+    },
+
+    fetchIntents: async () => {
+        try {
+            let profile = get().profile;
+
+            if(profile == null) return;
+
+            let promises = profile.intents.map(id => firestore().collection("Intents").doc(id).get())
+            return (await Promise.all(promises)).map(doc => doc.data())
+        } catch(e) {
+            console.log(e);
+        }
+    },
+
+    attachMessagesListenerForIntent: async (id, handler, errorHandler = (e) => console.log(e)) => {
+        return firestore().collection("Intents").doc(id).collection("Messages").onSnapshot(snapshot => {
+            let docs = []
+            snapshot.forEach((doc) => {
+                docs.push(doc.data());
+            });
+            handler(docs);
+        }, errorHandler);
+    },
+
+    // incomplete
+    attachIntentListener: (id, handler, errorHandler = (e) => console.log(e)) => {
+        return firestore().collection("Intents").doc(id).onSnapshot(snapshot => {
+            handler(snapshot.data());
+        }, errorHandler);
+    }
 }));
 
 export { useStore };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     SafeAreaView,
@@ -7,14 +7,18 @@ import {
 } from "react-native";
 
 import styles from "../../Styles/Screens/Authenticated/HomeScreen";
+
 import CreateIntentButton from "../../Components/CreateIntentButton";
 
+import IntentsDisplay from "../../Components/IntentsDisplay";
+
+import { useStore } from "../../Stores/useStore";
+
 function HomeScreen(props) {
+
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.mapContainer}>
-                <Text>Map Placeholder</Text>
-            </View>
+            <IntentsDisplay/>
             <CreateIntentButton
                 {...props}
             />

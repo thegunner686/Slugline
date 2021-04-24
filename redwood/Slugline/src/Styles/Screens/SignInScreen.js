@@ -7,8 +7,12 @@ import { Colors, Fonts } from "../stylesheet";
 
 let { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
+    imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+    },
     container: {
-        backgroundColor: Colors.cream.hex,
         width,
         height,
         display: "flex",
