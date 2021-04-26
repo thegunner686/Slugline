@@ -1,36 +1,42 @@
 import React from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+    createStackNavigator
+} from "@react-navigation/stack";
 
-import HomeStack from "./HomeStack";
-import IntentStack from "./IntentStack";
+// Tabs
+import BottomTabs from "./BottomTabs";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 function AuthenticatedStack(props) {
     return (
         <Stack.Navigator
-            options={{
-                headerShown: false,
+            screenOptions={{
+                headerShown: false
             }}
-            mode="modal"
         >
             <Stack.Screen
-                name="HomeStack"
-                options={{
-                    headerShown: false
-                }}
-                children={(props) => <HomeStack {...props} /> }
+                name="Solve"
+                component={BottomTabs}
             />
+
             <Stack.Screen
-                name="IntentStack"
-                options={{
-                    headerShown: false
-                }}
-                children={(props) => <IntentStack {...props} /> }
+                name="Navigate"
+                component={BottomTabs}
             />
-      </Stack.Navigator>
-    )
+
+            <Stack.Screen
+                name="Report"
+                component={BottomTabs}
+            />
+
+            <Stack.Screen
+                name="Profile"
+                component={BottomTabs}
+            />
+        </Stack.Navigator>
+    );
 }
 
 export default AuthenticatedStack;

@@ -7,6 +7,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:666812137857:android:7f1d0f5a1cd38993f1e880",
+        "android_client_info": {
+          "package_name": "com.slugline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666812137857-1t8ro0of3autasothek7ib88s0k6qt2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.slugline",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "666812137857-bdo9lhprvhi1u5b76e6oju6e1444kqi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdvh6LSbcjC7J0U50TsARqx3V0mM6pQq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666812137857-bdo9lhprvhi1u5b76e6oju6e1444kqi3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "666812137857-7dubgt80mtsiedp7ifgnt15cf7cnmc4v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "edu.ucsc.staging.Slugline"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:666812137857:android:b2cfc8a92e4a13c1f1e880",
         "android_client_info": {
           "package_name": "edu.ucsc.staging.Slugline"

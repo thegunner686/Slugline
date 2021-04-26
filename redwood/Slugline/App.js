@@ -2,22 +2,15 @@ import 'react-native-gesture-handler';
 
 import React, { useEffect, useState } from 'react';
 
-import {
-  SafeAreaView,
-  View,
-  Text,
-} from 'react-native';
-
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 // Routes
-import SignInStack from "./src/Routes/SignInStack";
-import AuthenticatedStack from "./src/Routes/AuthenticatedStack";
-import OnboardingStack from "./src/Routes/OnboardingStack";
+import SignInStack from "./src/routes/SignInStack";
+import AuthenticatedStack from "./src/routes/AuthenticatedStack";
+import OnboardingStack from "./src/routes/OnboardingStack";
 
-import { useStore } from "./src/Stores/useStore";
+import { useStore } from "./src/useStore";
 import shallow from "zustand/shallow";
 
 function App() {

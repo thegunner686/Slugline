@@ -644,8 +644,10 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.0.0):
+  - RNScreens (3.1.1):
     - React-Core
+  - RNSharedElement (0.7.0):
+    - React
   - RNVectorIcons (8.1.0):
     - React-Core
   - Yoga (1.14.0)
@@ -692,6 +694,7 @@ DEPENDENCIES:
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -795,6 +798,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSharedElement:
+    :path: "../node_modules/react-native-shared-element"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -858,10 +863,11 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNGoogleSignin: 111fd4792913208f338fe3178005f7a22e490ff9
   RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
-  RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
+  RNScreens: bd1523c3bde7069b8e958e5a16e1fc7722ad0bdd
+  RNSharedElement: 00b1a1420d213a34459bb9a5aacabb38107d7948
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
 
-PODFILE CHECKSUM: 963981654498fd922a55a3080988331a21f89238
+PODFILE CHECKSUM: 8c48a4c7c1c350e48bc2dd5af8a373662c6604ed
 
 COCOAPODS: 1.10.1

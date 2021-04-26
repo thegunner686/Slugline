@@ -1,18 +1,23 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 
-import OnboardingScreen from "../Screens/Authenticated/OnboardingScreen";
+import {
+    createStackNavigator
+} from "@react-navigation/stack";
 
-let Stack = createStackNavigator();
+// Screen
+import OnboardingScreen from "../screens/OnboardingScreen";
 
-function OnboardingStack() {
+const Stack = createStackNavigator()
+
+function OnboardingStack(props) {
     return (
-        <Stack.Navigator screenOptions={{
-            headerShown: false
-        }}>
-            <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Onboarding"
+                component={OnboardingScreen}
+            />
         </Stack.Navigator>
-    )
+    );
 }
 
 export default OnboardingStack;
