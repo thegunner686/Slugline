@@ -14,6 +14,7 @@ import {
 
 import {
     Button,
+    colors,
     Icon,
     Image,
     Input

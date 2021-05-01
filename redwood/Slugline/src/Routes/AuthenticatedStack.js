@@ -4,10 +4,41 @@ import {
     createStackNavigator
 } from "@react-navigation/stack";
 
+import {
+    Icon
+} from "react-native-elements";
+
 // Tabs
 import BottomTabs from "./BottomTabs";
 
+// Screens
+import SolveSearchScreen from "../screens/SolveSearchScreen";
+import CampusUpdateDetailsScreen from "../screens/CampusUpdateDetailsScreen"
+
+import { Colors, Fonts } from "../stylesheet";
+
 const Stack = createStackNavigator()
+
+// Fade In Transition
+const FadeInTransition = {
+    transitionSpec: {
+        open: {
+            animation: "timing",
+            config: { duration: 200 }
+        },
+        close: {
+            animation: "timing",
+            config: { duration: 200 }
+        }
+    },
+    cardStyleInterpolator: ({ current: { progress }}) => {
+        return {
+            cardStyle: {
+                opacity: progress
+            }
+        }
+    }
+}
 
 function AuthenticatedStack(props) {
     return (
@@ -19,6 +50,19 @@ function AuthenticatedStack(props) {
             <Stack.Screen
                 name="Solve"
                 component={BottomTabs}
+            />
+
+            <Stack.Screen
+                name="SolveSearch"
+                component={SolveSearchScreen}
+                options={{
+                    ...FadeInTransition
+                }}
+            />
+
+            <Stack.Screen
+                name="CampusUpdateDetails"
+                component={CampusUpdateDetailsScreen}
             />
 
             <Stack.Screen

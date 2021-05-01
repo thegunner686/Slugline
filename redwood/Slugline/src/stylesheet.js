@@ -194,9 +194,15 @@ let sizes = {
     Title: 64,
     Header: 36,
     SubHeader: 18,
-    Paragraph: 14,
-    Label: 12,
-    Tiny: 10,
+    Paragraph: 12,
+    Label: 10,
+    Tiny: 8,
+    Icon1: 64,
+    Icon2: 48,
+    Icon3: 36,
+    Icon4: 24,
+    Icon5: 18,
+    Icon6: 12
 }
 
 const Fonts = {
@@ -361,11 +367,20 @@ const Shadow = {
     top: {
         shadowColor: Colors.Black.hex,
         shadowOpacity: 1,
-        shadowRadius: 2,
+        shadowRadius: 5,
         shadowOffset: {
             x: 0,
-            y: -5
-        }
+            y: -5,
+        },
+    },
+    bottom: {
+        shadowColor: Colors.Red3.hex,
+        shadowOpacity: 1,
+        shadowRadius: 5,
+        shadowOffset: {
+            x: 0,
+            y: 5,
+        },
     }
 }
 
