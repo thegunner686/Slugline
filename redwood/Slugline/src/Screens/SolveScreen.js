@@ -163,7 +163,8 @@ function SolveScreen(props) {
             }}>
                 <ScrollView 
                     style={{
-                        padding: 10
+                        padding: 10,
+                        paddingTop: 5
                     }}
                     onScrollBeginDrag={() => {
                         modalRef.current?.open()

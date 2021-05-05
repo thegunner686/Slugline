@@ -47,7 +47,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>We use the user&apos;s location to display it on a map so they are able to see themselves in relation to the rest of the campus and navigate properly.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fonts/Feather.ttf</string>
@@ -93,9 +93,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSCameraUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

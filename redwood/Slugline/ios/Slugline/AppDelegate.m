@@ -24,10 +24,14 @@ static void InitializeFlipper(UIApplication *application) {
 }
 #endif
 
+#import <GoogleMaps/GoogleMaps.h>
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyB90BGgZReBG5n9wvTPHyRxCKkTTUInv7k"]; // add this line using the api key obtained from Google Console
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }

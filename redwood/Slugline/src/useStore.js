@@ -15,6 +15,34 @@ GoogleSignin.configure({
 });
 
 const useStore = create((set, get) => ({
+
+    // fake data & stuff
+    bookmarks: [],
+    createBookmark: (bookmark) => {
+        set(state => ({ 
+            bookmarks: [
+                ...state.bookmarks,
+                bookmark
+            ]
+        }))
+    },
+    updateBookmark: (id, data) => {
+        let bookmarks = get().bookmarks;
+        let index = bookmarks.findIndex(bk => bk.id == id);
+        if(index == -1) return false;
+
+        for(let field in data) {
+            bookmarks[index][field] = data[field];
+        }
+
+        set(state => ({ bookmarks }))
+    },
+    deleteBookmark: (id) => {
+        set(state => ({ 
+            bookmarks: state.bookmarks.filter(bookmark => bookmark.id != id)
+        }));
+    },
+
     user: null,
     setUser: (user) => set(state => ({ user })),
 
