@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import {
     View,
@@ -8,7 +8,9 @@ import {
 
 import {
     Overlay,
-    Input
+    Input,
+    Button,
+    Icon
 } from "react-native-elements"
 
 import { useStore } from "../../useStore";
@@ -20,7 +22,6 @@ const color_choices = [
     Colors.Red4,
     Colors.Yellow4,
     Colors.Green4,
-    Colors.Grey3
 ];
 
 function ColorChoice({ color, selected, setSelected}) {
@@ -32,7 +33,31 @@ function ColorChoice({ color, selected, setSelected}) {
             <View style={{
                 width: size,
                 height: size,
-                borderRadius: size,
+                borderRadius: size / 4,
+                borderColor: rgba(Colors.Grey1, 0.2),
+                borderWidth: selected == color ? 5 : 0,
+                backgroundColor: color == null ? Colors.Grey3.rgb : color.rgb
+            }}>
+
+            </View>
+        </TouchableOpacity>
+    )
+}
+
+function RandomColorChoice({ selected, setSelected }) {
+    let [color, setColor] = useState(Colors.Random())
+    const size = 40;
+    return (
+        <TouchableOpacity
+            onPress={() => {
+                setSelected(color);
+                setColor(Colors.Random())
+            }}
+        >
+            <View style={{
+                width: size,
+                height: size,
+                borderRadius: size / 4,
                 borderColor: rgba(Colors.Grey1, 0.2),
                 borderWidth: selected == color ? 5 : 0,
                 backgroundColor: color.rgb
@@ -43,10 +68,73 @@ function ColorChoice({ color, selected, setSelected}) {
     )
 }
 
+function DeleteButton({ onPress }) {
+    return (
+        <TouchableOpacity 
+            style={{
+                position: "absolute",
+                right: -10,
+                top: -10,
+                width: 35,
+                height: 35,
+                backgroundColor: Colors.Black.rgb,
+                borderRadius: 35,
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 10
+            }}
+            onPress={onPress}
+        >
+            <Icon
+                name="delete-forever"
+                type="material"
+                size={sizes.Icon4}
+                color={Colors.White.rgb}
+            />
+        </TouchableOpacity>
+    )
+}
+
+function SaveButton({ onPress }) {
+    return (
+        <TouchableOpacity 
+            style={{
+                position: "absolute",
+                right: -10,
+                bottom: -10,
+                width: 35,
+                height: 35,
+                backgroundColor: Colors.Blue3.rgb,
+                borderRadius: 35,
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 10
+            }}
+            onPress={onPress}
+        >
+            <Icon
+                name="done"
+                type="material"
+                size={sizes.Icon4}
+                color={Colors.White.rgb}
+            />
+        </TouchableOpacity>
+    )
+}
+
 function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
-    let [updateBookmark] = useStore(state => [state.updateBookmark]);
+    // state
+    let [updateBookmark, deleteBookmark] = useStore(state => [state.updateBookmark, state.deleteBookmark]);
     let [name, setName] = useState(selectedBookmark?.name);
     let [description, setDescription] = useState(selectedBookmark?.description);
+    let [initialColor, setInitialColor] = useState(selectedBookmark?.color);
+
+    // refs
+    let nameInputRef = useRef(null);
+
+    useEffect(() => {
+        setInitialColor(selectedBookmark?.color);
+    }, [selectedBookmark?.id]);
 
     useEffect(() => {
         setName(selectedBookmark?.name);
@@ -57,24 +145,40 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
         updateBookmark(selectedBookmark?.id, { color });
     };
 
-    const onEditEnd = () => {
+    const onSavePress = () => {
+        if(name.trim() == "") {
+            nameInputRef.current?.shake();
+            return;
+        }
+
         updateBookmark(selectedBookmark?.id, {
             name,
             description
         });
+
+        onBackdropPress();
     };
+
+    const onDeletePress = () => {
+        deleteBookmark(selectedBookmark?.id);
+        onBackdropPress();
+    };
+
+    const onCancel = () => {
+        if(selectedBookmark?.name.trim() == "" && name.trim() == "") {
+            deleteBookmark(selectedBookmark?.id);
+        }
+        onBackdropPress();
+    }
 
     return (
         <Overlay 
             animationType="fade"
             isVisible={selectedBookmark != null}
-            onBackdropPress={() => {
-                onEditEnd();
-                onBackdropPress();
-            }}
+            onBackdropPress={onCancel}
             overlayStyle={{
                 width: width / 4 * 3.5,
-                height: height / 3,
+                height: height / 10 * 3,
                 backgroundColor: Colors.White.rgb,
                 position: "absolute",
                 top: height / 10,
@@ -83,37 +187,37 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
                 borderBottomWidth: 5,
             }}
             backdropStyle={{
-                backgroundColor: selectedBookmark?.color?.rgb,
-                opacity: 0
+                backgroundColor: Colors.White.rgb,
+                opacity: 0.4
             }}
-        >
+        >   
+            <DeleteButton onPress={onDeletePress}/>
             <Input
                 containerStyle={{ paddingLeft: 0 }}
-                label="Name"
+                label="Name (Required)"
                 labelStyle={Fonts.Label5}
                 placeholder="Bookmark name"
                 inputStyle={Fonts.Paragraph3}
-                onChangeText={(value) => {
-                    console.log(value)
-                    setName(value);
-                }}
+                onChangeText={setName}
                 value={name}
                 autoFocus
+                ref={nameInputRef}
+                clearButtonMode="while-editing"
             />
             <Input
                 containerStyle={{ paddingLeft: 0 }}
-                label="Description"
+                label="Description (Optional)"
                 labelStyle={Fonts.Label5}
                 placeholder="Bookmark description (optional)"
                 onChangeText={setDescription}
                 value={description}
                 inputStyle={Fonts.Paragraph3}
+                clearButtonMode="while-editing"
             />
             <View style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
                 padding: 5,
-                margin: 5
             }}>
                 {
                     color_choices.map((color) => (
@@ -125,8 +229,13 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
                         />
                     ))
                 }
+                <ColorChoice color={initialColor} selected={selectedBookmark?.color} setSelected={setColor} />
+                <RandomColorChoice selected={selectedBookmark?.color} setSelected={setColor} />
             </View>
-            <Text style={Fonts.Label4}>To move a pin, hold down and drag to a new location.</Text>
+            <Text style={{
+                ...Fonts.Label2
+            }}>To move a pin, tap on it, then hold down and drag to a new location.</Text>
+            <SaveButton onPress={onSavePress} />
         </Overlay>
     )
 }

@@ -55,11 +55,14 @@ function NavigateScreen(props) {
 
     // STORE STUFF
     let bookmarks = useStore(state => state.bookmarks);
-    let [createBookmark] = useStore(state => [state.createBookmark])
+    let [createBookmark, saveBookmarks] = useStore(state => 
+        [state.createBookmark, state.saveBookmarks]);
+
 
     // REFS
     const mapRef = useRef(null);
     const bookmarksModalRef = useRef(null);
+    const bookmarksFlatListRef = useRef(null);
 
     // HELPER FUNCTIONS
     const animateToAboveCoordinate = (coordinate) => {
@@ -81,7 +84,7 @@ function NavigateScreen(props) {
             name: "",
             description: "",
             coordinate,
-            color: Colors.Red3
+            color: Colors.Red4
         };
 
         // add to zustand store
@@ -94,9 +97,12 @@ function NavigateScreen(props) {
         setSelectedBookmark(bookmark);
     };
 
-    const onBookmarkPress = (id) => {
-        // scroll to the index in the locations flat list
-        console.log("ok pressed", id)
+    const onBookmarkPress = (bookmark) => {
+        // scroll to the item in the locations flat list
+        bookmarksFlatListRef.current?.scrollToItem({
+            animated: true,
+            item: bookmark
+        });
     };
 
     const onLookupLocationPress = (data, details) => {
@@ -113,7 +119,7 @@ function NavigateScreen(props) {
                 latitude: details.geometry.location.lat,
                 longitude: details.geometry.location.lng
             },
-            color: Colors.Green3
+            color: Colors.Green4
         };
         createBookmark(bookmark);
         animateToAboveCoordinate(bookmark.coordinate);
@@ -125,7 +131,16 @@ function NavigateScreen(props) {
         
         animateToAboveCoordinate(bookmark.coordinate);
         setSelectedBookmark(bookmark);
-    }
+    };
+
+    const onLocationEditEnd = () => {
+        setSelectedBookmark(null);
+        saveBookmarks();
+    };
+
+    const onScrollToBookmarkedLocation = (bookmark) => {
+        animateToAboveCoordinate(bookmark.coordinate);
+    };
 
     return (
         <>
@@ -140,15 +155,24 @@ function NavigateScreen(props) {
             location_coordinate={UCSC_COORDS}
             onPress={onLookupLocationPress}
         />
-        <BookmarkedLocationsHorizontalList/>
-        <BookmarkedLocationsFooter
-            openModal={() => {
-                bookmarksModalRef.current?.open();
-            }}
-            closeModal={() => {
-                bookmarksModalRef.current?.close();
-            }}
-        />
+        <View style={{
+            position: "absolute",
+            bottom: 0,
+        }}>
+            <BookmarkedLocationsHorizontalList
+                onScrollToItem={onScrollToBookmarkedLocation}
+                ref={bookmarksFlatListRef}
+                bookmarks={bookmarks}
+            />
+            <BookmarkedLocationsFooter
+                openModal={() => {
+                    bookmarksModalRef.current?.open();
+                }}
+                closeModal={() => {
+                    bookmarksModalRef.current?.close();
+                }}
+            />
+        </View>
         <BookmarkedLocationsModal 
             bookmarks={bookmarks}
             onBookmarkPress={onBookmarkListItemPress}
@@ -156,9 +180,7 @@ function NavigateScreen(props) {
         />
         <BookmarkedLocationEditModal
             selectedBookmark={selectedBookmark}
-            onBackdropPress={() => {
-                setSelectedBookmark(null)
-            }}
+            onBackdropPress={onLocationEditEnd}
         />
         </>
     )

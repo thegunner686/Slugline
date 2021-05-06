@@ -42,6 +42,9 @@ const useStore = create((set, get) => ({
             bookmarks: state.bookmarks.filter(bookmark => bookmark.id != id)
         }));
     },
+    saveBookmarks: (id) => {
+        // updates the bookmarks in firebase for this user
+    },
 
     user: null,
     setUser: (user) => set(state => ({ user })),

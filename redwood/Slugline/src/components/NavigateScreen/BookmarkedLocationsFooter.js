@@ -18,8 +18,6 @@ function BookmarkedLocationsFooter({ closeModal, openModal }) {
             height: 100,
             borderTopLeftRadius: 40,
             borderTopRightRadius: 40,
-            position: "absolute",
-            bottom: 0,
             ...Shadow.top
         }}>
             <ScrollView 
