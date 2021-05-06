@@ -53,11 +53,28 @@ function ColorChoice({ color, selected, setSelected}) {
 
 function RandomColorChoice({ selected, setSelected }) {
     let [color, setColor] = useState(Colors.Random())
+    let [previousColor, setPreviousColor] = useState(color);
+    let [isSelected, setIsSelected] = useState(false);
+
+    useEffect(() => {
+        if(selected == previousColor) {
+            setIsSelected(true);
+        } else {
+            setIsSelected(false);
+        }
+    }, [selected]);
+
     const size = 40;
     return (
         <TouchableOpacity
             onPress={() => {
+                if(!isSelected) {
+                    setSelected(previousColor);
+                    setColor(Colors.Random())
+                    return;
+                }
                 setSelected(color);
+                setPreviousColor(color);
                 setColor(Colors.Random())
             }}
         >
@@ -66,10 +83,16 @@ function RandomColorChoice({ selected, setSelected }) {
                 height: size,
                 borderRadius: size / 4,
                 borderColor: rgba(Colors.Grey1, 0.2),
-                borderWidth: selected == color ? 5 : 0,
-                backgroundColor: color.rgb
+                borderWidth: selected == previousColor ? 5 : 0,
+                backgroundColor: previousColor.rgb,
+                alignItems: "center",
+                justifyContent: "center"
             }}>
-
+                <Icon 
+                    name="color-lens"
+                    type="material"
+                    color={Colors.White.rgb}
+                />
             </View>
         </TouchableOpacity>
     )
