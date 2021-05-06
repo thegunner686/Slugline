@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import {
     Icon
@@ -17,13 +17,14 @@ const haptic_options = {
     ignoreAndroidSystemSettings: false
 };
 
+
 function BookmarkedLocationMarker({ bookmark, onPress }) {
     let { id, coordinate, color } = bookmark;
     let [updateBookmark, saveBookmarks] = useStore(state => [state.updateBookmark, state.saveBookmarks]);
+
     return (
         <Marker 
             draggable
-            title={bookmark.name}
             coordinate={coordinate}
             onDragStart={() => {
                 ReactNativeHapticFeedback.trigger("impactHeavy", haptic_options)

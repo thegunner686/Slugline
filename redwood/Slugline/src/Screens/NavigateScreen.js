@@ -14,6 +14,7 @@ import BookmarkedLocationsModal from "../components/NavigateScreen/BookmarkedLoc
 import BookmarkedLocationEditModal from "../components/NavigateScreen/BookmarkedLocationEditModal";
 import LocationLookupInput from "../components/NavigateScreen/LocationLookupInput";
 import LocationMap from "../components/NavigateScreen/LocationMap";
+import { getLocation } from "../components/NavigateScreen/LocationServices";
 
 import { width, height, Colors, Fonts, Shadow, sizes } from "../stylesheet"
 
@@ -149,22 +150,34 @@ function NavigateScreen(props) {
     };
 
     const onAddBookmarkPress = () => {
-        let bookmark = {
-            id: random_id(),
-            name: "",
-            description: "",
-            coordinate: UCSC_COORDS,
-            color: Colors.Red4
-        };
-
-        // add to zustand store
-        createBookmark(bookmark);
-
-        // animate to location
-        animateToAboveCoordinate(bookmark.coordinate);
-
-        // toggle edit modal
-        setSelectedBookmark(bookmark);
+        bookmarksModalRef.current?.close();
+        const _add = (coordinate) => {
+            let bookmark = {
+                id: random_id(),
+                name: "",
+                description: "",
+                coordinate: coordinate == null ? UCSC_COORDS : coordinate,
+                color: Colors.Red4
+            };
+    
+            // add to zustand store
+            createBookmark(bookmark);
+    
+            // animate to location
+            animateToAboveCoordinate(bookmark.coordinate);
+    
+            // toggle edit modal
+            setSelectedBookmark(bookmark);
+        }
+        getLocation((location) => {
+            _add({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            });
+        }, (error) => {
+            _add();
+            console.log(error);
+        });
     };
 
     return (

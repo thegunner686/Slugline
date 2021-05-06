@@ -11,7 +11,7 @@ import {
 
 import { Colors, Fonts, sizes, width, height, Shadow } from "../../stylesheet";
 
-function BookmarkedLocationsHeader({ open, createLocation, onPress, onAddBookmarkPress }) {
+function BookmarkedLocationsHeader({ open, onPress, onAddBookmarkPress }) {
     return (
         <>
             <Icon 
@@ -37,7 +37,9 @@ function BookmarkedLocationsHeader({ open, createLocation, onPress, onAddBookmar
                         type="material"
                         color={Colors.Red3.rgb}
                         size={36}
-                        onPress={onAddBookmarkPress}
+                        onPress={() => {
+                            onAddBookmarkPress();
+                        }}
                     />
                 </View>
             </View>

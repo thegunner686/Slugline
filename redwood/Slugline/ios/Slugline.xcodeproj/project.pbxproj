@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		160BDE37264386C90002DB3D /* ForReactNativeGeolocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BDE36264386C90002DB3D /* ForReactNativeGeolocationService.swift */; };
 		1618C05F26374C8600E02958 /* Ranga-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1618C05426374AC700E02958 /* Ranga-Regular.ttf */; };
 		1618C06026374C8800E02958 /* Ranga-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1618C05326374AC700E02958 /* Ranga-Bold.ttf */; };
 		163C76012618047600C51261 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 163C76002618047600C51261 /* GoogleService-Info.plist */; };
@@ -44,6 +45,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Slugline/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Slugline/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Slugline/main.m; sourceTree = "<group>"; };
+		160BDE35264386C90002DB3D /* Slugline-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Slugline-Bridging-Header.h"; sourceTree = "<group>"; };
+		160BDE36264386C90002DB3D /* ForReactNativeGeolocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForReactNativeGeolocationService.swift; sourceTree = "<group>"; };
 		1618C05326374AC700E02958 /* Ranga-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ranga-Bold.ttf"; sourceTree = "<group>"; };
 		1618C05426374AC700E02958 /* Ranga-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ranga-Regular.ttf"; sourceTree = "<group>"; };
 		163C76002618047600C51261 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -114,10 +117,12 @@
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				160BDE36264386C90002DB3D /* ForReactNativeGeolocationService.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				160BDE35264386C90002DB3D /* Slugline-Bridging-Header.h */,
 			);
 			name = Slugline;
 			sourceTree = "<group>";
@@ -262,7 +267,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -450,6 +455,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				160BDE37264386C90002DB3D /* ForReactNativeGeolocationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1052C64366F729106DE5824 /* Pods-Slugline-SluglineTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -495,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 19EAC031A9050F3B2CA15C6D /* Pods-Slugline-SluglineTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = SluglineTests/Info.plist;
@@ -535,6 +543,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsc.staging.Slugline;
 				PRODUCT_NAME = Slugline;
+				SWIFT_OBJC_BRIDGING_HEADER = "Slugline-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -560,6 +569,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ucsc.staging.Slugline;
 				PRODUCT_NAME = Slugline;
+				SWIFT_OBJC_BRIDGING_HEADER = "Slugline-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
