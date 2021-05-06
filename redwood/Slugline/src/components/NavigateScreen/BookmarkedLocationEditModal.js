@@ -245,7 +245,10 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
                         />
                     ))
                 }
-                <ColorChoice color={initialColor} selected={selectedBookmark?.color} setSelected={setColor} />
+                {
+                    color_choices.includes(initialColor) ? null : 
+                    <ColorChoice color={initialColor} selected={selectedBookmark?.color} setSelected={setColor} />
+                }
                 <RandomColorChoice selected={selectedBookmark?.color} setSelected={setColor} />
             </View>
             <Text style={{

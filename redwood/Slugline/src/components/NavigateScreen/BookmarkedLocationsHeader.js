@@ -21,7 +21,7 @@ function BookmarkedLocationsHeader({ open, onPress, onAddBookmarkPress }) {
                 onPress={onPress}
              />
             <View style={{ flexDirection: "row"}}>
-                <View style={{ flex: 3}}>
+                <View style={{ flex: 5}}>
                     <Text style={{
                         ...Fonts.SubHeader1,
                         marginBottom: 5,
@@ -29,7 +29,7 @@ function BookmarkedLocationsHeader({ open, onPress, onAddBookmarkPress }) {
                     <Text style={{
                         ...Fonts.Paragraph5
                     }}>
-                    Press and hold on the screen to bookmark a new location or click the button on the right.                    </Text>
+                    Press and hold on the screen to bookmark a new location or click the button on the right to use your current location.                    </Text>
                 </View>
                 <View style={{ flex: 1}}>
                     <Icon

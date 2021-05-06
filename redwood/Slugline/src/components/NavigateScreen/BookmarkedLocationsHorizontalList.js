@@ -91,8 +91,7 @@ function BookmarkedLocationFlatlistItem({ bookmark, onEditPress }) {
                 <TouchableOpacity onPress={onDirectionsHerePress}>
                     <Text style={{
                         color: Colors.Blue4.rgb,
-                        ...Fonts.Paragraph4,
-                        marginTop: 5,
+                        ...Fonts.Paragraph4
                     }}>Directions Here</Text>
                 </TouchableOpacity>
             </View>

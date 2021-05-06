@@ -2,9 +2,6 @@ import React, { useState, useRef } from "react";
 
 import {
     View,
-    Text,
-    ScrollView,
-    TouchableOpacity
 } from "react-native"
 
 // Components
@@ -104,7 +101,7 @@ function NavigateScreen(props) {
 
     const onBookmarkPress = (bookmark) => {
         // scroll to the item in the locations flat list
-        animateToAboveCoordinate(bookmark.coordinate)
+        // animateToAboveCoordinate(bookmark.coordinate)
         scrollToBookmark(bookmark);
     };
 
@@ -132,7 +129,7 @@ function NavigateScreen(props) {
     const onBookmarkListItemPress = (bookmark) => {
         bookmarksModalRef.current?.close();
         
-        animateToAboveCoordinate(bookmark.coordinate);
+        // animateToAboveCoordinate(bookmark.coordinate);
         scrollToBookmark(bookmark);
     };
 
@@ -142,6 +139,7 @@ function NavigateScreen(props) {
     };
 
     const onEditPress = (bookmark) => {
+        animateToAboveCoordinate(bookmark.coordinate);
         setSelectedBookmark(bookmark);
     };
 
