@@ -4,11 +4,16 @@ import {
     View
 } from "react-native";
 
+import {
+    Icon,
+    Input
+} from "react-native-elements";
+
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import { width, height, Colors, Fonts } from "../../stylesheet";
 
-function LocationLookupInput({ onPress, location_coordinate }) {
+function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
     let { latitude, longitude } = location_coordinate;
     return (
         <View style={{ 

@@ -11,9 +11,45 @@ import {
     Icon
 } from "react-native-elements";
 
+import openMap from 'react-native-open-maps';
+
 import { width, height, Colors, Shadow, sizes, Fonts } from "../../stylesheet";
 
-function BookmarkedLocationFlatlistItem({ bookmark }) {
+function EditButton({ onPress }) {
+
+    return (
+        <TouchableOpacity 
+            style={{
+                width: 35,
+                height: 35,
+                borderRadius: 35,
+                position: "absolute",
+                zIndex: 50,
+                right: 0,
+                top: 0,
+                alignItems: "center",
+                justifyContent: "center"
+            }}
+            onPress={onPress}
+        >
+            <Icon
+                name="edit"
+                type="material"
+                color={Colors.Blue3.rgb}
+            />
+        </TouchableOpacity>
+    )
+}
+
+function BookmarkedLocationFlatlistItem({ bookmark, onEditPress }) {
+
+    const onDirectionsHerePress = () => {
+        openMap({
+            ...bookmark.coordinate,
+            query: bookmark.name
+        });
+    };
+
     return (
         <View style={{
             width: width / 4 * 3.5,
@@ -22,7 +58,7 @@ function BookmarkedLocationFlatlistItem({ bookmark }) {
             marginRight: width / 4 * 0.25,
             backgroundColor: Colors.White.rgb,
             borderColor: bookmark.color.rgb,
-            borderBottomWidth: 5,
+            // borderBottomWidth: 5,
             borderRadius: 10,
             shadowColor: Colors.Black.rgb,
             shadowOpacity: 0.3,
@@ -34,8 +70,10 @@ function BookmarkedLocationFlatlistItem({ bookmark }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            flexDirection: "row"
+            flexDirection: "row",
+            overflow: "visible"
         }}>
+            <EditButton onPress={() => { onEditPress(bookmark) } } />
             <Icon 
                 name="location-pin"
                 type="material"
@@ -50,7 +88,7 @@ function BookmarkedLocationFlatlistItem({ bookmark }) {
             }}>
                 <Text style={Fonts.SubHeader2}>{bookmark.name}</Text>
                 <Text style={Fonts.Paragraph4}>{bookmark.description}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onDirectionsHerePress}>
                     <Text style={{
                         color: Colors.Blue4.rgb,
                         ...Fonts.Paragraph4,
@@ -62,7 +100,7 @@ function BookmarkedLocationFlatlistItem({ bookmark }) {
     )
 }
 
-const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrollToItem }, ref) => {
+const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrollToItem, onEditPress }, ref) => {
     const onViewableItemsChangedRef = useRef(({ viewableItems, changed}) => {
         if(viewableItems.length == 0) return;
         let { item } = viewableItems[0];
@@ -76,7 +114,8 @@ const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrol
         <View style={{
             width,
             height: height / 10 + 5,
-            marginBottom: 10
+            marginBottom: 10,
+            overflow: "visible",
         }}>
             <FlatList
                 horizontal={true}
@@ -88,7 +127,10 @@ const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrol
                 decelerationRate="fast"
                 data={bookmarks}
                 renderItem={({ item }) => (
-                    <BookmarkedLocationFlatlistItem bookmark={item}/>
+                    <BookmarkedLocationFlatlistItem
+                        onEditPress={onEditPress} 
+                        bookmark={item}
+                    />
                 )}
                 keyExtractor={item => item.id}
             />

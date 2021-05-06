@@ -10,7 +10,7 @@ import BookmarkedLocationsHeader from "./BookmarkedLocationsHeader";
 
 import { width, height, Colors, Fonts, Shadow } from "../../stylesheet";
 
-function BookmarkedLocationsFooter({ closeModal, openModal }) {
+function BookmarkedLocationsFooter({ closeModal, openModal, onAddBookmarkPress }) {
     return (
         <View style={{
             backgroundColor: Colors.White.hex,
@@ -29,7 +29,8 @@ function BookmarkedLocationsFooter({ closeModal, openModal }) {
             >
                 <BookmarkedLocationsHeader 
                     open={false}
-                    onPress={closeModal}
+                    onPress={openModal}
+                    onAddBookmarkPress={onAddBookmarkPress}
                 />
             </ScrollView>
     </View>

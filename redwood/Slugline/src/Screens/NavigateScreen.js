@@ -30,9 +30,6 @@ import { random_id } from "../utils";
             longitude
         },
         color: {
-            r,
-            g,
-            b,
             rgb
         }
     }
@@ -75,6 +72,13 @@ function NavigateScreen(props) {
         mapRef.current?.animateToRegion(view_region);
     };
 
+    const scrollToBookmark = (bookmark) => {
+        bookmarksFlatListRef.current?.scrollToItem({
+            animated: true,
+            item: bookmark
+        });
+    }
+
     // HANDLERS
     const onLocationMapLongPress = (e) => {
         let { coordinate } = e.nativeEvent;
@@ -99,10 +103,8 @@ function NavigateScreen(props) {
 
     const onBookmarkPress = (bookmark) => {
         // scroll to the item in the locations flat list
-        bookmarksFlatListRef.current?.scrollToItem({
-            animated: true,
-            item: bookmark
-        });
+        animateToAboveCoordinate(bookmark.coordinate)
+        scrollToBookmark(bookmark);
     };
 
     const onLookupLocationPress = (data, details) => {
@@ -130,7 +132,7 @@ function NavigateScreen(props) {
         bookmarksModalRef.current?.close();
         
         animateToAboveCoordinate(bookmark.coordinate);
-        setSelectedBookmark(bookmark);
+        scrollToBookmark(bookmark);
     };
 
     const onLocationEditEnd = () => {
@@ -138,8 +140,31 @@ function NavigateScreen(props) {
         saveBookmarks();
     };
 
+    const onEditPress = (bookmark) => {
+        setSelectedBookmark(bookmark);
+    };
+
     const onScrollToBookmarkedLocation = (bookmark) => {
         animateToAboveCoordinate(bookmark.coordinate);
+    };
+
+    const onAddBookmarkPress = () => {
+        let bookmark = {
+            id: random_id(),
+            name: "",
+            description: "",
+            coordinate: UCSC_COORDS,
+            color: Colors.Red4
+        };
+
+        // add to zustand store
+        createBookmark(bookmark);
+
+        // animate to location
+        animateToAboveCoordinate(bookmark.coordinate);
+
+        // toggle edit modal
+        setSelectedBookmark(bookmark);
     };
 
     return (
@@ -152,6 +177,7 @@ function NavigateScreen(props) {
             ref={mapRef}
         />
         <LocationLookupInput 
+            bookmarks={bookmarks}
             location_coordinate={UCSC_COORDS}
             onPress={onLookupLocationPress}
         />
@@ -160,6 +186,7 @@ function NavigateScreen(props) {
             bottom: 0,
         }}>
             <BookmarkedLocationsHorizontalList
+                onEditPress={onEditPress}
                 onScrollToItem={onScrollToBookmarkedLocation}
                 ref={bookmarksFlatListRef}
                 bookmarks={bookmarks}
@@ -171,11 +198,13 @@ function NavigateScreen(props) {
                 closeModal={() => {
                     bookmarksModalRef.current?.close();
                 }}
+                onAddBookmarkPress={onAddBookmarkPress}
             />
         </View>
         <BookmarkedLocationsModal 
             bookmarks={bookmarks}
             onBookmarkPress={onBookmarkListItemPress}
+            onAddBookmarkPress={onAddBookmarkPress}
             ref={bookmarksModalRef}
         />
         <BookmarkedLocationEditModal

@@ -19,10 +19,11 @@ const haptic_options = {
 
 function BookmarkedLocationMarker({ bookmark, onPress }) {
     let { id, coordinate, color } = bookmark;
-    let [updateBookmark] = useStore(state => [state.updateBookmark]);
+    let [updateBookmark, saveBookmarks] = useStore(state => [state.updateBookmark, state.saveBookmarks]);
     return (
         <Marker 
             draggable
+            title={bookmark.name}
             coordinate={coordinate}
             onDragStart={() => {
                 ReactNativeHapticFeedback.trigger("impactHeavy", haptic_options)
@@ -32,6 +33,7 @@ function BookmarkedLocationMarker({ bookmark, onPress }) {
                 updateBookmark(bookmark.id, {
                     coordinate: e.nativeEvent.coordinate
                 });
+                saveBookmarks();
             }}
             key={id}
             onPress={() => {

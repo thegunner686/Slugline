@@ -13,9 +13,16 @@ import {
     Icon
 } from "react-native-elements"
 
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
 import { useStore } from "../../useStore";
 
 import { Colors, Fonts, sizes, width, height, rgba} from "../../stylesheet";
+
+const haptic_options = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false
+};
 
 const color_choices = [
     Colors.Blue4,
@@ -83,7 +90,13 @@ function DeleteButton({ onPress }) {
                 justifyContent: "center",
                 zIndex: 10
             }}
-            onPress={onPress}
+            onPressIn={() => {
+                ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
+            }}
+            onLongPress={() => {
+                ReactNativeHapticFeedback.trigger("impactHeavy", haptic_options);
+                onPress();
+            }}
         >
             <Icon
                 name="delete-forever"
@@ -110,7 +123,10 @@ function SaveButton({ onPress }) {
                 justifyContent: "center",
                 zIndex: 10
             }}
-            onPress={onPress}
+            onPress={() => {
+                ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
+                onPress();
+            }}
         >
             <Icon
                 name="done"

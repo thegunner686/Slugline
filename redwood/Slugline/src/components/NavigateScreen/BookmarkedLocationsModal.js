@@ -41,7 +41,7 @@ function BookmarkListItem({ bookmark, onBookmarkPress }) {
 };
 
 const BookmarkedLocationsModal = React.forwardRef((props, ref) => {
-    let { bookmarks, onBookmarkPress } = props;
+    let { bookmarks, onBookmarkPress, onAddBookmarkPress } = props;
     return (
         <Modalize 
             ref={ref}
@@ -50,6 +50,7 @@ const BookmarkedLocationsModal = React.forwardRef((props, ref) => {
                 <BookmarkedLocationsHeader
                     open={true}
                     onPress={() => ref.current?.close()}
+                    onAddBookmarkPress={onAddBookmarkPress}
                 />
             }
             flatListProps={{
