@@ -237,7 +237,10 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
                 labelStyle={Fonts.Label5}
                 placeholder="Bookmark name"
                 inputStyle={Fonts.Paragraph3}
-                onChangeText={setName}
+                onChangeText={(value) => {
+                    if(value.length > 60) return;
+                    setName(value);
+                }}
                 value={name}
                 autoFocus
                 ref={nameInputRef}
@@ -248,7 +251,10 @@ function BookmarkedLocationEditModal({ selectedBookmark, onBackdropPress }) {
                 label="Description (Optional)"
                 labelStyle={Fonts.Label5}
                 placeholder="Bookmark description (optional)"
-                onChangeText={setDescription}
+                onChangeText={(value) => {
+                    if(value.length > 90) return;
+                    setDescription(value);
+                }}
                 value={description}
                 inputStyle={Fonts.Paragraph3}
                 clearButtonMode="while-editing"

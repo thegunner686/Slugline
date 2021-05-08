@@ -19,8 +19,8 @@ function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
         <View style={{ 
             position: "absolute", 
             zIndex: 1, 
-            width: width / 4 * 3.5, 
             alignSelf: "center",
+            width: width / 4 * 3.5,
             top: height / 10,
             shadowColor: Colors.Black.rgb,
             shadowOpacity: 0.2,
@@ -31,7 +31,7 @@ function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
             },
         }}>
         <GooglePlacesAutocomplete
-                placeholder="Search for new locations"
+                placeholder="Search for locations around campus!"
                 fetchDetails={true}
                 onPress={onPress}
                 query={{
@@ -43,7 +43,31 @@ function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
                 }}
                 textInputProps={{
                     clearButtonMode: "while-editing",
-                    clearTextOnFocus: true
+                    clearTextOnFocus: true,
+                }}
+                styles={{
+                    textInput: {
+                        textAlign: "left",
+                        width: width / 4 * 3.5,
+                        height: 40,
+                        borderRadius: 10,
+                        backgroundColor: Colors.White.rgb,
+                        ...Fonts.Paragraph3,
+                        color: Colors.Black.rgb,
+                        overflow: "scroll"
+                    },
+                    row: {
+                        borderRadius: 5,
+                        marginBottom: 4,
+                        borderRightWidth: 4,
+                        borderRightColor: Colors.Blue4.rgb,
+                    },
+                    description: {
+                        ...Fonts.Paragraph3
+                    },
+                    poweredContainer: {
+                        display: "none"
+                    }
                 }}
         />
         </View>
