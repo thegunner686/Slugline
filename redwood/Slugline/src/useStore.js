@@ -16,6 +16,23 @@ GoogleSignin.configure({
 
 const useStore = create((set, get) => ({
 
+    // deep linking stuff
+    deepLinkURL: "",
+    setDeepLinkURL: (url) => {
+        let deepLinkURL = get().deepLinkURL;
+
+        if(url == null) return;
+        if(url.trim().length == 0) return;
+        if(url == deepLinkURL) return;
+
+        set(state => ({
+            deepLinkURL: url
+        }));
+        set(state => ({
+            deepLinkURL: "",
+        }));
+    },
+
     // fake data & stuff
     bookmarks: [],
     createBookmark: (bookmark) => {

@@ -12,5 +12,7 @@ export function to_navigate_path_url(data) {
 }
 
 export function from_navigate_path_url(url) {
+    let split = url.split("?");
+    if(split.length != 2) throw "Invalid url";
     return url.split("?")[1];
 }

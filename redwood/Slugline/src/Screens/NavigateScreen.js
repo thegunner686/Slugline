@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 import {
     View,
-    Linking,
-    Share
+    Share,
+    Alert
 } from "react-native"
 
 // Components
@@ -55,6 +55,7 @@ function NavigateScreen(props) {
     let bookmarks = useStore(state => state.bookmarks);
     let [createBookmark, saveBookmarks] = useStore(state => 
         [state.createBookmark, state.saveBookmarks]);
+    let [deepLinkURL] = useStore(state => [state.deepLinkURL]);
 
 
     // REFS
@@ -193,17 +194,31 @@ function NavigateScreen(props) {
     };
     
     const parse_deep_link = (url) => {
-        let base64_string = from_navigate_path_url(url),
-            obj_string = Buffer.from(base64_string, "base64").toString(),
+        let base64_string,
+            obj_string,
+            bookmark;
+
+        try {
+            base64_string = from_navigate_path_url(url);
+            obj_string = Buffer.from(base64_string, "base64").toString();
             bookmark = JSON.parse(obj_string);
+        } catch(e) {
+            console.log(e);
+            return null;
+        }
 
         return bookmark;
     };
 
     const onReceiveNavigateURL = (url) => {
-        if(url == undefined || url == null || url.trim() == "") return;
+        if(url == undefined || url == null || url.trim().length == 0) return;
 
         let bookmark = parse_deep_link(url);
+
+        if(bookmark == null) {
+            Alert.alert("Aw shucks, that was a bad link.");
+            return;
+        }
 
         for(let i = 0; i < bookmarks.length; i++) {
             let mark = bookmarks[i];
@@ -225,21 +240,9 @@ function NavigateScreen(props) {
     };
 
     // EFFECTS 
-
-    useEffect(async () => {
-        let url = await Linking.getInitialURL();
-        setTimeout(() => {
-            onReceiveNavigateURL(url);
-        }, 100);
-    }, []);
-    
     useEffect(() => {
-        return Linking.addEventListener("url", ({ url }) => {
-            setTimeout(() => {
-                onReceiveNavigateURL(url);
-            }, 100)
-        });
-    }, []);
+        onReceiveNavigateURL(deepLinkURL);
+    }, [deepLinkURL]);
 
     return (
         <>
