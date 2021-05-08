@@ -13,6 +13,7 @@ import OnboardingStack from "./src/routes/OnboardingStack";
 import { useStore } from "./src/useStore";
 import shallow from "zustand/shallow";
 
+
 function App() {
   let [initializing, setInitializing] = useState(true);
 
@@ -26,7 +27,22 @@ function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer
+        linking={{
+          prefixes: ["slugline://"],
+          config: {
+            screens: {
+              Navigate: {
+                screens: {
+                  Navigate: {
+                    path: "navigate"
+                  }
+                }
+              }
+            }
+          }
+        }}
+      >
       {user == null ? 
           <SignInStack/>
         :

@@ -16,7 +16,6 @@ import openMap from 'react-native-open-maps';
 import { width, height, Colors, Shadow, sizes, Fonts } from "../../stylesheet";
 
 function EditButton({ onPress }) {
-
     return (
         <TouchableOpacity 
             style={{
@@ -35,13 +34,38 @@ function EditButton({ onPress }) {
             <Icon
                 name="edit"
                 type="material"
+                color={Colors.Blue4.rgb}
+            />
+        </TouchableOpacity>
+    )
+}
+
+function ShareButton({ onPress }) {
+    return (
+        <TouchableOpacity 
+            style={{
+                width: 35,
+                height: 35,
+                borderRadius: 35,
+                position: "absolute",
+                zIndex: 50,
+                right: 0,
+                bottom: 0,
+                alignItems: "center",
+                justifyContent: "center"
+            }}
+            onPress={onPress}
+        >
+            <Icon
+                name="ios-share"
+                type="material"
                 color={Colors.Blue3.rgb}
             />
         </TouchableOpacity>
     )
 }
 
-function BookmarkedLocationFlatlistItem({ bookmark, onEditPress }) {
+function BookmarkedLocationFlatlistItem({ bookmark, onEditPress, onSharePress }) {
 
     const onDirectionsHerePress = () => {
         openMap({
@@ -95,11 +119,12 @@ function BookmarkedLocationFlatlistItem({ bookmark, onEditPress }) {
                     }}>Directions Here</Text>
                 </TouchableOpacity>
             </View>
+            <ShareButton onPress={() => { onSharePress(bookmark) } }/>
         </View>
     )
 }
 
-const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrollToItem, onEditPress }, ref) => {
+const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrollToItem, onEditPress, onSharePress }, ref) => {
     const onViewableItemsChangedRef = useRef(({ viewableItems, changed}) => {
         if(viewableItems.length == 0) return;
         let { item } = viewableItems[0];
@@ -127,6 +152,7 @@ const BookmarkedLocationsHorizontalList = React.forwardRef(({ bookmarks, onScrol
                 data={bookmarks}
                 renderItem={({ item }) => (
                     <BookmarkedLocationFlatlistItem
+                        onSharePress={onSharePress}
                         onEditPress={onEditPress} 
                         bookmark={item}
                     />

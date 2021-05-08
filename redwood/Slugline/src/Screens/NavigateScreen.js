@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import {
     View,
+    Linking,
+    Share
 } from "react-native"
 
 // Components
@@ -15,8 +17,10 @@ import { getLocation } from "../components/NavigateScreen/LocationServices";
 
 import { width, height, Colors, Fonts, Shadow, sizes } from "../stylesheet"
 
+import { Buffer } from "buffer";
 import { useStore } from "../useStore";
-import { random_id } from "../utils";
+import { from_navigate_path_url, random_id, to_navigate_path_url } from "../utils";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 /*
     bookmark {
@@ -33,7 +37,6 @@ import { random_id } from "../utils";
     }
 */
 
-// Testing Data
 const UCSC_COORDS = {
     latitude: 36.99279, //08500746,
     longitude: -122.060962, //2303877,
@@ -178,6 +181,66 @@ function NavigateScreen(props) {
         });
     };
 
+    const onSharePress = async (bookmark) => {
+        let obj_string = JSON.stringify(bookmark),
+            base64_string = Buffer.from(obj_string).toString("base64");
+
+        const res = await Share.share({
+            title: "Share Bookmarked Location",
+            message: to_navigate_path_url(base64_string)
+        });
+
+    };
+    
+    const parse_deep_link = (url) => {
+        let base64_string = from_navigate_path_url(url),
+            obj_string = Buffer.from(base64_string, "base64").toString(),
+            bookmark = JSON.parse(obj_string);
+
+        return bookmark;
+    };
+
+    const onReceiveNavigateURL = (url) => {
+        if(url == undefined || url == null || url.trim() == "") return;
+
+        let bookmark = parse_deep_link(url);
+
+        for(let i = 0; i < bookmarks.length; i++) {
+            let mark = bookmarks[i];
+            if(mark.id == bookmark.id || mark.coordinate == bookmark.coordinate) {
+                animateToAboveCoordinate(mark.coordinate);
+                scrollToBookmark(mark);
+                return;
+            }
+        }
+
+        // add to zustand store
+        createBookmark(bookmark);
+    
+        // animate to location
+        animateToAboveCoordinate(bookmark.coordinate);
+
+        // allow edit
+        setSelectedBookmark(bookmark);
+    };
+
+    // EFFECTS 
+
+    useEffect(async () => {
+        let url = await Linking.getInitialURL();
+        setTimeout(() => {
+            onReceiveNavigateURL(url);
+        }, 100);
+    }, []);
+    
+    useEffect(() => {
+        return Linking.addEventListener("url", ({ url }) => {
+            setTimeout(() => {
+                onReceiveNavigateURL(url);
+            }, 100)
+        });
+    }, []);
+
     return (
         <>
         <LocationMap
@@ -198,6 +261,7 @@ function NavigateScreen(props) {
         }}>
             <BookmarkedLocationsHorizontalList
                 onEditPress={onEditPress}
+                onSharePress={onSharePress}
                 onScrollToItem={onScrollToBookmarkedLocation}
                 ref={bookmarksFlatListRef}
                 bookmarks={bookmarks}

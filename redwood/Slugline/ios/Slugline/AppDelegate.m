@@ -25,6 +25,10 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
 #import <GoogleMaps/GoogleMaps.h>
+// iOS 9.x or newer
+#import <React/RCTLinkingManager.h>
+
+
 
 
 @implementation AppDelegate
@@ -56,6 +60,14 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+// RCT LINKING STUFF
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

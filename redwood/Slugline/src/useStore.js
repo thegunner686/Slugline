@@ -19,12 +19,22 @@ const useStore = create((set, get) => ({
     // fake data & stuff
     bookmarks: [],
     createBookmark: (bookmark) => {
-        set(state => ({ 
-            bookmarks: [
-                ...state.bookmarks,
-                bookmark
-            ]
-        }))
+        set(state => {
+            for(let i = 0; i < state.bookmarks.length; i++) {
+                let mark = state.bookmarks[i];
+                if(mark.id == bookmark.id) {
+                    return { };
+                }
+            }
+            // console.log(bookmark);
+            // console.log(state.bookmarks);
+            return { 
+                bookmarks: [
+                    ...state.bookmarks,
+                    bookmark
+                ]
+            };
+        });
     },
     updateBookmark: (id, data) => {
         let bookmarks = get().bookmarks;

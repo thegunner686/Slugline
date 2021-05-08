@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -32,9 +30,21 @@
 				<string>com.googleusercontent.apps.666812137857-7dubgt80mtsiedp7ifgnt15cf7cnmc4v</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>slugline</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>slugline</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -48,8 +58,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use the user&apos;s location to display it on a map so they are able to see themselves in relation to the rest of the campus and navigate properly.</string>
+	<string>We use the user's location to display it on a map so they are able to see themselves in relation to the rest of the campus and navigate properly.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fonts/Feather.ttf</string>
@@ -94,10 +108,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
-	<key>NSCameraUsageDescription</key>
-	<string></string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
