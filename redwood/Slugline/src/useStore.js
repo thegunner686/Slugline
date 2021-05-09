@@ -4,14 +4,15 @@ import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import storage from '@react-native-firebase/storage';
 
+import { GOOGLE_SIGN_IN_WEB_CLIENT_ID } from "@env";
+
 import {
     GoogleSignin,
-    GoogleSigninButton,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
 
 GoogleSignin.configure({
-    webClientId: '666812137857-bdo9lhprvhi1u5b76e6oju6e1444kqi3.apps.googleusercontent.com',
+    webClientId: GOOGLE_SIGN_IN_WEB_CLIENT_ID,
 });
 
 const useStore = create((set, get) => ({

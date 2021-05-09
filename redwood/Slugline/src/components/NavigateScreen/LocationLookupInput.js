@@ -4,14 +4,11 @@ import {
     View
 } from "react-native";
 
-import {
-    Icon,
-    Input
-} from "react-native-elements";
-
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import { width, height, Colors, Fonts } from "../../stylesheet";
+
+import { GOOGLE_PLACES_AUTOCOMPLETE_KEY } from "@env";
 
 function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
     let { latitude, longitude } = location_coordinate;
@@ -35,7 +32,7 @@ function LocationLookupInput({ bookmarks, onPress, location_coordinate }) {
                 fetchDetails={true}
                 onPress={onPress}
                 query={{
-                    key: 'AIzaSyDoRXqOwKd5kZCtGonJGfYyTkcyweQ-MGE',
+                    key: GOOGLE_PLACES_AUTOCOMPLETE_KEY,
                     language: 'en',
                     location: latitude + "," + longitude,
                     radius: '25000',
