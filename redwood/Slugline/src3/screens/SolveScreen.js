@@ -17,10 +17,13 @@ import {
     Button,
     Input,
     Icon,
+    Image,
     ListItem
 } from "react-native-elements"
 
 import { Modalize } from "react-native-modalize";
+
+import ImageBackgroundCarousel from "../components/SearchScreen/ImageBackgroundCarousel";
 
 import { Colors, width, height, Fonts, Shadow } from "../stylesheet"
 
@@ -119,7 +122,7 @@ function SolveScreen(props) {
                     width,
                     height,
                 }}
-                source={require("../../assets/ucsc_photo4.png")}
+                source={require("../../assets/ucsc_photo5.jpeg")}
             />
             <Button 
                 title="What can we help you with?"

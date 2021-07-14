@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import {
     View,
+    Linking,
     Share,
     Alert
 } from "react-native"
@@ -170,6 +171,9 @@ function NavigateScreen(props) {
     
             // toggle edit modal
             setSelectedBookmark(bookmark);
+
+            // attempt to wait for the state to update then scroll
+            // attemptScrollToBookmark(bookmark);
         }
         getLocation((location) => {
             _add({

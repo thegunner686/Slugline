@@ -16,6 +16,7 @@ import BookmarkedLocationsHeader from "./BookmarkedLocationsHeader";
 
 // Styles
 import { Colors, Fonts, height, sizes, rgba } from "../../stylesheet";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function BookmarkListItem({ bookmark, onBookmarkPress }) {
     let { name, color, description } = bookmark;
@@ -45,7 +46,10 @@ const BookmarkedLocationsModal = React.forwardRef((props, ref) => {
     return (
         <Modalize 
             ref={ref}
-            modalStyle={{ padding: 10, paddingTop: height / 10}}
+            // alwaysOpen={85}
+            // modalHeight={height / 10 * 7}
+            // handlePosition="inside"
+            modalStyle={{ padding: 10, paddingTop: height / 10 }}
             HeaderComponent={
                 <BookmarkedLocationsHeader
                     open={true}
