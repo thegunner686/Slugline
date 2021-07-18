@@ -12,12 +12,20 @@ import SignInStack from "./src/routes/SignInStack";
 // Screens
 import LoadingScreen from "./src/screens/LoadingScreen";
 
+import remoteConfig from '@react-native-firebase/remote-config';
+import default_config from "./default_firebase_remote_config";
+
 import { useStore } from "./src/useStore";
 
 function App() {
   let [loading, setLoading] = useState(true);
   let [user] = useStore(state => [state.user]);
   let [onAuthStateChanged] = useStore(state => [state.onAuthStateChanged]);
+
+  useEffect(async () => {
+    await remoteConfig().fetch(300);
+    remoteConfig().setDefaults(default_config).then(() => remoteConfig().fetchAndActivate());
+  }, []);
 
   useEffect(() => {
       return onAuthStateChanged(() => {

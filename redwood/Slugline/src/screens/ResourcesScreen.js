@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import remoteConfig from '@react-native-firebase/remote-config';
 
 import { 
     View, 
@@ -63,6 +65,13 @@ let fake_data = [
 
 export default function ResourcesScreen(props) {
 
+    let [resources, setResources] = useState([]);
+
+    useEffect(() => {
+        let resources_string = remoteConfig().getValue("resources").asString();
+        setResources(JSON.parse(resources_string));
+    }, []);
+
     const renderResourceTile = ({ item }) => {
         return <ResourceTile 
                     title={item.title} 
@@ -82,7 +91,7 @@ export default function ResourcesScreen(props) {
             style={styles.scrollview}>
             <AskASlugButton onPress={navigateToAskASlug}/>
 
-            {fake_data.map((item) => renderResourceTile({item}))}
+            {resources.map((item) => renderResourceTile({item}))}
         </ScrollView>
     )
 }

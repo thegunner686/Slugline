@@ -4,7 +4,9 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert,
+    Linking
 } from "react-native";
 
 import {
@@ -14,8 +16,39 @@ import {
 import { Colors, Fonts, width, height, Shadow } from "../../stylesheet";
 
 export default function ResourceTile({ title, description, link }) {
+
+    const openLink = () => {
+        Linking.canOpenURL(link).then(supported => {
+            if(supported) {
+                Linking.openURL(link);
+            } else {
+                Alert.alert("Unable to open link.");
+            }
+        });
+    };
+
+    const confirmPress = () => {
+        Alert.alert(
+            "Leaving Slugline",
+            `Just to confirm, you're going to ${link}`,
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: openLink
+                }
+            ]
+        );
+    };
+
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity 
+            style={styles.container}
+            onPress={confirmPress}
+            >
             <View style={styles.leftContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
@@ -64,4 +97,4 @@ const styles = StyleSheet.create({
     description: {
         ...Fonts.Paragraph3
     }
-})
+});
