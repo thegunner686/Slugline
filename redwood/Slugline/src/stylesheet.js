@@ -212,8 +212,9 @@ let families = {
 let sizes = {
     Title: 64,
     Header: 36,
-    SubHeader: 18,
-    Paragraph: 12,
+    SubHeader: 24,
+    Graph: 18,
+    Paragraph: 14,
     Label: 10,
     Tiny: 8,
     Icon1: 64,
@@ -301,6 +302,31 @@ const Fonts = {
     SubHeader6: {
         fontFamily: families.HelveticaNeue6,
         fontSize: sizes.SubHeader
+    },
+
+    Graph1: {
+        fontFamily: families.HelveticaNeue1,
+        fontSize: sizes.Graph
+    },
+    Graph2: {
+        fontFamily: families.HelveticaNeue2,
+        fontSize: sizes.Graph
+    },
+    Graph3: {
+        fontFamily: families.HelveticaNeue3,
+        fontSize: sizes.Graph
+    },
+    Graph4: {
+        fontFamily: families.HelveticaNeue4,
+        fontSize: sizes.Graph
+    },
+    Graph5: {
+        fontFamily: families.HelveticaNeue5,
+        fontSize: sizes.Graph
+    },
+    Graph6: {
+        fontFamily: families.HelveticaNeue6,
+        fontSize: sizes.Graph
     },
 
     // Paragraph
@@ -406,7 +432,7 @@ const Shadow = {
         shadowOpacity: 0.15,
         shadowRadius: 2,
         shadowOffset: {
-            x: 0,
+            x: 1,
             y: 1,
         },
     }

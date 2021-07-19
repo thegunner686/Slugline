@@ -7,7 +7,7 @@ import {
 export default function AskASlugButton({ onPress }) {
     return (
         <Button 
-            title="Ask a Slug"
+            title="Need Help? Ask a Slug!"
             onPress={onPress}
         />
     )

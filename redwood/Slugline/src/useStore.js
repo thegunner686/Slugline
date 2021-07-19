@@ -34,46 +34,6 @@ const useStore = create((set, get) => ({
         }));
     },
 
-    // fake data & stuff
-    bookmarks: [],
-    createBookmark: (bookmark) => {
-        set(state => {
-            for(let i = 0; i < state.bookmarks.length; i++) {
-                let mark = state.bookmarks[i];
-                if(mark.id == bookmark.id) {
-                    return { };
-                }
-            }
-            // console.log(bookmark);
-            // console.log(state.bookmarks);
-            return { 
-                bookmarks: [
-                    ...state.bookmarks,
-                    bookmark
-                ]
-            };
-        });
-    },
-    updateBookmark: (id, data) => {
-        let bookmarks = get().bookmarks;
-        let index = bookmarks.findIndex(bk => bk.id == id);
-        if(index == -1) return false;
-
-        for(let field in data) {
-            bookmarks[index][field] = data[field];
-        }
-
-        set(state => ({ bookmarks }))
-    },
-    deleteBookmark: (id) => {
-        set(state => ({ 
-            bookmarks: state.bookmarks.filter(bookmark => bookmark.id != id)
-        }));
-    },
-    saveBookmarks: (id) => {
-        // updates the bookmarks in firebase for this user
-    },
-
     user: null,
     setUser: (user) => set(state => ({ user })),
 
@@ -125,7 +85,7 @@ const useStore = create((set, get) => ({
         let { uid } = get().user;
         try {
             await firestore().collection("Users").doc(uid).update({
-                ...info
+                ...info.profile
             });
             return true;
         } catch(e) {
@@ -153,7 +113,7 @@ const useStore = create((set, get) => ({
         // create the listener
         let listener = firestore().collection("Users").doc(uid).onSnapshot(snapshot => {
             let data = snapshot.data();
-            set(state => ({ profile: data }))
+            set(state => ({ profile: data.profile }))
         }, (error) => {
             console.log(error);
         });
@@ -165,7 +125,7 @@ const useStore = create((set, get) => ({
         let profileListener = get().profileListener;
         if(profileListener) {
             profileListener();
-            set(state => ({ profileListener: null}));
+            set(state => ({ profileListener: null }));
         }
     },
 
@@ -182,15 +142,19 @@ const useStore = create((set, get) => ({
                 // New User
                 let user_data = {
                     uid: user.uid,
-                    displayName: user.displayName,
                     phoneNumber: user.phoneNumber,
-                    photoURL: user.photoURL,
                     email: user.email,
                     emailVerified: user.emailVerified,
                     createdAt: firestore.FieldValue.serverTimestamp(),
                     lastLogin: firestore.FieldValue.serverTimestamp(),
-                    intents: [],
-                    num_intents: 0
+                    profile: {
+                        picture: user.photoURL,
+                        name: user.displayName,
+                        pronouns: "",
+                        college: "",
+                        year: "",
+                        major: ""
+                    }
                 }
                 return transaction.set(userRef, user_data);
             } else {
@@ -225,118 +189,6 @@ const useStore = create((set, get) => ({
         
         // remove any listeners
         get().removeProfileListener();
-    },
-
-    // we should probably move some of this logic to a firebase function
-    createIntent: async (title, body, category, anonymous) => {
-        let user = get().user;
-        if(user == null) throw "User not authenticated.";
-
-        if(category == null || category.trim() == "") throw "Category not set."
-
-        let { displayName, pronouns, photoURL, uid } = get().profile;
-
-        if(anonymous) {
-            displayName = "Anonymous Slug";
-            photoURL = "https://upload.wikimedia.org/wikipedia/commons/d/d8/SDS_UCSantaCruz_RedwoodSlug_WhiteGround.png"
-        }
-
-        // Batch write to multiple documents
-        let batch = firestore().batch();
-
-        let intent_ref = firestore().collection("Intents").doc();
-
-        let intent = {
-            id: intent_ref.id,
-            title,
-            category,
-            anonymous,
-            createdAt: firestore.FieldValue.serverTimestamp(),
-            received: true,
-            assigned: false,
-            resolved: false,
-        };
-
-        batch.set(intent_ref, intent);
-        
-        let message_ref = intent_ref.collection("Messages").doc();
-        
-        let message = {
-            profile: {
-                uid,
-                photoURL,
-                displayName,
-                pronouns
-            },
-            body
-        };
-
-        batch.set(message_ref, message);
-        
-        let user_ref = firestore().collection("Users").doc(uid);
-
-        batch.update(user_ref,{
-            num_intents: firestore.FieldValue.increment(1),
-            intents: firestore.FieldValue.arrayUnion(intent_ref.id)
-        });
-
-        return batch.commit();
-    },
-
-    resolveIntent: async (id, resolved) => {
-        return firestore().collection("Intents").doc(id).update({
-            resolved,
-        });
-    },
-
-    deleteIntent: async (id) => {
-        let { uid } = get().user;
-
-        // batch write to multiple documents
-        let batch = firestore().batch();
-
-        let intent_ref = firestore().collection("Intents").doc(id);
-        
-        batch.delete(intent_ref);
-
-        let user_ref = firestore().collection("Users").doc(uid);
-
-        batch.update(user_ref, {
-            num_intents: firestore.FieldValue.increment(-1),
-            intents: firestore.FieldValue.arrayRemove(id)
-        });
-
-        return batch.commit();
-    },
-
-    fetchIntents: async () => {
-        try {
-            let profile = get().profile;
-
-            if(profile == null) return;
-
-            let promises = profile.intents.map(id => firestore().collection("Intents").doc(id).get())
-            return (await Promise.all(promises)).map(doc => doc.data())
-        } catch(e) {
-            console.log(e);
-        }
-    },
-
-    attachMessagesListenerForIntent: async (id, handler, errorHandler = (e) => console.log(e)) => {
-        return firestore().collection("Intents").doc(id).collection("Messages").onSnapshot(snapshot => {
-            let docs = []
-            snapshot.forEach((doc) => {
-                docs.push(doc.data());
-            });
-            handler(docs);
-        }, errorHandler);
-    },
-
-    // incomplete
-    attachIntentListener: (id, handler, errorHandler = (e) => console.log(e)) => {
-        return firestore().collection("Intents").doc(id).onSnapshot(snapshot => {
-            handler(snapshot.data());
-        }, errorHandler);
     }
 }));
 
