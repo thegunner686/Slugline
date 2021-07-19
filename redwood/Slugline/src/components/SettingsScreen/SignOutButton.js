@@ -7,7 +7,9 @@ import {
 
 import { useStore } from "../../useStore";
 
-export default function SignOutButton() {
+import { Colors } from "../../stylesheet";
+
+export default function SignOutButton({ color }) {
     let [signOut] = useStore(state => [state.signOut]);
     return (
         <Button 
@@ -17,6 +19,7 @@ export default function SignOutButton() {
                 <Icon 
                     type="material"
                     name="logout"
+                    color={color ? color : Colors.Black.rgb}
                 />
             }
         />

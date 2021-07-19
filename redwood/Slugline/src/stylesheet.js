@@ -414,8 +414,8 @@ const Shadow = {
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
-            x: 0,
-            y: -2,
+            width: 0,
+            height: -2,
         },
     },
     bottom: {
@@ -423,17 +423,17 @@ const Shadow = {
         shadowOpacity: 0.4,
         shadowRadius: 2,
         shadowOffset: {
-            x: 0,
-            y: 1,
+            width: 0,
+            height: 1,
         },
     },
     standard: {
         shadowColor: Colors.Black.hex,
         shadowOpacity: 0.15,
-        shadowRadius: 2,
+        shadowRadius: 3,
         shadowOffset: {
-            x: 1,
-            y: 1,
+            width: 1,
+            height: 1,
         },
     }
 }

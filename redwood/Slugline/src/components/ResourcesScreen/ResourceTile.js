@@ -10,10 +10,15 @@ import {
 } from "react-native";
 
 import {
-    Icon
+    Icon,
+    Divider
 } from "react-native-elements"
 
-import { Colors, Fonts, width, height, Shadow } from "../../stylesheet";
+import { Colors, Fonts, width, height, Shadow, sizes } from "../../stylesheet";
+
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
+import { haptic_options } from "../../utils";
 
 export default function ResourceTile({ title, description, link }) {
 
@@ -28,6 +33,7 @@ export default function ResourceTile({ title, description, link }) {
     };
 
     const confirmPress = () => {
+        ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
         Alert.alert(
             "Leaving Slugline",
             `Just to confirm, you're going to ${link}`,
@@ -57,7 +63,7 @@ export default function ResourceTile({ title, description, link }) {
                 <Icon
                     type="material"
                     name="link"
-                    color={Colors.Black.rgb}
+                    color={Colors.Yellow2.rgb}
                 />
             </View>
         </TouchableOpacity>
@@ -68,14 +74,14 @@ const styles = StyleSheet.create({
     container: {
         width: width / 10 * 9,
         height: height / 10,
-        backgroundColor: Colors.Brown6.rgb,
+        backgroundColor: Colors.White.rgb,
         ...Shadow.standard,
         borderRadius: 10,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        padding: 5,
+        padding: 10,
         margin: 10,
     },
     leftContainer: {
@@ -91,7 +97,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     title: {
-        ...Fonts.SubHeader1,
+        ...Fonts.Graph1,
         marginBottom: 5,
     },
     description: {

@@ -3,7 +3,8 @@ import React from "react";
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from "react-native";
 
 import {
@@ -15,12 +16,13 @@ import {
 
 import { useStore } from "../../useStore";
 
-import { Colors, Fonts, width } from "../../stylesheet";
+import { Colors, Fonts, sizes, width } from "../../stylesheet";
 
 export default function ProfileTile({ onPress }) {
     let [profile] = useStore(state => [state.profile])
     
     return (
+        <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
             <View style={styles.top}>
                 <View style={styles.topleft}>
@@ -36,7 +38,7 @@ export default function ProfileTile({ onPress }) {
                     <View>
                         <Text style={Fonts.Paragraph4}>({profile.pronouns})</Text>
                     </View>
-                    <Divider style={{marginTop: 5, marginBottom: 5}}/>
+                    <Divider style={{marginTop: 10, marginBottom: 10}}/>
                     <View>
                         <Text style={{
                             ...Fonts.Graph3,
@@ -46,39 +48,29 @@ export default function ProfileTile({ onPress }) {
                     <View>
                         <Text style={Fonts.Paragraph5}>{profile.major}</Text>
                     </View>
-                    <Button 
-                        buttonStyle={{
-                            backgroundColor: Colors.Blue4.rgb,
-                            padding: 5,
-                            marginTop: 5
-                        }}
-                        titleStyle={{
-                            ...Fonts.Paragraph4,
-                            color: Colors.White.rgb
-                        }}
-                        type="clear"
-                        title="Edit Profile"
-                        icon={
-                            <Icon
-                                type="material"
-                                name="chevron-right"
-                                color={Colors.White.rgb}
-                            />
-                        }
-                        onPress={onPress}
-                        iconRight
+                </View>
+                <View style={styles.rightEdit}>
+                    <Text style={{
+                        ...Fonts.Paragraph4,
+                        color: Colors.Blue5.rgb
+                    }}>Edit Profile</Text>
+                    <Icon
+                        type="material"
+                        name="chevron-right"
+                        size={sizes.Icon5}
+                        color={Colors.Blue5.rgb}
                     />
                 </View>
             </View>
         </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: width / 10 * 9,
-        borderRadius: 20,
-        // backgroundColor: Colors.Yellow6.rgb,
+        width,
+        backgroundColor: Colors.White.rgb,
         // ...Shadow.standard,
         display: "flex",
         flexDirection: "column",
@@ -115,5 +107,12 @@ const styles = StyleSheet.create({
         width: 128,
         height: 128,
         borderRadius: 15,
+        margin: 5
+    },
+    rightEdit: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
     }
 })

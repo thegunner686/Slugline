@@ -8,14 +8,10 @@ import {
     Icon
 } from "react-native-elements";
 
-// Screens
-import CommunityScreen from "../screens/CommunityScreen"
-import ResourcesScreen from "../screens/ResourcesScreen"
-import SettingsScreen from "../screens/SettingsScreen"
-
 // Stacks
 import ResourcesStack from "./ResourcesStack";
 import SettingsStack from "./SettingsStack";
+import CommunityStack from "./CommunityStack";
 
 import { Colors } from "../stylesheet"
 
@@ -49,16 +45,16 @@ function BottomTabs(props) {
                 }
             })}
             tabBarOptions={{
-                activeTintColor: Colors.White.rgb,
-                inactiveTintColor: Colors.Grey5.rgb,
+                activeTintColor: Colors.Blue4.rgb,
+                inactiveTintColor: Colors.Black.rgb,
                 style: {
-                    backgroundColor: Colors.Blue1.rgb
+                    backgroundColor: Colors.White.rgb
                 }
             }}
         >
             <Tabs.Screen
                 name="Community"
-                component={CommunityScreen}
+                component={CommunityStack}
                 options={{
                     tabBarBadge: 1,
                 }}

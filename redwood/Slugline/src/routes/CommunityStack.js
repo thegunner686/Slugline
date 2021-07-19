@@ -5,14 +5,13 @@ import {
 } from "@react-navigation/stack";
 
 // Screens
-import ResourcesScreen from "../screens/ResourcesScreen"
-import AskASlugScreen from "../screens/AskASlugScreen"
+import CommunityScreen from "../screens/CommunityScreen";
 
-import { Fonts, Colors } from "../stylesheet";
+import { Colors, Fonts } from "../stylesheet";
 
 const Stack = createStackNavigator();
 
-export default function ResourcesStack() {
+export default function CommunityStack() {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -32,12 +31,8 @@ export default function ResourcesStack() {
             }}
         >
             <Stack.Screen
-                name="Resources"
-                component={ResourcesScreen}
-            />
-            <Stack.Screen
-                name="AskASlug"
-                component={AskASlugScreen}
+                name="Community"
+                component={CommunityScreen}
             />
         </Stack.Navigator>
     )

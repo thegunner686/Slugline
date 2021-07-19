@@ -16,3 +16,8 @@ export function from_navigate_path_url(url) {
     if(split.length != 2) throw "Invalid url";
     return url.split("?")[1];
 }
+
+export const haptic_options = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false
+};

@@ -22,8 +22,12 @@ import { TouchableOpacity } from "react-native";
 
 function TouchableListItem({ title, subtitle, onPress }) {
     return (
-        <TouchableOpacity onPress={onPress}>
-            <ListItem bottomDivider>
+        <TouchableOpacity 
+            onPress={onPress}
+        >
+            <ListItem 
+                bottomDivider
+            >
                 <ListItem.Content>
                     <ListItem.Title>
                         {title}

@@ -20,49 +20,6 @@ import { ResourceTile, AskASlugButton } from "../components/Resources";
 
 import { Colors, height } from "../stylesheet";
 
-let fake_data = [
-    {
-        title: "My Resource 1",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 2",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 3",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 4",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 5",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 6",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 7",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    },
-    {
-        title: "My Resource 8",
-        description: "Some stuff to say about this resource",
-        link: "https://www.google.com"
-    }
-]
-
 export default function ResourcesScreen(props) {
 
     let [resources, setResources] = useState([]);
@@ -91,7 +48,9 @@ export default function ResourcesScreen(props) {
             style={styles.scrollview}>
             <AskASlugButton onPress={navigateToAskASlug}/>
 
-            {resources.map((item) => renderResourceTile({item}))}
+            <View style={styles.resourcesContainer}>
+                {resources.map((item) => renderResourceTile({item}))}
+            </View>
         </ScrollView>
     )
 }
@@ -100,11 +59,11 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         display: "flex",
-        alignItems: "center",
+        alignItems: "center"
     },
     scrollview: {
         flex: 1,
-        backgroundColor: Colors.White.rgb
+        backgroundColor: Colors.Grey6.rgb
     },
     list: {
         flexGrow: 1
