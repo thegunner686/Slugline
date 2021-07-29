@@ -15,35 +15,17 @@ GoogleSignin.configure({
     webClientId: GOOGLE_SIGN_IN_WEB_CLIENT_ID,
 });
 
-const useStore = create((set, get) => ({
-
-    // deep linking stuff
-    deepLinkURL: "",
-    setDeepLinkURL: (url) => {
-        let deepLinkURL = get().deepLinkURL;
-
-        if(url == null) return;
-        if(url.trim().length == 0) return;
-        if(url == deepLinkURL) return;
-
-        set(state => ({
-            deepLinkURL: url
-        }));
-        set(state => ({
-            deepLinkURL: "",
-        }));
-    },
-
-    user: null,
-    setUser: (user) => set(state => ({ user })),
+const useAuth = create((set, get) => ({
+    authEntity: null,
+    setAuthEntity: (authEntity) => set(state => ({ authEntity })),
 
     isNewUser: false,
     setIsNewUser: (isNewUser) => set(state => ({ isNewUser })),
 
     onAuthStateChanged: (callback) => {
-        return auth().onAuthStateChanged(user => {
-            if(user) {
-                get().onUserSignIn(user);
+        return auth().onAuthStateChanged(authEntity => {
+            if(authEntity) {
+                get().onUserSignIn(authEntity);
             } else {
                 get().onUserSignOut();
             }
@@ -52,7 +34,7 @@ const useStore = create((set, get) => ({
     },
 
     signIn: async () => {
-        if(get().user != null) {
+        if(get().authEntity != null) {
             return true;
         }
         try {
@@ -80,12 +62,12 @@ const useStore = create((set, get) => ({
         }
     },
 
-    profile: null,
-    updateProfile: async (info) => {
-        let { uid } = get().user;
+    user: null,
+    updateUser: async (info) => {
+        let { uid } = get().authEntity;
         try {
             await firestore().collection("Users").doc(uid).update({
-                ...info.profile
+                ...info
             });
             return true;
         } catch(e) {
@@ -94,7 +76,7 @@ const useStore = create((set, get) => ({
         }
     },
     uploadProfilePicture: async (filename, uri) => {
-        let { uid } = get().user;
+        let { uid } = get().authEntity;
 
         let ref = storage().ref(`Users/${uid}/${filename}`);
 
@@ -104,36 +86,37 @@ const useStore = create((set, get) => ({
         return url;
     },
 
-    profileListener: null,
-    attachProfileListener: (uid) => {
+    userListener: null,
+    attachUserListener: (uid) => {
         if(uid == undefined || uid == null) return null;
-        // remove the current profile listener if one is already instantiated
-        get().removeProfileListener();
+        // remove the current user listener if one is already instantiated
+        get().removeUserListener();
         
         // create the listener
         let listener = firestore().collection("Users").doc(uid).onSnapshot(snapshot => {
-            let data = snapshot.data();
-            set(state => ({ profile: data.profile }))
+            set(state => ({ user: snapshot.data() }))
         }, (error) => {
             console.log(error);
         });
 
-        // set the profile listener
-        set(state => ({ profileListener: listener }));
+        // set the user listener
+        set(state => ({ UserListener: listener }));
     },
-    removeProfileListener: () => {
-        let profileListener = get().profileListener;
-        if(profileListener) {
-            profileListener();
-            set(state => ({ profileListener: null }));
+    removeUserListener: () => {
+        let userListener = get().userListener;
+        if(userListener) {
+            userListener();
+            set(state => ({ userListener: null }));
         }
     },
 
-    updateProfileOnSignInTransaction: (user) => {
-        let userRef = firestore().collection("Users").doc(user.uid);
+    updateUserOnSignInTransaction: (authEntity) => {
+        let { uid, phoneNumber, email, emailVerified,
+              photoURL, displayName } = authEntity;
+        let userRef = firestore().collection("Users").doc(uid);
 
         firestore().runTransaction(async transaction => {
-            // get current user profile
+            // get current user user
             const userSnapshot = await transaction.get(userRef);
 
             // figure out what information we need to write based on if 
@@ -141,15 +124,15 @@ const useStore = create((set, get) => ({
             if(!userSnapshot.exists) {
                 // New User
                 let user_data = {
-                    uid: user.uid,
-                    phoneNumber: user.phoneNumber,
-                    email: user.email,
-                    emailVerified: user.emailVerified,
+                    uid,
+                    phoneNumber,
+                    email,
+                    emailVerified,
                     createdAt: firestore.FieldValue.serverTimestamp(),
                     lastLogin: firestore.FieldValue.serverTimestamp(),
                     profile: {
-                        picture: user.photoURL,
-                        name: user.displayName,
+                        picture: photoURL,
+                        name: displayName,
                         pronouns: "",
                         college: "",
                         year: "",
@@ -161,9 +144,9 @@ const useStore = create((set, get) => ({
                 // Returning User
                 let user_data = {
                     lastLogin: firestore.FieldValue.serverTimestamp(),
-                    phoneNumber: user.phoneNumber,
-                    email: user.email,
-                    emailVerified: user.emailVerified
+                    phoneNumber,
+                    email,
+                    emailVerified
                 };
                 return transaction.update(userRef, user_data);
             }
@@ -172,24 +155,30 @@ const useStore = create((set, get) => ({
         });
     },
 
-    onUserSignIn: (user) => {
+    onUserSignIn: (authEntity) => {
         // of course update our store's user 
-        get().setUser(user);
+        get().setAuthEntity(authEntity);
 
-        // make sure the user's profile is instatiated on firestore
-        get().updateProfileOnSignInTransaction(user);
+        // make sure the user's user is instatiated on firestore
+        get().updateUserOnSignInTransaction(authEntity);
 
-        // attach profile listener for newly logged in users
-        get().attachProfileListener(user.uid);
+        // attach User listener for newly logged in users
+        get().attachUserListener(authEntity.uid);
     },
 
     onUserSignOut: () => {
         // set user to null
-        get().setUser(null);
+        get().setAuthEntity(null);
+        set(state => ({ user: null }));
         
         // remove any listeners
-        get().removeProfileListener();
+        get().removeUserListener();
+    },
+
+    // ENUM {"CREATE", "READ"}
+    getPermissions: () => {
+        return
     }
 }));
 
-export { useStore };
+export { useAuth };

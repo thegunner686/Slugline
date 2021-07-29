@@ -5,11 +5,11 @@ import {
 } from "@react-navigation/stack";
 
 // Screens
-import SettingsScreen from "../screens/SettingsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import TermsOfUseScreen from "../screens/TermsOfUseScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 
-import { SignOutButton } from "../components/Settings"
+import { SignOutButton } from "../components/Profile";
 import { Fonts, Colors, Shadow } from "../stylesheet";
 
 const Stack = createStackNavigator();
@@ -34,8 +34,8 @@ export default function ResourcesStack() {
             }}
         >
             <Stack.Screen
-                name="Settings"
-                component={SettingsScreen}
+                name="Profile"
+                component={ProfileScreen}
                 options={{
                     headerRight: () => <SignOutButton color={Colors.Black.rgb}/>
                 }}

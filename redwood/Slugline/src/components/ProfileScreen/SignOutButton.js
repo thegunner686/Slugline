@@ -5,12 +5,12 @@ import {
     Icon
 } from "react-native-elements";
 
-import { useStore } from "../../useStore";
+import { useAuth } from "../../stores/useAuth";
 
 import { Colors } from "../../stylesheet";
 
 export default function SignOutButton({ color }) {
-    let [signOut] = useStore(state => [state.signOut]);
+    let [signOut] = useAuth(state => [state.signOut]);
     return (
         <Button 
             type="clear"

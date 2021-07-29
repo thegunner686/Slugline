@@ -21,3 +21,10 @@ export const haptic_options = {
     enableVibrateFallback: true,
     ignoreAndroidSystemSettings: false
 };
+
+export const EventEnums = {
+    Type: {
+        PHYSICAL: "physical",
+        VIRTUAL: "virtual"
+    }
+};

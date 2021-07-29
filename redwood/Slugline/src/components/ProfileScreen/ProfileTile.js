@@ -14,12 +14,13 @@ import {
     Icon
 } from "react-native-elements";
 
-import { useStore } from "../../useStore";
+import { useAuth } from "../../stores/useAuth";
 
 import { Colors, Fonts, sizes, width } from "../../stylesheet";
 
 export default function ProfileTile({ onPress }) {
-    let [profile] = useStore(state => [state.profile])
+    let [user] = useAuth(state => [state.user]);
+    let { profile } = user;
     
     return (
         <TouchableOpacity onPress={onPress}>

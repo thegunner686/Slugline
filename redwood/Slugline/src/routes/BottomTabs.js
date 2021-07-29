@@ -10,8 +10,8 @@ import {
 
 // Stacks
 import ResourcesStack from "./ResourcesStack";
-import SettingsStack from "./SettingsStack";
-import CommunityStack from "./CommunityStack";
+import ProfileStack from "./ProfileStack";
+import EventsStack from "./EventsStack";
 
 import { Colors } from "../stylesheet"
 
@@ -24,14 +24,14 @@ function BottomTabs(props) {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName, iconType;
                     switch(route.name) {
-                        case "Community":
+                        case "Events":
                             iconName="groups"
                             break;
                         case "Resources":
                             iconName="collections-bookmark"
                             break;
-                        case "Settings":
-                            iconName="settings"
+                        case "Profile":
+                            iconName="person"
                             break;
                         default:
                             break;
@@ -53,8 +53,8 @@ function BottomTabs(props) {
             }}
         >
             <Tabs.Screen
-                name="Community"
-                component={CommunityStack}
+                name="Events"
+                component={EventsStack}
                 options={{
                     tabBarBadge: 1,
                 }}
@@ -64,8 +64,8 @@ function BottomTabs(props) {
                 component={ResourcesStack}
             />
             <Tabs.Screen
-                name="Settings"
-                component={SettingsStack}
+                name="Profile"
+                component={ProfileStack}
             />
         </Tabs.Navigator>
     )

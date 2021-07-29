@@ -15,12 +15,12 @@ import LoadingScreen from "./src/screens/LoadingScreen";
 import remoteConfig from '@react-native-firebase/remote-config';
 import default_config from "./default_firebase_remote_config";
 
-import { useStore } from "./src/useStore";
+import { useAuth } from "./src/stores/useAuth";
 
 function App() {
   let [loading, setLoading] = useState(true);
-  let [user] = useStore(state => [state.user]);
-  let [onAuthStateChanged] = useStore(state => [state.onAuthStateChanged]);
+  let [authEntity] = useAuth(state => [state.authEntity]);
+  let [onAuthStateChanged] = useAuth(state => [state.onAuthStateChanged]);
 
   useEffect(async () => {
     await remoteConfig().fetch(300);
@@ -38,7 +38,7 @@ function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {user == null ?
+        {authEntity == null ?
             <SignInStack />
             :
             <AuthenticatedStack />

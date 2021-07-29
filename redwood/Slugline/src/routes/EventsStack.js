@@ -5,13 +5,13 @@ import {
 } from "@react-navigation/stack";
 
 // Screens
-import CommunityScreen from "../screens/CommunityScreen";
+import EventsScreen from "../screens/EventsScreen";
 
 import { Colors, Fonts } from "../stylesheet";
 
 const Stack = createStackNavigator();
 
-export default function CommunityStack() {
+export default function EventsStack() {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -31,8 +31,8 @@ export default function CommunityStack() {
             }}
         >
             <Stack.Screen
-                name="Community"
-                component={CommunityScreen}
+                name="Events"
+                component={EventsScreen}
             />
         </Stack.Navigator>
     )

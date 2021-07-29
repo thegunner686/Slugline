@@ -15,7 +15,7 @@ import {
 import { 
     SignOutButton, 
     ProfileTile 
-} from "../components/Settings"
+} from "../components/Profile"
 
 import { Colors, Fonts } from "../stylesheet";
 import { TouchableOpacity } from "react-native";
@@ -44,7 +44,7 @@ function TouchableListItem({ title, subtitle, onPress }) {
     )
 }
 
-export default function SettingsScreen({ navigation }) {
+export default function ProfileScreen({ navigation }) {
 
     const navigateToTermsOfUse = () => {
         navigation.navigate("TermsOfUse");

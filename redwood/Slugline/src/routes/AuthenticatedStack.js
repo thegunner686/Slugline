@@ -9,6 +9,7 @@ import BottomTabs from "./BottomTabs";
 
 // Screens
 import AskASlugScreen from "../screens/AskASlugScreen";
+import CreateEventScreen from "../screens/CreateEventScreen";
 
 const Stack = createStackNavigator()
 
@@ -39,10 +40,16 @@ function AuthenticatedStack(props) {
             screenOptions={{
                 headerShown: false
             }}
+            mode="modal"
         >
             <Stack.Screen
-                name="Community"
+                name="Events"
                 component={BottomTabs}
+            />
+
+            <Stack.Screen
+                name="CreateEvent"
+                component={CreateEventScreen}
             />
 
             <Stack.Screen
@@ -51,7 +58,7 @@ function AuthenticatedStack(props) {
             />
 
             <Stack.Screen
-                name="Settings"
+                name="Profile"
                 component={BottomTabs}
             />
 

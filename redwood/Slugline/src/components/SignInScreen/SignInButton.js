@@ -9,12 +9,12 @@ import {
     Image
 } from "react-native-elements";
 
-import { useStore } from "../../useStore";
+import { useAuth } from "../../stores/useAuth";
 
 import { Colors, Fonts, width, height, sizes } from "../../stylesheet";
 
 export default function SignInButton() {
-    let [signIn] = useStore(state => [state.signIn]);
+    let [signIn] = useAuth(state => [state.signIn]);
     return (
         <Button 
             icon={
