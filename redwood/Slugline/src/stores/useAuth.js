@@ -133,6 +133,7 @@ const useAuth = create((set, get) => ({
                     profile: {
                         picture: photoURL,
                         name: displayName,
+                        defaultEventLink: "",
                         pronouns: "",
                         college: "",
                         year: "",

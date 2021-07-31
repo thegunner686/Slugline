@@ -5,61 +5,47 @@ import {
     TextInput,
     View,
     TouchableOpacity,
-    Text
 } from "react-native";
 
 import {
-    Icon
+    Icon,
+    ListItem
 } from "react-native-elements"
 
 import { Colors, Fonts, height, Shadow, sizes, width } from "../../stylesheet";
 
-import { useGooglePlacesAutocomplete } from "../../stores/useGooglePlacesAutocomplete";
-
-function PlacesResult({ description }) {
+function Result({ result, onPress }) {
     return (
-        <View style={styles.result}>
-            <Text>{description}</Text>
-        </View>
+        <TouchableOpacity onPress={() => onPress(result)}>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Subtitle>
+                        {result.description}
+                    </ListItem.Subtitle>
+                </ListItem.Content>
+            </ListItem>
+        </TouchableOpacity>
     )
 }
 
+const slop = 10;
+const hitSlop = {
+    top: slop, left: slop, right: slop, bottom: slop
+}
+
 export default function CreateEventSearchBar({ 
-    type, onLeftIconPress, onRightIconPress, virtual }) {
-    let slop = 20;
-    let hitSlop = {
-        top: slop,
-        left: slop,
-        right: slop,
-        bottom: slop
-    };
-    
-    let [search, setSearch] = useState("");
-    let [results, setResults] = useState([]);
-    let [placesSession, setPlacesSession] = useState(null);
-    let [openGooglePlacesAutocompleteSession] = useGooglePlacesAutocomplete(state => [state.openSession]);
-    let [placesResponse] = useGooglePlacesAutocomplete(state => [state.response]);
-
-    useEffect(() => {
-        setResults(placesResponse == null ? [] : placesResponse.predictions);
-    }, [placesResponse]);
-
-    const onChangeText = async (text) => {
-        setSearch(text);
-        placesSession.feed(text);
-    };
-
-    const onFocus = () => {
-        setPlacesSession(openGooglePlacesAutocompleteSession());
-    };
-
-    const onEndEditing = () => {
-        setPlacesSession(null);
-    };
+    onLeftIconPress, onRightIconPress, onFocus,
+    onChangeText, onEndEditing, onSearchResultPress,
+    isVirtual, searchValue, results
+}) {
+    let [isEditing, setIsEditing] = useState(false);
 
     return (
         <View style={styles.container}>
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, {
+                borderBottomLeftRadius: isEditing ? 0 : 10,
+                borderBottomRightRadius: isEditing ? 0 : 10,
+            }]}>
                 <TouchableOpacity 
                     hitSlop={hitSlop}
                     onPress={onLeftIconPress}
@@ -72,12 +58,20 @@ export default function CreateEventSearchBar({
                     />
                 </TouchableOpacity>
                 <TextInput
-                    onFocus={onFocus}
-                    onEndEditing={onEndEditing}
+                    onFocus={() => {
+                        setIsEditing(true);
+                        onFocus();
+                    }}
+                    onEndEditing={() => {
+                        setIsEditing(false);
+                        onEndEditing()
+                    }}
                     style={styles.input}
-                    placeholder={virtual ? "Add your event link" : "Search for a location"}
+                    placeholder={isVirtual ? "Add your event link" : "Search for a location"}
                     onChangeText={onChangeText}
-                    value={search}
+                    value={searchValue}
+                    clearTextOnFocus
+                    clearButtonMode="while-editing"
                 />
                 <TouchableOpacity
                     hitSlop={hitSlop}
@@ -88,17 +82,22 @@ export default function CreateEventSearchBar({
                         type="material"
                         style={styles.icon}
                         size={sizes.Icon4}
-                        color={virtual ? Colors.Red3.rgb : Colors.Grey3.rgb}
+                        color={isVirtual ? Colors.Red3.rgb : Colors.Grey3.rgb}
                     />
                 </TouchableOpacity>
             </View>
             <View style={styles.results}>
-                {results.map((prediction) => (
-                    <PlacesResult 
-                        key={prediction.place_id}
-                        description={prediction.description}
+            { isEditing ? 
+                results.map((prediction, key) => (
+                    <Result 
+                        key={prediction?.place_id || key}
+                        result={prediction}
+                        onPress={onSearchResultPress}
                     />
-                ))}
+                ))
+                : 
+                null 
+            }
             </View>
         </View>
     )
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         backgroundColor: Colors.White.rgb,
         width: "100%",
-        height: 40,
+        height: 50,
         borderRadius: 10,
         display: "flex",
         flexDirection: "row",
@@ -140,6 +139,6 @@ const styles = StyleSheet.create({
     result: {
         width: "100%",
         height: 40,
-        backgroundColor: Colors.White.rgb
+        backgroundColor: Colors.White.rgb,
     }
 })

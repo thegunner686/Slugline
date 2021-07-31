@@ -68,6 +68,7 @@ export default function StretchList({ header, body }) {
             onScroll={scrollHandler}
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps='handled'
         >   
             <Animated.View
                 style={[{

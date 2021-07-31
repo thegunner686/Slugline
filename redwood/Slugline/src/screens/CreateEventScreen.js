@@ -13,14 +13,19 @@ import {
 
 import { EventEnums } from "../utils";
 
-import { CreateEventMap, CreateEventSearchBar, CreateVirtualEventTile } from "../components/CreateEvent";
-import { Colors, width, height, Shadow } from "../stylesheet";
+import { 
+    CreateEventMap, 
+    CreatePhysicalEventSearchBar, 
+    CreateVirtualEventSearchBar,
+    CreateVirtualEventTile, 
+    CreateEventSearchResultTile 
+} from "../components/CreateEvent";
 
-import BackButton from "../components/BackButton";
 import StretchList from "../components/StretchList";
 
 export default function CreateEventScreen({ navigation }) {
     let [type, setType] = useState(EventEnums.Type.PHYSICAL);
+    let [searchResult, setSearchResult] = useState(null);
 
     const toggleType = () => {
         if(type == EventEnums.Type.PHYSICAL) {
@@ -28,7 +33,17 @@ export default function CreateEventScreen({ navigation }) {
         } else {
             setType(EventEnums.Type.PHYSICAL);
         }
-    }
+    };
+
+    const onSearchResultPress = (result) => {
+        setSearchResult(result);
+    };
+
+    const onMarkerMove = (location) => {
+        setSearchResult({
+            location
+        });
+    };
 
     return (
         <>
@@ -36,15 +51,41 @@ export default function CreateEventScreen({ navigation }) {
             <StretchList
                 header={
                     <>
-                        <CreateEventSearchBar 
-                            onLeftIconPress={navigation.goBack}
-                            onRightIconPress={toggleType}
-                            virtual={type == EventEnums.Type.VIRTUAL}
-                        />
-                        {type == EventEnums.Type.PHYSICAL ? 
-                            <CreateEventMap/>
+                        {type == EventEnums.Type.PHYSICAL ?
+                            <>
+                            <CreatePhysicalEventSearchBar 
+                                onLeftIconPress={navigation.goBack}
+                                onRightIconPress={toggleType}
+                                isVirtual={type == EventEnums.Type.VIRTUAL}
+                                onResultPress={onSearchResultPress}
+                            />
+                            <CreateEventMap
+                                onMarkerMove={onMarkerMove}
+                                result={type == EventEnums.Type.VIRTUAL ? null : searchResult}
+                            />
+                            </>
                             :
+                            <>
+                            <CreateVirtualEventSearchBar 
+                                onLeftIconPress={navigation.goBack}
+                                onRightIconPress={toggleType}
+                                isVirtual={type == EventEnums.Type.VIRTUAL}
+                                onResultPress={onSearchResultPress}
+                            />
                             <CreateVirtualEventTile/>
+                            </>
+                        }
+                    </>
+                }
+                body={
+                    <>
+                        {searchResult != null ?
+                            <CreateEventSearchResultTile 
+                                result={searchResult}
+                                isVirtual={type == EventEnums.Type.VIRTUAL}
+                            />
+                            :
+                            null
                         }
                     </>
                 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
     Icon
@@ -21,14 +21,34 @@ const UCSC_COORDS = {
     longitude: -122.060962, //2303877,
 }
 
-export default function CreateEventMap({ height }) {
+export default function CreateEventMap({ 
+    height, result, onMarkerMove
+}) {
     let [marker, setMarker] = useState(null);
     let [coordinates, setCoordinates] = useState(UCSC_COORDS);
+    const mapRef = useRef(null);
     let initialRegion = {
         ...UCSC_COORDS,
         latitudeDelta: 0.02,
         longitudeDelta: 0.02
     };
+
+    const animateToAboveCoordinate = (coordinate) => {
+        const view_region = {
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
+            latitudeDelta: 0.003,
+            longitudeDelta: 0.003,
+        };
+        mapRef.current?.animateToRegion(view_region);
+    };
+
+    useEffect(() => {
+        if(result != null && result.location != null && result.address != null) {
+            setCoordinates(result.location);
+            animateToAboveCoordinate(result.location);
+        }
+    }, [result]);
 
     const onPoiClick = (event) => {
         let { name, coordinate } = event.nativeEvent;
@@ -36,7 +56,6 @@ export default function CreateEventMap({ height }) {
     };
 
     const onDoublePress = (event) => {
-        console.log("press")
         let { coordinate } = event.nativeEvent;
         setCoordinates(coordinate);
     }
@@ -51,6 +70,7 @@ export default function CreateEventMap({ height }) {
 
     const onMarkerDrag = (event) => {
         setCoordinates(event.nativeEvent.coordinate);
+        onMarkerMove(event.nativeEvent.coordinate);
         ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
     };
 
@@ -60,6 +80,7 @@ export default function CreateEventMap({ height }) {
 
     return (
         <MapView
+            ref={mapRef}
             style={{
                 flex: 1
             }}
