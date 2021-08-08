@@ -1,15 +1,17 @@
-import CreateEventMap from "./CreateEventScreen/CreateEventMap";
-import CreateEventModal from "./CreateEventScreen/CreateEventModal";
-import CreatePhysicalEventSearchBar from "./CreateEventScreen/CreatePhysicalEventSearchBar";
-import CreateVirtualEventSearchBar from "./CreateEventScreen/CreateVirtualEventSearchBar";
-import CreateVirtualEventTile from "./CreateEventScreen/CreateVirtualEventTile";
-import CreateEventSearchResultTile from "./CreateEventScreen/CreateEventSearchResultTile";
+import LocationTile from "./CreateEventScreen/LocationTile";
+import PhotoTile from "./CreateEventScreen/PhotoTile";
+import Map from "./CreateEventScreen/Map";
+import SearchBar from "./CreateEventScreen/SearchBar";
+import DateTimeTile from "./CreateEventScreen/DateTimeTile";
+import NameDescriptionTile from "./CreateEventScreen/NameDescriptionTile";
+import PreviewEventButton from "./CreateEventScreen/PreviewEventButton";
 
 export {
-    CreateEventMap,
-    CreatePhysicalEventSearchBar,
-    CreateVirtualEventSearchBar,
-    CreateEventModal,
-    CreateVirtualEventTile,
-    CreateEventSearchResultTile
+    LocationTile,
+    PhotoTile,
+    DateTimeTile,
+    NameDescriptionTile,
+    PreviewEventButton,
+    Map,
+    SearchBar
 };

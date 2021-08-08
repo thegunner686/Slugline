@@ -8,6 +8,7 @@ import { Marker } from "react-native-maps";
 import { Colors, sizes } from "../../stylesheet";
 
 export default function EventMarker({ coordinate, onDragStart, onDrag, onDragEnd }) {
+
     return (
         <Marker 
             coordinate={coordinate}

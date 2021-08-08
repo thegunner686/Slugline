@@ -7,7 +7,7 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-import EventMarker from "./EventMarker";
+import EventMarker from "./Marker";
 
 import MapStyle from "../../mapstyles/MapStyle";
 
@@ -22,10 +22,8 @@ const UCSC_COORDS = {
 }
 
 export default function CreateEventMap({ 
-    height, result, onMarkerMove
+    location, onMarkerMove
 }) {
-    let [marker, setMarker] = useState(null);
-    let [coordinates, setCoordinates] = useState(UCSC_COORDS);
     const mapRef = useRef(null);
     let initialRegion = {
         ...UCSC_COORDS,
@@ -33,10 +31,10 @@ export default function CreateEventMap({
         longitudeDelta: 0.02
     };
 
-    const animateToAboveCoordinate = (coordinate) => {
+    const animateToAboveCoordinates = (coordinates) => {
         const view_region = {
-            latitude: coordinate.latitude,
-            longitude: coordinate.longitude,
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
             latitudeDelta: 0.003,
             longitudeDelta: 0.003,
         };
@@ -44,21 +42,15 @@ export default function CreateEventMap({
     };
 
     useEffect(() => {
-        if(result != null && result.location != null && result.address != null) {
-            setCoordinates(result.location);
-            animateToAboveCoordinate(result.location);
+        if(location != null && location.coordinates != null && !location.custom) {
+            animateToAboveCoordinates(location.coordinates);
         }
-    }, [result]);
+    }, [location]);
 
     const onPoiClick = (event) => {
         let { name, coordinate } = event.nativeEvent;
         setCoordinates(coordinate);
     };
-
-    const onDoublePress = (event) => {
-        let { coordinate } = event.nativeEvent;
-        setCoordinates(coordinate);
-    }
 
     const onMarkerPress = (event) => {
        ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
@@ -69,7 +61,6 @@ export default function CreateEventMap({
     };
 
     const onMarkerDrag = (event) => {
-        setCoordinates(event.nativeEvent.coordinate);
         onMarkerMove(event.nativeEvent.coordinate);
         ReactNativeHapticFeedback.trigger("impactLight", haptic_options);
     };
@@ -89,7 +80,6 @@ export default function CreateEventMap({
             userLocationPriority="passive"
             onPoiClick={onPoiClick}
             onMarkerPress={onMarkerPress}
-            onDoublePress={onDoublePress}
             zoomTapEnabled={false}
             initialRegion={initialRegion}
             showsUserLocation={true}
@@ -99,7 +89,7 @@ export default function CreateEventMap({
             showsPointsOfInterest={true}
         >
             <EventMarker
-                coordinate={coordinates}
+                coordinate={location?.coordinates || UCSC_COORDS}
                 onDragStart={onMarkerDragStart}
                 onDrag={onMarkerDrag}
                 onDragEnd={onMarkerDragEnd}

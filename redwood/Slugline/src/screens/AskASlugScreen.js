@@ -13,7 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../stylesheet";
 
-export default function AskASlugScreen() {
+export default function AskASlugScreen({ onBlurbed }) {
     let [text, setText] = useState("enskgnesg n");
 
     const onBlurb = (val) => {

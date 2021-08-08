@@ -16,24 +16,30 @@ export default function EventsStack() {
         <Stack.Navigator
             screenOptions={{
                 headerTitleStyle:{
-                    ...Fonts.Paragraph5,
-                    color: Colors.Black.rgb
+                    ...Fonts.Paragraph6,
+                    color: Colors.White.rgb
                 },
                 headerStyle: {
-                    shadowColor: Colors.Black.rgb,
-                    shadowOpacity: 0.2,
-                    shadowRadius: 5,
-                    shadowOffset: {
-                        width: 0,
-                        height: 1
-                    }
+                    // shadowColor: Colors.Black.rgb,
+                    // shadowOpacity: 0.2,
+                    // shadowRadius: 5,
+                    // shadowOffset: {
+                    //     width: 0,
+                    //     height: 1
+                    // }
+                    backgroundColor: Colors.Blue1.rgb,
+                    borderBottomWidth: 0
                 }
             }}
         >
             <Stack.Screen
                 name="Events"
+                options={{
+                    title: "Search for Events by Weekday"
+                }}
                 component={EventsScreen}
             />
+            
         </Stack.Navigator>
     )
 }

@@ -44,11 +44,19 @@ import storage from '@react-native-firebase/storage';
 const useEvents = create((set, get) => ({
     db: firestore(),
 
+    event_preview: {},
+    setEventPreview: (preview) => {
+        set(state => ({
+            event_preview: preview,
+        }));
+    },
+
     // maps from date to event list
     events_by_date: {},
 
     // adds events from a particular date
     loadEventsByDate: async (date) => {
+        let db = get().db;
         let query = db.collection("Events")
                     .where("isArchived", "==", false)
                     .where("date", "==", date)
@@ -58,22 +66,42 @@ const useEvents = create((set, get) => ({
         const snapshot = await query.get();
 
         set(state => {
-            const events_to_append = snapshot.docs.map(doc => doc.data());
+            const events = snapshot.docs.map(doc => doc.data());
             let events_by_date = state.events_by_date;
-            let events_by_date_map = state.events_by_date[date] || {};
-            events_to_append.forEach(event => {
-                events_by_date_map[event.uid] = event;
-            })
-            events_by_date[date] = events_by_date_map;
+            events_by_date[date] = events;
             return {
                 events_by_date
             };
         });
     },
 
+    listenForEventsByDate: (date) => {
+        let db = get().db;
+        let query = db.collection("Events")
+                    .where("isArchived", "==", false)
+                    .where("date", "==", date)
+                    .orderBy("datetime")
+                    .orderBy("name");
+
+        return query.onSnapshot((querySnapshot) => {
+            set(state => {
+                let events_by_date = state.events_by_date;
+                let events = [];
+                querySnapshot.forEach((doc) => {
+                    events.push(doc.data());
+                });
+                events_by_date[date] = events;
+                return {
+                    events_by_date,
+                }
+            });
+        });
+    },
+
     // Create an event
     // Params: (authdata, eventdata)
     createEvent: (user, data) => {
+        let db = get().db;
         let id = db.collection("Events").doc().id;
 
         let event_ref = db.collection("Events").doc(id),
@@ -81,6 +109,7 @@ const useEvents = create((set, get) => ({
 
         let event_data = {
             ...data,
+            id,
             organizerRef: user.uid,
             organizerName: user.profile.name,
             creationTime: firestore.FieldValue.serverTimestamp()
@@ -89,7 +118,7 @@ const useEvents = create((set, get) => ({
         return db.runTransaction(async transaction => {
             await transaction.set(event_ref, event_data);
             return transaction.update(user_ref, {
-                events: firestore.FieldValue.arrayUnion([id])
+                events: firestore.FieldValue.arrayUnion(id)
             });
         });
     },
@@ -117,6 +146,15 @@ const useEvents = create((set, get) => ({
     deleteEvent: () => {
 
     },
+
+    uploadEventPhoto: async (uid, filename, uri) => {
+        let ref = storage().ref(`Events/${uid}/${filename}`);
+
+        await ref.putFile(uri);
+        let url = await ref.getDownloadURL();
+
+        return url;
+    }
 }));
 
 export { useEvents };

@@ -13,14 +13,44 @@ const haptic_options = {
     ignoreAndroidSystemSettings: false
 };
 
-export default function EventMap() {
+const UCSC_COORDS = {
+    latitude: 36.99279, //08500746,
+    longitude: -122.060962, //2303877,
+};
+
+const INITIAL_REGION = {
+    ...UCSC_COORDS,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02
+};
+
+export default function EventMap({ events }) {
+
     return (
         <MapView
             style={{
                 flex: 1
             }}
+            userLocationPriority="passive"
+            // onPoiClick={onPoiClick}
+            // onMarkerPress={onMarkerPress}
+            // zoomTapEnabled={false}
+            initialRegion={INITIAL_REGION}
+            showsUserLocation={true}
+            showsBuildings={true}
+            showsCompass={true}
+            showsMyLocationButton={true}
+            showsPointsOfInterest={true}
         >
-
+            {events?.map((event) => {
+                if(event.isVirtual) return;
+                return (
+                    <Marker 
+                        key={event.id}
+                        coordinate={event.location.coordinates}
+                    />
+                )
+            })}
         </MapView>
     )
 }

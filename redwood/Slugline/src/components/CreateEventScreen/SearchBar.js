@@ -2,143 +2,71 @@ import React, { useEffect, useState } from "react";
 
 import {
     StyleSheet,
-    TextInput,
-    View,
-    TouchableOpacity,
+    Keyboard
 } from "react-native";
 
-import {
-    Icon,
-    ListItem
-} from "react-native-elements"
+import SearchBar from "../SearchBar";
 
-import { Colors, Fonts, height, Shadow, sizes, width } from "../../stylesheet";
+import { useGooglePlaces } from "../../stores/useGooglePlaces";
 
-function Result({ result, onPress }) {
-    return (
-        <TouchableOpacity onPress={() => onPress(result)}>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Subtitle>
-                        {result.description}
-                    </ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem>
-        </TouchableOpacity>
-    )
-}
-
-const slop = 10;
-const hitSlop = {
-    top: slop, left: slop, right: slop, bottom: slop
-}
-
-export default function CreateEventSearchBar({ 
-    onLeftIconPress, onRightIconPress, onFocus,
-    onChangeText, onEndEditing, onSearchResultPress,
-    isVirtual, searchValue, results
+export default function CreatePhysicalEventSearchBar({
+    onLeftIconPress, onResultPress
 }) {
-    let [isEditing, setIsEditing] = useState(false);
+    
+    let [searchValue, setSearchValue] = useState("");
+    let [results, setResults] = useState([]);
+    let [placesSession, setPlacesSession] = useState(null);
+    let [openGooglePlacesAutocompleteSession] = useGooglePlaces(state => [state.openAutocompleteSession]);
+    let [placesResponse] = useGooglePlaces(state => [state.autocompleteResponse]);
+
+    useEffect(() => {
+        setResults(placesResponse == null ? [] : placesResponse.predictions);
+    }, [placesResponse]);
+
+    const onChangeText = async (text) => {
+        setSearchValue(text);
+        if(text == null || text.trim() == "") return;
+        placesSession.feed(text);
+    };
+
+    const onFocus = () => {
+        setPlacesSession(openGooglePlacesAutocompleteSession());
+    };
+
+    const onEndEditing = () => {
+        setPlacesSession(null);
+    };
+
+    const onSearchResultPress = async (place) => {
+        let { result } = await placesSession.getDetails(place.place_id);
+        onResultPress({
+            coordinates: {
+                latitude: result.geometry.location.lat,
+                longitude: result.geometry.location.lng
+            },
+            name: result.name,
+            address: result.formatted_address,
+            url: result.url,
+            custom: false
+        });
+        Keyboard.dismiss();
+        setSearchValue(result.name)
+    };
 
     return (
-        <View style={styles.container}>
-            <View style={[styles.inputContainer, {
-                borderBottomLeftRadius: isEditing ? 0 : 10,
-                borderBottomRightRadius: isEditing ? 0 : 10,
-            }]}>
-                <TouchableOpacity 
-                    hitSlop={hitSlop}
-                    onPress={onLeftIconPress}
-                >
-                    <Icon
-                        name="chevron-down"
-                        type="material-community"
-                        style={styles.icon}
-                        size={sizes.Icon4}
-                    />
-                </TouchableOpacity>
-                <TextInput
-                    onFocus={() => {
-                        setIsEditing(true);
-                        onFocus();
-                    }}
-                    onEndEditing={() => {
-                        setIsEditing(false);
-                        onEndEditing()
-                    }}
-                    style={styles.input}
-                    placeholder={isVirtual ? "Add your event link" : "Search for a location"}
-                    onChangeText={onChangeText}
-                    value={searchValue}
-                    clearTextOnFocus
-                    clearButtonMode="while-editing"
-                />
-                <TouchableOpacity
-                    hitSlop={hitSlop}
-                    onPress={onRightIconPress}
-                >
-                    <Icon 
-                        name="online-prediction"
-                        type="material"
-                        style={styles.icon}
-                        size={sizes.Icon4}
-                        color={isVirtual ? Colors.Red3.rgb : Colors.Grey3.rgb}
-                    />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.results}>
-            { isEditing ? 
-                results.map((prediction, key) => (
-                    <Result 
-                        key={prediction?.place_id || key}
-                        result={prediction}
-                        onPress={onSearchResultPress}
-                    />
-                ))
-                : 
-                null 
-            }
-            </View>
-        </View>
+        <SearchBar 
+            onLeftIconPress={onLeftIconPress}
+            onSearchResultPress={onSearchResultPress}
+            onFocus={onFocus}
+            onEndEditing={onEndEditing}
+            onChangeText={onChangeText}
+            searchValue={searchValue}
+            isVirtual={false}
+            results={results}
+        />
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        position: "absolute",
-        zIndex: 1,
-        top: height / 15,
-        left: (width - (width / 10 * 9)) / 2,
-        width: width / 10 * 9,
-    },
-    inputContainer: {
-        backgroundColor: Colors.White.rgb,
-        width: "100%",
-        height: 50,
-        borderRadius: 10,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
 
-        ...Shadow.standard
-    },
-    input: {
-        flexGrow: 1,
-        height: "100%",
-        ...Fonts.Paragraph2
-    },
-    icon: {
-        flexShrink: 1,
-        margin: 5
-    },
-    results: {
-        width: "100%",
-        flexGrow: 1
-    },
-    result: {
-        width: "100%",
-        height: 40,
-        backgroundColor: Colors.White.rgb,
-    }
 })

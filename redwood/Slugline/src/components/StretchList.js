@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 
 import {
+    KeyboardAvoidingView,
+    Platform,
     StyleSheet,
     View
 } from "react-native";
@@ -64,11 +66,15 @@ export default function StretchList({ header, body }) {
         }
     });
     return (
+        <KeyboardAvoidingView 
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
         <Animated.ScrollView
             onScroll={scrollHandler}
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps='handled'
+            decelerationRate="fast"
         >   
             <Animated.View
                 style={[{
@@ -77,12 +83,13 @@ export default function StretchList({ header, body }) {
             >
                 {header}
             </Animated.View>
-            
+                
             <View style={styles.body}>
-                {body}
+               {body}
             </View>
             
         </Animated.ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -97,9 +104,12 @@ const styles = StyleSheet.create({
         zIndex: 0,
         ...Shadow.top,
         backgroundColor: Colors.White.rgb,
-        height,
+        minHeight: height,
+        flexGrow: 1,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        top: -5
+        top: -5,
+        padding: 5,
+        paddingBottom: height / 10,
     }
 });
