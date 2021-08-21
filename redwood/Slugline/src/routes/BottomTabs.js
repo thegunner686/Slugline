@@ -12,6 +12,7 @@ import {
 import ResourcesStack from "./ResourcesStack";
 import ProfileStack from "./ProfileStack";
 import EventsStack from "./EventsStack";
+import OrganizeStack from "./OrganizeStack";
 
 import { Colors } from "../stylesheet"
 
@@ -33,6 +34,8 @@ function BottomTabs(props) {
                         case "Profile":
                             iconName="person"
                             break;
+                        case "Manage":
+                            iconName="view-list"
                         default:
                             break;
                     }
@@ -62,6 +65,10 @@ function BottomTabs(props) {
             <Tabs.Screen
                 name="Resources"
                 component={ResourcesStack}
+            />
+            <Tabs.Screen
+                name="Manage"
+                component={OrganizeStack}
             />
             <Tabs.Screen
                 name="Profile"

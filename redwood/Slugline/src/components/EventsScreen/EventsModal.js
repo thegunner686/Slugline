@@ -4,7 +4,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Animated
 } from "react-native";
 
 import {
@@ -14,101 +15,85 @@ import {
 
 import { Modalize } from "react-native-modalize";
 
+import EventItem from "./EventItem";
+
 import { toAMPMTime, toMonthDayDate } from "../../utils";
 
-import { height, width, Colors, Fonts, Shadow } from "../../stylesheet";
+import { height, width, Colors, Fonts, Shadow, rgba } from "../../stylesheet";
 
-function ModalHeader({ date }) {
+function ModalHeader({ numEvents }) {
+    let message;
+    if(numEvents == 0) {
+        message = "No Events Found";
+    } else if(numEvents == 1) {
+        message = "One Event Found";
+    } else {
+        message = `${numEvents} Events Found`
+    }
     return (
         <View style={styles.header}>
-            <Text style={Fonts.SubHeader2}>Events on {toMonthDayDate(new Date(date))}</Text>
+            <Text style={{
+                ...Fonts.SubHeader5,
+                color: Colors.Black.rgb
+            }}>Explore Events</Text>
         </View>
     );
 }
 
-function EventItem({ event }) {
-    let time = toAMPMTime(event.datetime.toDate());
-    return (
-        <TouchableOpacity style={styles.eventContainer}>
-            <View style={{ flexShrink: 1}}>
-                <Image 
-                    source={{ uri: event.photoURL }}
-                    style={{
-                        height: height / 10,
-                        width: height / 10,
-                        resizeMode: "cover",
-                        borderRadius: 10
-                    }}
-                />
-            </View>
-            <View style={{ 
-                flexGrow: 1,
-                flexDirection: "column",
-                paddingLeft: 10
-            }}>
-                <View style={{ flexGrow: 1 }}>
-                    <Text style={Fonts.Graph2}>{event.name}</Text>
-                </View>
-                <View style={{ 
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start"
-                }}>
-                    <Icon
-                        name="timer"
-                    />
-                    <Text>{time}</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-export default function EventsModal({ events, date }) {
+const EventsModal = React.forwardRef(({ events, date, navigateToEventView, setModalOffset, showEventLocation }, ref) => {
     let [eventDate, setEventDate] = useState(date);
+
+    // useEffect(() => {
+    //     ref.current?.open(50);
+    // }, []);
+
+    const offset = new Animated.Value(0);
+
+    offset.addListener(({ value }) => {
+        setModalOffset(value)
+    });
 
     useEffect(() => {
         setEventDate(date);
     }, [date]);
 
     const renderEvent = ({ item }) => {
-        return (
-            <EventItem event={item} />
-        )
+        return <EventItem event={item} onPress={navigateToEventView} showEventLocation={showEventLocation}/>;
     };
 
     return (
         <Modalize
+            ref={ref}
             withHandle={true}
-            alwaysOpen={50}
-            snapPoint={100}
-            handlePosition="outside"
+            handlePosition="inside"
             modalHeight={height / 10 * 7}
+            alwaysOpen={50}
             HeaderComponent={
-                <ModalHeader date={eventDate}/>
+                <ModalHeader numEvents={events?.length || 0}/>
             }
-
             flatListProps={{
                 data: events,
                 renderItem: renderEvent,
                 keyExtractor: (item) => item.id,
             }}
-
+            panGestureAnimatedValue={offset}
+            onPositionChange={(pos) => {
+                offset.setValue(pos == 'initial' ? 0 : 1);
+            }}
+            // overlayStyle={{ backgroundColor: Colors.White.rgb }}
             modalStyle={styles.modalStyle}
+            closeSnapPointStraightEnabled={false}
         />
     );
-}
+});
 
 const styles = StyleSheet.create({
     modalStyle: {
-        padding: 10,
+        backgroundColor: Colors.Grey6.rgb
     },
     eventContainer: {
-        width: width / 10 * 9,
+        width: "100%",
         height: height / 10,
-        borderRadius: 10,
         backgroundColor: Colors.White.rgb,
         borderColor: Colors.Grey6.rgb,
         borderBottomWidth: 1,
@@ -122,6 +107,18 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     header: {
-        marginBottom: height / 20
+        backgroundColor: Colors.White.rgb,
+        width: "100%",
+        height: height / 15,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        padding: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+        // borderBottomWidth: 1,
+        // borderBottomColor: Colors.Grey5.rgb
     }
 });
+
+export default EventsModal;

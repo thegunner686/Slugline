@@ -4,10 +4,14 @@ import {
     createStackNavigator
 } from "@react-navigation/stack";
 
+import {
+    Image
+} from "react-native-elements";
+
 // Screens
 import EventsScreen from "../screens/EventsScreen";
 
-import { Colors, Fonts } from "../stylesheet";
+import { Colors, Fonts, width, height } from "../stylesheet";
 
 const Stack = createStackNavigator();
 
@@ -16,8 +20,11 @@ export default function EventsStack() {
         <Stack.Navigator
             screenOptions={{
                 headerTitleStyle:{
-                    ...Fonts.Paragraph6,
-                    color: Colors.White.rgb
+                    // ...Fonts.Paragraph6,
+                    // color: Colors.White.rgb,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                 },
                 headerStyle: {
                     // shadowColor: Colors.Black.rgb,
@@ -34,8 +41,20 @@ export default function EventsStack() {
         >
             <Stack.Screen
                 name="Events"
+
                 options={{
-                    title: "Search for Events by Weekday"
+                    // title: null,
+                    // headerTitle: () => (
+                    //     <Image 
+                    //         source={require("../../assets/slugline_logo_light.png")}
+                    //         style={{
+                    //             width: 100,
+                    //             height: 30,
+                    //             resizeMode: "cover"
+                    //         }}
+                    //     />
+                    // )
+                    headerShown: false
                 }}
                 component={EventsScreen}
             />

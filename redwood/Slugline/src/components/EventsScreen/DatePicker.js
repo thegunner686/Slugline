@@ -14,11 +14,13 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { height, width, Colors, Fonts } from "../../stylesheet";
+import { height, width, Colors, Fonts, Shadow } from "../../stylesheet";
 
 import { getDayWithEnding, getMonthName, getWeekdayName } from "../../utils";
 
 const NUM_DAYS = 7;
+
+const WIDTH = width / 10 * 9;
 
 function DateItem({ item }) {
     let { date, key } = item;
@@ -28,18 +30,19 @@ function DateItem({ item }) {
         <View style={{
             display: "flex",
             flexDirection: "column",
-            padding: 5,
+            paddingVertical: 5,
             alignItems: "center",
             justifyContent: "center",
-            width: width / 10 * 9,
+            width: WIDTH / 10 * 9,
+            marginHorizontal: WIDTH / 10 / 2
         }}>
             <Text style={{
                 ...Fonts.Label4,
-                color: Colors.White.rgb
+                color: Colors.Black.rgb
             }}>{key == 0 ? "Today" : weekday}</Text>
             <Text style={{
                 ...Fonts.Paragraph3,
-                color: Colors.White.rgb
+                color: Colors.Black.rgb
             }}>{monthDay}</Text>
         </View>
     )
@@ -107,7 +110,7 @@ export default function DatePicker({ onChange }) {
             <View style={styles.flatlistContainer}>
                 <Icon 
                     name="chevron-left"
-                    color={Colors.White.rgb}
+                    color={Colors.Black.rgb}
                     style={{
                         opacity: selectedDate.key / NUM_DAYS
                     }}
@@ -117,17 +120,18 @@ export default function DatePicker({ onChange }) {
                     ref={flatlistRef}
                     horizontal={true}
                     snapToAlignment="center"
-                    snapToInterval={width / 10 * 9}
+                    snapToInterval={WIDTH}
                     decelerationRate="fast"
                     onViewableItemsChanged={onViewableItemsChangedRef.current}
                     viewabilityConfig={viewabilityConfigRef.current}
                     data={dates}
                     keyExtractor={(item) => item.key}
                     renderItem={renderDate}
+                    showsHorizontalScrollIndicator={false}
                 />
                 <Icon 
                     name="chevron-right"
-                    color={Colors.White.rgb}
+                    color={Colors.Black.rgb}
                     style={{
                         opacity: (NUM_DAYS - selectedDate.key - 1) / NUM_DAYS
                     }}
@@ -138,7 +142,6 @@ export default function DatePicker({ onChange }) {
                 color="primary"
                 variant="determinate"
                 value={selectedDate == null ? 0 : (selectedDate.key + 1) / NUM_DAYS}
-
             />
         </View>
     )
@@ -146,16 +149,22 @@ export default function DatePicker({ onChange }) {
 
 const styles = StyleSheet.create({
     container: {
+        position: "absolute",
+        top: height / 10,
+        zIndex: 1,
+        width: WIDTH,
+        alignSelf: "center",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: Colors.Blue1.rgb
+        backgroundColor: Colors.White.rgb,
+        ...Shadow.standard
     },
     flatlistContainer: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     }
 })

@@ -11,6 +11,8 @@ import BottomTabs from "./BottomTabs";
 import AskASlugScreen from "../screens/AskASlugScreen";
 import CreateEventScreen from "../screens/CreateEventScreen";
 import PreviewEventScreen from "../screens/PreviewEventScreen";
+import ViewEventScreen from "../screens/ViewEventScreen";
+import EditEventScreen from "../screens/EditEventScreen";
 
 const Stack = createStackNavigator()
 
@@ -56,6 +58,22 @@ function AuthenticatedStack(props) {
             <Stack.Screen
                 name="PreviewEvent"
                 component={PreviewEventScreen}
+            />
+
+            <Stack.Screen
+                name="ViewEvent"
+                component={ViewEventScreen}
+                options={{
+                    headerShown: false,
+                }}
+            />
+
+            <Stack.Screen
+                name="EditEvent"
+                component={EditEventScreen}
+                options={{
+                    headerShown: false,
+                }}
             />
 
             <Stack.Screen

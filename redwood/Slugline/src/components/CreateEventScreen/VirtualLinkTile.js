@@ -9,7 +9,8 @@ import {
 } from "react-native";
 
 import {
-    Input
+    Input,
+    Icon
 } from "react-native-elements";
 import { Fonts, Colors } from "../../stylesheet";
 
@@ -31,35 +32,47 @@ export default function VirtualLinkTile({ onChange }) {
 
     return (
         <View style={styles.container}>
-            <Input
-                containerStyle={{ 
-                    paddingLeft: 0, 
-                    paddingRight: 0,
-                    height: 40, 
-                    width: "100%",
-                }}
-                inputContainerStyle={{
-                    borderBottomWidth: 0,
-                }}
-                inputStyle={styles.input}
-                value={virtualLink}
-                placeholder="Virtual Link"
-                onChangeText={onChangeText}
-                clearButtonMode="while-editing"
-                dataDetectorTypes="link"
-                autoCapitalize="none"
-                autoCorrect={false}
-            />
-            <Text style={{
-                    ...Fonts.Paragraph2
-                }}>{virtualLink}</Text>
-            <TouchableOpacity
-                onPress={onPreviewLinkPress}
-            >
-                <Text style={{
-                    color: Colors.Blue3.rgb
-                }}>Preview Link</Text>
-            </TouchableOpacity>
+            <View style={styles.iconContainer}>
+                <Icon
+                    name="add-link"
+                />
+            </View>
+            <View style={styles.contentContainer}>
+                <Input
+                    containerStyle={{ 
+                        paddingLeft: 0, 
+                        paddingRight: 0,
+                        height: 40, 
+                        width: "100%",
+                    }}
+                    inputContainerStyle={{
+                        borderBottomWidth: 0,
+                    }}
+                    inputStyle={styles.input}
+                    value={virtualLink}
+                    placeholder="Add link"
+                    onChangeText={onChangeText}
+                    clearButtonMode="while-editing"
+                    dataDetectorTypes="link"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                />
+                {
+                    virtualLink.trim() != "" &&
+                    <>
+                    <Text style={{
+                            ...Fonts.Paragraph2
+                    }}>{virtualLink}</Text>
+                    <TouchableOpacity
+                        onPress={onPreviewLinkPress}
+                    >
+                        <Text style={{
+                            color: Colors.Blue3.rgb
+                        }}>Preview Link</Text>
+                    </TouchableOpacity>
+                    </>
+                }
+            </View>
         </View>
     )
 }
@@ -69,6 +82,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "10%",
         display: "flex",
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
         marginTop: 5,
@@ -76,7 +90,17 @@ const styles = StyleSheet.create({
     },
     input: {
         ...Fonts.Graph4,
-        textAlign: "center",
-        backgroundColor: Colors.Grey6.rgb,
+        textAlign: "left",
+    },
+    iconContainer: {
+        flex: 1,
+        padding: 10
+    },
+    contentContainer: {
+        flex: 9,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "center"
     }
 });

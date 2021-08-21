@@ -6,26 +6,9 @@ import {
 } from "react-native-elements";
 import { Colors, sizes, height, rgba } from "../stylesheet";
 
-export default function BackButton({ orientation, color, onPress }) {
-    let name;
+export default function ShareButton({ color, onPress }) {
     let slop = 20;
 
-    switch(orientation) {
-        case "up":
-            name = "chevron-up";
-            break;
-        case "down":
-            name = "chevron-down";
-            break;
-        case "left":
-            name = "chevron-left";
-            break;
-        case "right":
-            name = "chevron-right";
-            break;
-        default:
-            name = "chevron-left";
-    }
     return (
         <TouchableOpacity 
             style={{
@@ -33,8 +16,8 @@ export default function BackButton({ orientation, color, onPress }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                left: 10,
-                padding: 2,
+                right: 10,
+                padding: 8,
                 top: height / 20,
                 zIndex: 1000,
                 backgroundColor: rgba(Colors.Black)(0.8),
@@ -49,10 +32,9 @@ export default function BackButton({ orientation, color, onPress }) {
             }}
         >
             <Icon
-                name={name}
-                type="material-community"
+                name="ios-share"
                 color={color ? color : Colors.White.rgb}
-                size={sizes.Icon4}
+                size={sizes.Icon5}
             />
         </TouchableOpacity>
     )

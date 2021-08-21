@@ -66,7 +66,7 @@ export default function PhotoTile({ photo, onPhotoTileChange }) {
                             shadowColor: Colors.White.rgb
                         }}>
                             <Icon
-                                name="file-upload"
+                                name="photo"
                             />   
                             <Text style={Fonts.Paragraph4}>Upload Photo</Text> 
                         </View>

@@ -20,7 +20,9 @@ import storage from '@react-native-firebase/storage';
  *      },
  *      link, // url String
  *      date, // "2021-11-25"
- *      datetime, // timestamp
+ *      startTime,
+ *      endTime,
+ *      room,
  *      isHidden, // bool
  *      isArchived, // bool
  *      tags, // []
@@ -32,7 +34,6 @@ import storage from '@react-native-firebase/storage';
  *      organizer, // is
  *      type, // is
  *      date, // is
- *      datetime, // order-by
  *      isHidden, // is,
  *      isArchived, // is,
  *      tags, // array-contains-any up to 10 tags
@@ -43,6 +44,13 @@ import storage from '@react-native-firebase/storage';
 
 const useEvents = create((set, get) => ({
     db: firestore(),
+
+    event_view: {},
+    setEventView: (view) => {
+        set(state => ({
+            event_view: view
+        }));
+    },
 
     event_preview: {},
     setEventPreview: (preview) => {
@@ -60,7 +68,7 @@ const useEvents = create((set, get) => ({
         let query = db.collection("Events")
                     .where("isArchived", "==", false)
                     .where("date", "==", date)
-                    .orderBy("datetime")
+                    .orderBy("startTime")
                     .orderBy("name");
 
         const snapshot = await query.get();
@@ -68,7 +76,11 @@ const useEvents = create((set, get) => ({
         set(state => {
             const events = snapshot.docs.map(doc => doc.data());
             let events_by_date = state.events_by_date;
-            events_by_date[date] = events;
+            events_by_date[date] = events.map((e) => ({
+                ...e,
+                startTime: e.startTime.toDate(),
+                endTime: e.endTime.toDate()
+            }));
             return {
                 events_by_date
             };
@@ -80,7 +92,7 @@ const useEvents = create((set, get) => ({
         let query = db.collection("Events")
                     .where("isArchived", "==", false)
                     .where("date", "==", date)
-                    .orderBy("datetime")
+                    .orderBy("startTime")
                     .orderBy("name");
 
         return query.onSnapshot((querySnapshot) => {
@@ -88,7 +100,12 @@ const useEvents = create((set, get) => ({
                 let events_by_date = state.events_by_date;
                 let events = [];
                 querySnapshot.forEach((doc) => {
-                    events.push(doc.data());
+                    let data = doc.data();
+                    events.push({
+                        ...data,
+                        startTime: data.startTime.toDate(),
+                        endTime: data.endTime.toDate()
+                    });
                 });
                 events_by_date[date] = events;
                 return {
@@ -97,6 +114,71 @@ const useEvents = create((set, get) => ({
             });
         });
     },
+
+    events_by_user: {},
+    // listenForEventsByUser: (uid) => {
+    //     let db = get().db;
+    //     let query = db.collection("Events")
+    //                 .where("organizerRef", "==", uid)
+    //                 .orderBy("creationTime");
+
+    //     return query.onSnapshot((querySnapshot) => {
+    //         if(querySnapshot == null) return;
+    //         set(state => {
+    //             let events = [];
+    //             querySnapshot.forEach((doc) => {
+    //                 let data = doc.data();
+    //                 console.log(data);
+    //                 if(data == null) return;
+    //                 events.push({
+    //                     ...data,
+    //                     startTime: data.startTime.toDate(),
+    //                     endTime: data.endTime.toDate(),
+    //                     creationTime: data.creationTime.toDate()
+    //                 });
+    //             })
+    //             return {
+    //                 events_by_user
+    //             }
+    //         });
+    //     });
+    // },
+    listenForEventsByUser: (user) => {
+        let db = get().db;
+        let { events } = user;
+
+        if(!events) return;
+
+        return Promise.all(events.map((e) => {
+            return db.collection("Events").doc(e).onSnapshot((snapshot) => {
+                if (snapshot.exists) {
+                    let data = snapshot.data();
+                    console.log(data);
+                    data = {
+                        ...data,
+                        startTime: data.startTime.toDate(),
+                        endTime: data.endTime.toDate(),
+                        creationTime: data.creationTime.toDate()
+                    };
+                    set(state => ({
+                        events_by_user: {
+                            ...state.events_by_user,
+                            [e]: data
+                        }
+                    }));
+                } else {
+                    set(state => {
+                        let events_by_user = state.events_by_user;
+                        delete events_by_user[e];
+                        return {
+                            events_by_user
+                        };
+                    });
+                }
+            });
+        }));
+    },
+
 
     // Create an event
     // Params: (authdata, eventdata)
@@ -111,7 +193,6 @@ const useEvents = create((set, get) => ({
             ...data,
             id,
             organizerRef: user.uid,
-            organizerName: user.profile.name,
             creationTime: firestore.FieldValue.serverTimestamp()
         };
 
@@ -123,6 +204,8 @@ const useEvents = create((set, get) => ({
         });
     },
 
+    event_edit: {},
+    setEventEdit: (e) => set(state => ({ event_edit: e})),
     // Updates relevant attributes of an event
     updateEvent: () => {
         

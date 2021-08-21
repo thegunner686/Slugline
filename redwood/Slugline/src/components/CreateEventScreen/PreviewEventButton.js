@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     button: {
         alignSelf: "center",
         width: width / 10 * 9,
-        backgroundColor: Colors.Blue3.rgb,
-        borderRadius: 50,
+        backgroundColor: Colors.Blue4.rgb,
+        borderRadius: 5,
         marginTop: 20,
         marginBottom: 40
     }

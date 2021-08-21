@@ -5,6 +5,8 @@ import SearchBar from "./CreateEventScreen/SearchBar";
 import DateTimeTile from "./CreateEventScreen/DateTimeTile";
 import NameDescriptionTile from "./CreateEventScreen/NameDescriptionTile";
 import PreviewEventButton from "./CreateEventScreen/PreviewEventButton";
+import ContactTile from "./CreateEventScreen/ContactTile";
+import DetailsTile from "./CreateEventScreen/DetailsTile";
 
 export {
     LocationTile,
@@ -13,5 +15,7 @@ export {
     NameDescriptionTile,
     PreviewEventButton,
     Map,
-    SearchBar
+    SearchBar,
+    ContactTile,
+    DetailsTile
 };

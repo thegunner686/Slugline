@@ -1,45 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
+    View, 
+    StyleSheet,
+    Text
+} from 'react-native';
 
 import {
-    Input,
     Icon,
-    Divider
+    Input
 } from "react-native-elements";
-import { Fonts, Colors } from "../../stylesheet";
+import { Fonts } from "../../stylesheet";
 
-export default function NameDescriptionTile({ name, description, onNameDescriptionTileChange }) {
 
-    const onNameChange = (text) => {
-        onNameDescriptionTileChange({
-            name: text,
-            description
+export default function ContactTile({ contactInfo, onContactTileChange }) {
+    const onEmailChange = (text) => {
+        onContactTileChange({
+            email: text
         });
     };
 
-    const onDescriptionChange = (text) => {
-        onNameDescriptionTileChange({
-            name,
-            description: text
+    const onPhoneChange = (text) => {
+        onContactTileChange({
+            phone: text
         });
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.row}>
+                <View style={styles.labelContainer}>
+                    <Text style={Fonts.Paragraph3}>Contact Information</Text>
+                </View>
+                <View style={styles.contentContainer}>
+                </View>
+            </View>
+            <View style={styles.row}>
                 <View style={styles.iconContainer}>
-                    <Icon
-                        name="title"
+                    <Icon 
+                        name="email"
                     />
                 </View>
                 <View style={styles.contentContainer}>
                     <Input 
-                        placeholder="Add title"
+                        placeholder="Add email"
                         maxLength={140}
                         containerStyle={{ 
                             paddingLeft: 0, 
@@ -48,51 +52,53 @@ export default function NameDescriptionTile({ name, description, onNameDescripti
                             width: "100%",
                         }}
                         inputStyle={{
-                            ...Fonts.SubHeader3,
+                            ...Fonts.Paragraph4,
                             // backgroundColor: name.length > 0 ? Colors.White.rgb : Colors.Grey6.rgb,
                         }}
                         inputContainerStyle={{
                             borderBottomWidth: 0,
                         }}
-                        value={name}
-                        onChangeText={onNameChange}
+                        value={contactInfo?.email}
+                        onChangeText={onEmailChange}
+                        keyboardType="email-address"
                         clearButtonMode="while-editing"
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     />
                 </View>
             </View>
             <View style={styles.row}>
                 <View style={styles.iconContainer}>
-                    <Icon
-                        name="text"
-                        type="material-community"
+                    <Icon 
+                        name="phone"
                     />
                 </View>
                 <View style={styles.contentContainer}>
                     <Input 
-                        placeholder="Add description"
-                        maxLength={280}
+                        placeholder="Add phone number (Optional)"
+                        maxLength={140}
                         containerStyle={{ 
                             paddingLeft: 0, 
                             paddingRight: 0,
-                            minHeight: 40, 
+                            height: 40, 
                             width: "100%",
                         }}
                         inputStyle={{
                             ...Fonts.Paragraph4,
-                            minHeight: 40
-                            // backgroundColor: description.length > 0 ? Colors.White.rgb : Colors.Grey6.rgb,
+                            // backgroundColor: name.length > 0 ? Colors.White.rgb : Colors.Grey6.rgb,
                         }}
                         inputContainerStyle={{
                             borderBottomWidth: 0,
                         }}
-                        value={description}
-                        multiline={true}
-                        onChangeText={onDescriptionChange}
+                        value={contactInfo?.phone}
+                        onChangeText={onPhoneChange}
+                        keyboardType="phone-pad"
+                        dataDetectorTypes="phoneNumber"
                         clearButtonMode="while-editing"
                     />
                 </View>
             </View>
-        </View>
+      </View>
     )
 }
 
@@ -108,20 +114,19 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     row: {
-        flexGrow: 1,
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        alignItems: "flex-start",
+        alignItems: "center",
         justifyContent: "flex-start"
     },
     iconContainer: {
         flex: 1,
-        padding: 10,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center"
+        padding: 10
+    },
+    labelContainer: {
+        flex: 9,
+        padding: 10
     },
     contentContainer: {
         flex: 9,
