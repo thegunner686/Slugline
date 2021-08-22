@@ -66,9 +66,10 @@ export const getDayWithEnding = (date) => {
             break;
         case 2:
             ending = "nd";
-        break;
+            break;
         case 3:
             ending = "rd";
+            break;
         default:
             ending = "th";
             break;
