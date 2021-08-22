@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import {
     StyleSheet,
@@ -10,13 +10,15 @@ import { Marker } from "react-native-maps";
 
 import { Colors, Fonts, Shadow, rgba } from '../../stylesheet';
 
-import { toAMPMTime } from '../../utils';
+import { toAMPMTime, wiggleCoordinates } from '../../utils';
 
 export default function EventMarker({ event, selected }) {
+    const coords = useMemo(() => wiggleCoordinates(event.location.coordinates), [event.location.coordinates]);
     return (
         <Marker 
             identifier={event.id}
-            coordinate={event.location.coordinates}
+            coordinate={coords}
+            tracksViewChanges={false}
         >
             <View style={styles.container}>
                 <View style={[styles.mark, {

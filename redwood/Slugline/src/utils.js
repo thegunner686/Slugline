@@ -59,7 +59,7 @@ export const getSimpleFormattedDate = (date) => {
 
 export const getDayWithEnding = (date) => {
     let d = date.getDate().toString();
-    let lastDay = d.length > 1 ? d[1] : d[0];
+    let lastDay = Number(d.length > 1 ? d[1] : d[0]);
     switch(lastDay) {
         case 1:
             ending = "st";
@@ -83,3 +83,11 @@ export const toMonthDayDate = (date) => {
 
     return `${weekday}, ${month} ${day}`;
 };
+
+export const wiggleCoordinates = (coords) => {
+    const scale = 0.0001;
+    return {
+        latitude: coords.latitude + (Math.random() * scale - (scale / 2)),
+        longitude: coords.longitude + (Math.random() * scale - (scale / 2))
+    }
+} 

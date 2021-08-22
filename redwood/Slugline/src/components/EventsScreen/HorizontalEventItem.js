@@ -11,10 +11,9 @@ import {
 
 import {
     Icon,
-    Chip,
-    Image,
-    Divider
 } from "react-native-elements";
+
+import FastImage from 'react-native-fast-image';
 
 import { width, height, Colors, rgba, Fonts, Shadow, sizes } from "../../stylesheet";
 
@@ -26,9 +25,12 @@ export default function EventItem({ event, onPress, showEventLocation }) {
     return (
         <TouchableOpacity onPress={() => onPress(event)} style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image 
+                <FastImage 
                     style={styles.image}
-                    source={{ uri: photoURL }}
+                    source={{
+                        uri: photoURL,
+                        priority: FastImage.priority.high
+                    }}
                 />
             </View>
             <View style={styles.contentContainer}>
@@ -41,6 +43,7 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                     <Icon
                         name="location-pin"
                         size={sizes.Icon6}
+                        color={Colors.Red3.rgb}
                     />
                     <Text style={Fonts.Label4}> {event.location.name}</Text>
                 </View>
@@ -50,6 +53,7 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                         <Icon
                             name="timer"
                             size={sizes.Icon6}
+                            color={Colors.Blue3.rgb}
                         />
                         <Text style={Fonts.Label4}> {toAMPMTime(event.startTime)} to {toAMPMTime(event.endTime)}</Text>
                     </View>
@@ -60,6 +64,7 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                         <Icon
                             name="online-prediction"
                             size={sizes.Icon6}
+                            color={Colors.Green3.rgb}
                         />
                         <Text style={Fonts.Label4}>Virtual</Text>
                     </View>

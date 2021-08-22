@@ -12,8 +12,9 @@ import {
 import {
     Icon,
     Chip,
-    Image
 } from "react-native-elements";
+
+import FastImage from 'react-native-fast-image';
 
 import { width, height, Colors, rgba, Fonts, Shadow, sizes } from "../../stylesheet";
 
@@ -55,7 +56,7 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                 </TouchableOpacity>
             </ImageBackground>
             <View style={styles.chippedContent}>
-                <Image 
+                <FastImage 
                     source={{ uri: organizer.picture }}
                     style={{ 
                         width: sizes.Icon3,
@@ -69,9 +70,6 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                     placeholderStyle={{
                         backgroundColor: "transparent"
                     }}
-                    PlaceholderContent={
-                        <ActivityIndicator/>
-                    }
                 />
                 <Chip
                     containerStyle={styles.chipContainer}

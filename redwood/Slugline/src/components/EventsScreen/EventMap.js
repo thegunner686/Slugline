@@ -38,8 +38,8 @@ const EventMap = React.forwardRef(({ events, onEventMarkerPress }, ref) => {
             style={{
                 flex: 1
             }}
-            provider={PROVIDER_GOOGLE}
-            customMapStyle={MapStyle.Get()}
+            // provider={PROVIDER_GOOGLE}
+            // customMapStyle={MapStyle.Get()}
             userLocationPriority="passive"
             // onPoiClick={onPoiClick}
             onMarkerPress={onMarkerPress}
