@@ -14,19 +14,7 @@ export default function Logo() {
                 width: 200,
                 height: 40,
                 resizeMode: "cover",
-                shadowColor: Colors.White.rgb,
-                shadowOpacity: 1,
-                shadowRadius: 10,
-                shadowOffset: {
-                    width: 0,
-                    height: 0
-                }
-            }}
-            containerStyle={{
-                position: "absolute",
-                top: height / 20,
-                zIndex: 1,
-                alignSelf: "center",
+                marginBottom: 10
             }}
             placeholderStyle={{
                 backgroundColor: "transparent"

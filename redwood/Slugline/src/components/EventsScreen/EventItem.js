@@ -88,10 +88,10 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                         titleStyle={{ color: Colors.White.rgb }}
                         buttonStyle={{ borderColor: Colors.Red3.rgb, backgroundColor: rgba(Colors.Red3)(0.9) }}
                         icon={{
-                        name: "location-pin",
-                        type: "material",
-                        size: sizes.Icon5,
-                        color: "white",
+                            name: "location-pin",
+                            type: "material",
+                            size: sizes.Icon5,
+                            color: "white",
                         }}
                         onPress={() => showEventLocation(event)}
                         type="outline"
@@ -103,10 +103,10 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                         title="Virtual"
                         buttonStyle={{ backgroundColor: Colors.Green3.rgb }}
                         icon={{
-                        name: "online-prediction",
-                        type: "material",
-                        size: sizes.Icon5,
-                        color: "white",
+                            name: "online-prediction",
+                            type: "material",
+                            size: sizes.Icon5,
+                            color: "white",
                         }}
                     />
                 }

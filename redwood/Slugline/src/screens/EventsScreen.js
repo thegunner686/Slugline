@@ -76,7 +76,6 @@ export default function EventsScreen({ navigation }) {
     return (
         <>
             <StatusBar barStyle="dark-content"/>
-            <Logo />
             <DatePicker onChange={onDatePickerChange}/>
             <EventMap
                 ref={eventMapRef}

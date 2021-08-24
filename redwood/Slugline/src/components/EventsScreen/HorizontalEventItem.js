@@ -40,22 +40,22 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                     fontSize: 12,
                 }}>Hosted by {event.organizer.name}</Text>
                 <View style={styles.iconContent}>
-                    <Icon
-                        name="location-pin"
-                        size={sizes.Icon6}
-                        color={Colors.Red3.rgb}
-                    />
-                    <Text style={Fonts.Label4}> {event.location.name}</Text>
-                </View>
-                {
-                    !isVirtual &&
-                    <View style={styles.iconContent}>
                         <Icon
                             name="timer"
                             size={sizes.Icon6}
                             color={Colors.Blue3.rgb}
                         />
                         <Text style={Fonts.Label4}> {toAMPMTime(event.startTime)} to {toAMPMTime(event.endTime)}</Text>
+                    </View>
+                {
+                    !isVirtual &&
+                    <View style={styles.iconContent}>
+                        <Icon
+                            name="location-pin"
+                            size={sizes.Icon6}
+                            color={Colors.Red3.rgb}
+                        />
+                        <Text style={Fonts.Label4}> {event.location.name}</Text>
                     </View>
                 }
                 {
@@ -66,7 +66,7 @@ export default function EventItem({ event, onPress, showEventLocation }) {
                             size={sizes.Icon6}
                             color={Colors.Green3.rgb}
                         />
-                        <Text style={Fonts.Label4}>Virtual</Text>
+                        <Text style={Fonts.Label4}> Virtual</Text>
                     </View>
                 }
             </View>

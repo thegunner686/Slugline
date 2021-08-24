@@ -10,8 +10,9 @@ import {
 
 // Screens
 import EventsScreen from "../screens/EventsScreen";
+import { Logo } from '../components/Events'
 
-import { Colors, Fonts, width, height } from "../stylesheet";
+import { Colors, Fonts, width, height, rgba } from "../stylesheet";
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,7 @@ export default function EventsStack() {
                     //     width: 0,
                     //     height: 1
                     // }
-                    backgroundColor: Colors.Blue1.rgb,
+                    backgroundColor: rgba(Colors.White)(0.6),
                     borderBottomWidth: 0
                 }
             }}
@@ -54,7 +55,10 @@ export default function EventsStack() {
                     //         }}
                     //     />
                     // )
-                    headerShown: false
+                    // headerShown: false
+                    headerTitle: () => (
+                        <Logo />
+                    )
                 }}
                 component={EventsScreen}
             />

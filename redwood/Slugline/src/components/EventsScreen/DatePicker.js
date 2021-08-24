@@ -14,18 +14,19 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { height, width, Colors, Fonts, Shadow } from "../../stylesheet";
+import { height, width, Colors, Fonts, Shadow, rgba } from "../../stylesheet";
 
 import { getDayWithEnding, getMonthName, getWeekdayName } from "../../utils";
 
 const NUM_DAYS = 7;
 
-const WIDTH = width / 10 * 9;
+const WIDTH = width;
 
-function DateItem({ item }) {
+function DateItem({ item, index }) {
     let { date, key } = item;
     let monthDay = `${getMonthName(date)} ${getDayWithEnding(date)}`;
     let weekday = getWeekdayName(date);
+    console.log(index)
     return (
         <View style={{
             display: "flex",
@@ -33,8 +34,7 @@ function DateItem({ item }) {
             paddingVertical: 5,
             alignItems: "center",
             justifyContent: "center",
-            width: WIDTH / 10 * 9,
-            marginHorizontal: WIDTH / 10 / 2
+            width: WIDTH / 10 * 9
         }}>
             <Text style={{
                 ...Fonts.Label4,
@@ -68,16 +68,15 @@ export default function DatePicker({ onChange }) {
         setSelectedDate(data[0]);
     }, []);
 
-    const renderDate = ({ item }) => {
+    const renderDate = ({ item, index }) => {
         return (
             <DateItem 
                 selectedDate={selectedDate}
                 item={item}
+                index={index}
             />
         );
     };
-
-    let isChanging = false;
 
     const onViewableItemsChangedRef = useRef(({ viewableItems, changed}) => {
         if(viewableItems.length == 0) return;
@@ -112,7 +111,7 @@ export default function DatePicker({ onChange }) {
                     name="chevron-left"
                     color={Colors.Black.rgb}
                     style={{
-                        opacity: selectedDate.key / NUM_DAYS
+                        opacity: selectedDate.key == 0 ? 0 : 1
                     }}
                     onPress={scrollLeft}
                 />
@@ -120,7 +119,7 @@ export default function DatePicker({ onChange }) {
                     ref={flatlistRef}
                     horizontal={true}
                     snapToAlignment="center"
-                    snapToInterval={WIDTH}
+                    snapToInterval={WIDTH / 10 * 9}
                     decelerationRate="fast"
                     onViewableItemsChanged={onViewableItemsChangedRef.current}
                     viewabilityConfig={viewabilityConfigRef.current}
@@ -133,7 +132,7 @@ export default function DatePicker({ onChange }) {
                     name="chevron-right"
                     color={Colors.Black.rgb}
                     style={{
-                        opacity: (NUM_DAYS - selectedDate.key - 1) / NUM_DAYS
+                        opacity: selectedDate.key == NUM_DAYS - 1 ? 0 : 1
                     }}
                     onPress={scrollRight}
                 />
@@ -150,7 +149,7 @@ export default function DatePicker({ onChange }) {
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        top: height / 10,
+        top: 0,
         zIndex: 1,
         width: WIDTH,
         alignSelf: "center",
@@ -158,13 +157,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: Colors.White.rgb,
-        ...Shadow.standard
+        ...Shadow.standard,
+        backgroundColor: rgba(Colors.White)(0.5)
     },
     flatlistContainer: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "center"
     }
 })
